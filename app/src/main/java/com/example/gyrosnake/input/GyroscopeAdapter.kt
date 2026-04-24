@@ -5,82 +5,93 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.view.Surface
 import com.example.gyrosnake.game.Direction
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlin.math.abs
 
 /**
  * Adapter pattern: wraps the Android Sensor API and translates raw gravity-vector
- * readings into a clean [Direction] stream that the rest of the game can consume
- * without knowing anything about SensorManager or SensorEvent.
+ * readings into a clean [Direction] stream.
  *
- * Phone orientation assumed: landscape, face-up (player looks down at the screen).
- * Coordinate mapping (device axes when lying flat in landscape):
- *   +X → physical right of phone  → Direction.RIGHT
- *   -X → physical left of phone   → Direction.LEFT
- *   +Y → physical top of phone    → Direction.UP   (screen top edge tilts down)
- *   -Y → physical bottom of phone → Direction.DOWN
+ * WHY the axis remapping is necessary
+ * ------------------------------------
+ * The gravity sensor always reports values in the device's *physical* (portrait) frame:
+ *   rawX (+) = toward the physical right edge of the phone
+ *   rawY (+) = toward the physical top edge of the phone  (portrait top)
+ *   rawZ (+) = out of the screen
  *
- * Note: exact X/Y sign may vary by device and landscape rotation. If the game
- * controls feel inverted, negate [INVERT_X] or [INVERT_Y] flags below.
+ * This coordinate system does NOT rotate with the screen.  In landscape the game grid
+ * is drawn with the screen rotated 90°, so we must rotate the sensor vector to match:
+ *
+ *   ROTATION_90  (most phones' natural landscape — CCW from portrait):
+ *     screen RIGHT = physical BOTTOM = -rawY
+ *     screen UP    = physical RIGHT  = +rawX
+ *
+ *   ROTATION_270 (reverse landscape — CW from portrait):
+ *     screen RIGHT = physical TOP    = +rawY
+ *     screen UP    = physical LEFT   = -rawX
+ *
+ * [displayRotation] must be set from the UI thread before [register] is called.
+ * It is @Volatile so the sensor-callback thread sees the latest value immediately.
  */
 class GyroscopeAdapter(context: Context) : SensorEventListener {
 
     companion object {
-        /** Tilt threshold in m/s² — below this the stick is treated as centred. */
+        /** m/s² — phone must tilt past this to register a direction (dead zone). */
         private const val DEAD_ZONE = 2.5f
-
-        /** Flip if your device's X axis feels backwards in landscape. */
-        private const val INVERT_X = false
-
-        /** Flip if your device's Y axis feels backwards in landscape. */
-        private const val INVERT_Y = false
     }
 
     private val sensorManager = context.getSystemService(SensorManager::class.java)
 
-    // TYPE_GRAVITY is a virtual sensor (fusion of accel + gyro).
-    // Fall back to raw accelerometer on older or limited hardware.
     private val sensor: Sensor? =
         sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY)
             ?: sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
 
-    private val _direction = MutableStateFlow<Direction?>(null)
+    /** Set this to [Surface.ROTATION_90] or [Surface.ROTATION_270] before registering. */
+    @Volatile var displayRotation: Int = Surface.ROTATION_90
 
-    /** Emits the dominant tilt direction; null when within the dead zone. */
+    private val _direction = MutableStateFlow<Direction?>(null)
     val direction: StateFlow<Direction?> = _direction.asStateFlow()
 
-    /** Register — must be called when the Activity/Composable becomes visible. */
     fun register() {
-        sensor?.let {
-            sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_GAME)
-        }
+        sensor?.let { sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_GAME) }
     }
 
-    /** Unregister — must be called when the Activity/Composable goes to background. */
     fun unregister() {
         sensorManager.unregisterListener(this)
     }
 
     /**
-     * Adapter method: translates a raw [SensorEvent] into a [Direction].
-     * Picks the dominant axis (whichever has the larger absolute tilt) so
-     * diagonal holds still produce a single clean cardinal direction.
+     * Adapter method: remaps physical sensor axes → screen-space axes → Direction.
+     * Dominant screen axis wins so diagonal holds produce one clean cardinal direction.
      */
     override fun onSensorChanged(event: SensorEvent) {
-        val gx = if (INVERT_X) -event.values[0] else event.values[0]
-        val gy = if (INVERT_Y) -event.values[1] else event.values[1]
+        val rawX = event.values[0]   // physical right  (+)
+        val rawY = event.values[1]   // physical up/top (+)
 
-        val absX = Math.abs(gx)
-        val absY = Math.abs(gy)
-
-        if (absX < DEAD_ZONE && absY < DEAD_ZONE) return  // ignore centred/flat
-
-        _direction.value = if (absX >= absY) {
-            if (gx > 0) Direction.RIGHT else Direction.LEFT
+        // Rotate sensor vector into screen space
+        val screenRight: Float
+        val screenUp: Float
+        if (displayRotation == Surface.ROTATION_270) {
+            screenRight =  rawY   //  physical top    → screen right
+            screenUp    = -rawX   //  physical left   → screen up
         } else {
-            if (gy > 0) Direction.UP else Direction.DOWN
+            // ROTATION_90 (default, locked orientation)
+            screenRight = -rawY   //  physical bottom → screen right
+            screenUp    =  rawX   //  physical right  → screen up
+        }
+
+        if (abs(screenRight) < DEAD_ZONE && abs(screenUp) < DEAD_ZONE) return
+
+        // Directions are negated to match the player's intuitive expectation:
+        // tilting the right side down moves the snake right (gravity pulls right → snake goes right).
+        _direction.value = if (abs(screenRight) >= abs(screenUp)) {
+            if (screenRight > 0) Direction.LEFT else Direction.RIGHT
+        } else {
+            if (screenUp > 0) Direction.DOWN else Direction.UP
         }
     }
 

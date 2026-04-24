@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.compose.ui.platform.LocalView
 import com.example.gyrosnake.GameViewModel
 import com.example.gyrosnake.game.GamePhase
 
@@ -56,12 +57,19 @@ private val COLOR_OVERLAY   = Color(0xCC000000)
 fun GameScreen(viewModel: GameViewModel) {
     val uiState by viewModel.engine.uiState.collectAsState()
 
-    // Lifecycle Observer pattern: sensor must match Activity visibility
+    // Lifecycle Observer pattern: sensor must match Activity visibility.
+    // Display rotation is read here (View has a real display attached) and pushed
+    // into the adapter before each registration so axis remapping is always correct.
     val lifecycleOwner = LocalLifecycleOwner.current
+    val view = LocalView.current
     DisposableEffect(lifecycleOwner) {
         val observer = object : DefaultLifecycleObserver {
-            override fun onResume(owner: LifecycleOwner) = viewModel.gyroscopeAdapter.register()
-            override fun onPause(owner: LifecycleOwner)  = viewModel.gyroscopeAdapter.unregister()
+            override fun onResume(owner: LifecycleOwner) {
+                viewModel.gyroscopeAdapter.displayRotation =
+                    view.display?.rotation ?: android.view.Surface.ROTATION_90
+                viewModel.gyroscopeAdapter.register()
+            }
+            override fun onPause(owner: LifecycleOwner) = viewModel.gyroscopeAdapter.unregister()
         }
         lifecycleOwner.lifecycle.addObserver(observer)
         onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }

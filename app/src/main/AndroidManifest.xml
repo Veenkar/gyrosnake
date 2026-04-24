@@ -19,7 +19,7 @@
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:exported="true"
             android:immersive="true"
-            android:screenOrientation="sensorLandscape"
+            android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden">
 
             <intent-filter>

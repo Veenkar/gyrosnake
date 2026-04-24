@@ -9,9 +9,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
-private const val INITIAL_TICK_MS  = 200L
-private const val MIN_TICK_MS      = 80L
-private const val SPEED_STEP_MS    = 5L
+private const val INITIAL_TICK_MS  = 350L
+private const val MIN_TICK_MS      = 150L
+private const val SPEED_STEP_MS    = 3L
 private const val POINTS_PER_FOOD  = 10
 
 /**
@@ -116,10 +116,13 @@ class GameEngine(
         // Move the snake
         snake = snake.move(grow = growing)
 
-        // Wall collision check
+        // Wall wrap-around: teleport head to opposite side instead of dying
         if (!board.isInBounds(snake.head)) {
-            endGame()
-            return
+            val wrapped = Point(
+                (snake.head.x + board.columns) % board.columns,
+                (snake.head.y + board.rows)    % board.rows
+            )
+            snake = snake.copy(body = listOf(wrapped) + snake.body.drop(1))
         }
 
         // Self-collision check (head vs rest of body)
