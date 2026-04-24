@@ -42,6 +42,15 @@ class GyroscopeAdapter(context: Context) : SensorEventListener {
     companion object {
         /** m/s² — phone must tilt past this to register a direction (dead zone). */
         private const val DEAD_ZONE = 2.5f
+
+        /**
+         * rawZ threshold for face-down detection.
+         * Face-up  → rawZ ≈ −9.8 (screen faces sky, Z points away from earth).
+         * Face-down → rawZ ≈ +9.8 (screen faces ground, Z points toward earth).
+         * A threshold of +2 m/s² corresponds to ~12° past vertical — safely
+         * distinguishes "lying in bed holding phone above head" from normal play.
+         */
+        private const val FACE_DOWN_THRESHOLD = 2.0f
     }
 
     private val sensorManager = context.getSystemService(SensorManager::class.java)
@@ -67,31 +76,41 @@ class GyroscopeAdapter(context: Context) : SensorEventListener {
     /**
      * Adapter method: remaps physical sensor axes → screen-space axes → Direction.
      * Dominant screen axis wins so diagonal holds produce one clean cardinal direction.
+     *
+     * Face-down detection (Observer/Strategy hook):
+     * rawZ > FACE_DOWN_THRESHOLD means the screen faces the floor (user lying on back,
+     * phone held above head). In this orientation the user's perceived left/right and
+     * up/down are BOTH mirrored relative to face-up, so we XOR the direction with the
+     * face-down flag — effectively cancelling the face-up inversion.
+     *
+     *   face-up  + (screenRight > 0)  →  LEFT   (inverted mapping, calibrated on device)
+     *   face-down + (screenRight > 0) →  RIGHT  (XOR flips it back for mirrored view)
      */
     override fun onSensorChanged(event: SensorEvent) {
         val rawX = event.values[0]   // physical right  (+)
         val rawY = event.values[1]   // physical up/top (+)
+        val rawZ = event.values[2]   // out of screen   (+); negative when face-up
 
-        // Rotate sensor vector into screen space
+        // Rotate sensor vector into screen space based on display rotation
         val screenRight: Float
         val screenUp: Float
         if (displayRotation == Surface.ROTATION_270) {
-            screenRight =  rawY   //  physical top    → screen right
-            screenUp    = -rawX   //  physical left   → screen up
-        } else {
-            // ROTATION_90 (default, locked orientation)
-            screenRight = -rawY   //  physical bottom → screen right
-            screenUp    =  rawX   //  physical right  → screen up
+            screenRight =  rawY
+            screenUp    = -rawX
+        } else {                     // ROTATION_90 (default / locked orientation)
+            screenRight = -rawY
+            screenUp    =  rawX
         }
 
         if (abs(screenRight) < DEAD_ZONE && abs(screenUp) < DEAD_ZONE) return
 
-        // Directions are negated to match the player's intuitive expectation:
-        // tilting the right side down moves the snake right (gravity pulls right → snake goes right).
+        // When face-down the player's view is mirrored → XOR flips both axes
+        val faceDown = rawZ > FACE_DOWN_THRESHOLD
+
         _direction.value = if (abs(screenRight) >= abs(screenUp)) {
-            if (screenRight > 0) Direction.LEFT else Direction.RIGHT
+            if ((screenRight > 0) xor faceDown) Direction.RIGHT else Direction.LEFT
         } else {
-            if (screenUp > 0) Direction.DOWN else Direction.UP
+            if ((screenUp > 0) xor faceDown) Direction.UP else Direction.DOWN
         }
     }
 
