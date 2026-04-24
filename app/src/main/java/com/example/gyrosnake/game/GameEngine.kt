@@ -1,0 +1,162 @@
+package com.example.gyrosnake.game
+
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
+
+private const val INITIAL_TICK_MS  = 200L
+private const val MIN_TICK_MS      = 80L
+private const val SPEED_STEP_MS    = 5L
+private const val POINTS_PER_FOOD  = 10
+
+/**
+ * Game Engine — central controller of game logic.
+ *
+ * OOP techniques applied:
+ *   - Observer pattern: exposes [uiState] as a StateFlow; all interested parties
+ *     (UI, audio) subscribe rather than being called directly.
+ *   - Game Loop pattern: [startGame] launches a coroutine that ticks at a fixed
+ *     interval, advancing game state and publishing a new snapshot each tick.
+ *   - Callback / Template Method pattern: [onEat] and [onDie] lambdas let callers
+ *     inject side-effects (sound) without coupling engine to audio layer.
+ *
+ * The engine itself is pure game logic; it has no Android imports.
+ *
+ * @param board     fixed grid dimensions
+ * @param onEat     called each time the snake eats food (play sound, etc.)
+ * @param onDie     called when a fatal collision occurs
+ */
+class GameEngine(
+    val board: GameBoard,
+    private val onEat: () -> Unit = {},
+    private val onDie: () -> Unit = {}
+) {
+
+    // --- Observer pattern: single StateFlow acting as the event bus ---
+
+    private val _uiState = MutableStateFlow(GameUiState())
+    val uiState: StateFlow<GameUiState> = _uiState.asStateFlow()
+
+    // --- Internal mutable game state (private, never leaks outside engine) ---
+
+    private var snake: SnakeState = EntityFactory.createSnake(board)
+    private var foods: List<Food> = emptyList()
+    private var score = 0
+    private var highScore = 0
+    private var tickMs = INITIAL_TICK_MS
+    private var tickCount = 0L
+
+    // Pending direction buffered from the gyroscope — applied at the start of each tick
+    @Volatile private var pendingDirection: Direction? = null
+
+    private var gameLoopJob: Job? = null
+
+    // --- Public API ---
+
+    /** Starts (or restarts) a new game. Cancels any running game loop. */
+    fun startGame(scope: CoroutineScope) {
+        gameLoopJob?.cancel()
+        snake = EntityFactory.createSnake(board)
+        foods = listOfNotNull(EntityFactory.spawnFood(board, snake, emptyList()))
+        score = 0
+        tickMs = INITIAL_TICK_MS
+        tickCount = 0L
+        pendingDirection = null
+        publish(GamePhase.PLAYING)
+
+        // Game Loop pattern: fixed-rate coroutine driving all game updates.
+        // Loop always spins at tickMs; ticks are skipped while paused so the
+        // coroutine stays alive and resumes instantly on unpause.
+        gameLoopJob = scope.launch {
+            while (isActive) {
+                delay(tickMs)
+                when (_uiState.value.phase) {
+                    GamePhase.PLAYING  -> tick()
+                    GamePhase.GAME_OVER -> break   // engine killed by endGame()
+                    else               -> Unit     // PAUSED — keep loop alive, skip tick
+                }
+            }
+        }
+    }
+
+    /** Toggles between PLAYING and PAUSED. No-op in other phases. */
+    fun togglePause() {
+        when (_uiState.value.phase) {
+            GamePhase.PLAYING -> publish(GamePhase.PAUSED)
+            GamePhase.PAUSED  -> publish(GamePhase.PLAYING)
+            else              -> Unit
+        }
+    }
+
+    /**
+     * Receives a direction request from the input adapter.
+     * Thread-safe volatile write — gyroscope runs on a sensor thread.
+     */
+    fun onDirectionRequest(dir: Direction) {
+        if (_uiState.value.phase == GamePhase.PLAYING) pendingDirection = dir
+    }
+
+    // --- Private game-loop tick ---
+
+    private fun tick() {
+        // Apply buffered direction (ignores reversal — enforced inside SnakeState)
+        pendingDirection?.let { snake = snake.withDirection(it) }
+        pendingDirection = null
+
+        // Determine if food will be eaten on this step
+        val nextHead = snake.head + snake.direction.delta
+        val eatenFood = foods.firstOrNull { it.position == nextHead }
+        val growing = eatenFood != null
+
+        // Move the snake
+        snake = snake.move(grow = growing)
+
+        // Wall collision check
+        if (!board.isInBounds(snake.head)) {
+            endGame()
+            return
+        }
+
+        // Self-collision check (head vs rest of body)
+        if (snake.collidesWithBody(snake.head)) {
+            endGame()
+            return
+        }
+
+        // Food eaten: update score, speed, spawn replacement
+        if (growing) {
+            score += POINTS_PER_FOOD
+            tickMs = maxOf(MIN_TICK_MS, tickMs - SPEED_STEP_MS)
+            val remaining = foods - eatenFood
+            foods = remaining + listOfNotNull(EntityFactory.spawnFood(board, snake, remaining))
+            onEat()
+        }
+
+        tickCount++
+        publish(GamePhase.PLAYING)
+    }
+
+    private fun endGame() {
+        if (score > highScore) highScore = score
+        gameLoopJob?.cancel()
+        onDie()
+        publish(GamePhase.GAME_OVER)
+    }
+
+    /** Emits a fresh [GameUiState] snapshot — triggers Compose recomposition. */
+    private fun publish(phase: GamePhase) {
+        _uiState.value = GameUiState(
+            snake     = snake,
+            foods     = foods,
+            score     = score,
+            highScore = highScore,
+            phase     = phase,
+            tickCount = tickCount
+        )
+    }
+}
