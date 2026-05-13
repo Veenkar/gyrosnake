@@ -47,4 +47,6 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun togglePause() = engine.togglePause()
+    fun pauseIfPlaying() = engine.pauseIfPlaying()
+    fun goToMenu() = engine.goToMenu()
 }

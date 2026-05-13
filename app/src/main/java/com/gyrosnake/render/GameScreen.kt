@@ -69,7 +69,10 @@ fun GameScreen(viewModel: GameViewModel) {
                     view.display?.rotation ?: android.view.Surface.ROTATION_90
                 viewModel.gyroscopeAdapter.register()
             }
-            override fun onPause(owner: LifecycleOwner) = viewModel.gyroscopeAdapter.unregister()
+            override fun onPause(owner: LifecycleOwner) {
+                viewModel.gyroscopeAdapter.unregister()
+                viewModel.pauseIfPlaying()
+            }
         }
         lifecycleOwner.lifecycle.addObserver(observer)
         onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
@@ -106,7 +109,7 @@ fun GameScreen(viewModel: GameViewModel) {
 
         when (uiState.phase) {
             GamePhase.MENU      -> MenuOverlay     { viewModel.startGame() }
-            GamePhase.PAUSED    -> PauseOverlay    { viewModel.togglePause() }
+            GamePhase.PAUSED    -> PauseOverlay    (onResume = { viewModel.togglePause() }, onMenu = { viewModel.goToMenu() })
             GamePhase.GAME_OVER -> GameOverOverlay(uiState.score, uiState.highScore) { viewModel.startGame() }
             GamePhase.PLAYING   -> Unit
         }
@@ -141,12 +144,14 @@ private fun MenuOverlay(onStart: () -> Unit) {
 }
 
 @Composable
-private fun PauseOverlay(onResume: () -> Unit) {
+private fun PauseOverlay(onResume: () -> Unit, onMenu: () -> Unit) {
     FullOverlay {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             RetroText("PAUSED", COLOR_GREEN, 42)
             Spacer(Modifier.padding(16.dp))
             BlinkingCta("[ TAP TO RESUME ]", COLOR_GREEN_DIM, onResume)
+            Spacer(Modifier.padding(8.dp))
+            BlinkingCta("[ MENU ]", COLOR_RED, onMenu)
         }
     }
 }

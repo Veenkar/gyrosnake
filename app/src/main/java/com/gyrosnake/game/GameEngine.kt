@@ -93,6 +93,18 @@ class GameEngine(
         }
     }
 
+    /** Pauses only if currently PLAYING — safe to call from lifecycle onPause. */
+    fun pauseIfPlaying() {
+        if (_uiState.value.phase == GamePhase.PLAYING) publish(GamePhase.PAUSED)
+    }
+
+    /** Cancels the game loop and returns to the main menu. */
+    fun goToMenu() {
+        gameLoopJob?.cancel()
+        gameLoopJob = null
+        publish(GamePhase.MENU)
+    }
+
     /**
      * Receives a direction request from the input adapter.
      * Thread-safe volatile write — gyroscope runs on a sensor thread.
