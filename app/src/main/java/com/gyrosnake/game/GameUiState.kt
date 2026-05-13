@@ -1,4 +1,4 @@
-package com.example.gyrosnake.game
+package com.gyrosnake.game
 
 /**
  * Snapshot / Transfer Object pattern.

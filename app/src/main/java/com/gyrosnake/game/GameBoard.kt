@@ -1,4 +1,4 @@
-package com.example.gyrosnake.game
+package com.gyrosnake.game
 
 /**
  * Value Object representing the fixed grid dimensions and boundary rules.

@@ -1,4 +1,4 @@
-package com.example.gyrosnake.render
+package com.gyrosnake.render
 
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
@@ -16,9 +16,9 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
-import com.example.gyrosnake.game.Food
-import com.example.gyrosnake.game.GameBoard
-import com.example.gyrosnake.game.SnakeState
+import com.gyrosnake.game.Food
+import com.gyrosnake.game.GameBoard
+import com.gyrosnake.game.SnakeState
 
 // --- Retro colour palette ---
 private val BG          = Color(0xFF0D0D0D)

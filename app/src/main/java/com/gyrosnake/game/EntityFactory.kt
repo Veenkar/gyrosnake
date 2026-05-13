@@ -1,4 +1,4 @@
-package com.example.gyrosnake.game
+package com.gyrosnake.game
 
 import kotlin.random.Random
 

@@ -1,4 +1,4 @@
-package com.example.gyrosnake.game
+package com.gyrosnake.game
 
 /**
  * Value Object pattern: immutable food pellet.

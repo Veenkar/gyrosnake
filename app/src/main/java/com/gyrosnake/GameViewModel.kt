@@ -1,12 +1,12 @@
-package com.example.gyrosnake
+package com.gyrosnake
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.gyrosnake.audio.SoundManager
-import com.example.gyrosnake.game.GameBoard
-import com.example.gyrosnake.game.GameEngine
-import com.example.gyrosnake.input.GyroscopeAdapter
+import com.gyrosnake.audio.SoundManager
+import com.gyrosnake.game.GameBoard
+import com.gyrosnake.game.GameEngine
+import com.gyrosnake.input.GyroscopeAdapter
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 

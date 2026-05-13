@@ -1,4 +1,4 @@
-package com.example.gyrosnake.render
+package com.gyrosnake.render
 
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
@@ -33,8 +33,8 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.compose.ui.platform.LocalView
-import com.example.gyrosnake.GameViewModel
-import com.example.gyrosnake.game.GamePhase
+import com.gyrosnake.GameViewModel
+import com.gyrosnake.game.GamePhase
 
 private val COLOR_GREEN     = Color(0xFF00FF55)
 private val COLOR_GREEN_DIM = Color(0xFF007722)

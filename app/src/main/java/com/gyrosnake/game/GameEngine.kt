@@ -1,4 +1,4 @@
-package com.example.gyrosnake.game
+package com.gyrosnake.game
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job

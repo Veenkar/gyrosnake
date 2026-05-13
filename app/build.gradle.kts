@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.gyrosnake"
+    namespace = "com.gyrosnake"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.gyrosnake"
+        applicationId = "com.gyrosnake"
         minSdk = 31          // Android 12
         targetSdk = 35
         versionCode = 1

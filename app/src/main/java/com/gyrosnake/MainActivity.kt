@@ -1,4 +1,4 @@
-package com.example.gyrosnake
+package com.gyrosnake
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -7,7 +7,7 @@ import androidx.activity.viewModels
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import com.example.gyrosnake.render.GameScreen
+import com.gyrosnake.render.GameScreen
 
 /**
  * Single-Activity architecture.

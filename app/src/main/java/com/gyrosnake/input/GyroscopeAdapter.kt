@@ -1,4 +1,4 @@
-package com.example.gyrosnake.input
+package com.gyrosnake.input
 
 import android.content.Context
 import android.hardware.Sensor
@@ -6,7 +6,7 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.view.Surface
-import com.example.gyrosnake.game.Direction
+import com.gyrosnake.game.Direction
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

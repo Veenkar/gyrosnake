@@ -1,4 +1,4 @@
-package com.example.gyrosnake.game
+package com.gyrosnake.game
 
 /**
  * Immutable Value Object representing the full snake state at one point in time.
