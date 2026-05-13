@@ -6,7 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.gyrosnake.audio.SoundManager
 import com.gyrosnake.game.GameBoard
 import com.gyrosnake.game.GameEngine
-import com.gyrosnake.input.GyroscopeAdapter
+import com.gyrosnake.input.GyroscopeFlickAdapter
+import com.gyrosnake.input.TiltInputAdapter
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 
@@ -30,12 +31,11 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         onDie = { SoundManager.playDie() }
     )
 
-    val gyroscopeAdapter = GyroscopeAdapter(app)
+    val inputAdapter: TiltInputAdapter = GyroscopeFlickAdapter(app)
 
     init {
-        // Mediator: pipe gyroscope direction events into the engine
         viewModelScope.launch {
-            gyroscopeAdapter.direction
+            inputAdapter.direction
                 .filterNotNull()
                 .collect { dir -> engine.onDirectionRequest(dir) }
         }

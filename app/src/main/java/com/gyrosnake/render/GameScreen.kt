@@ -65,12 +65,12 @@ fun GameScreen(viewModel: GameViewModel) {
     DisposableEffect(lifecycleOwner) {
         val observer = object : DefaultLifecycleObserver {
             override fun onResume(owner: LifecycleOwner) {
-                viewModel.gyroscopeAdapter.displayRotation =
+                viewModel.inputAdapter.displayRotation =
                     view.display?.rotation ?: android.view.Surface.ROTATION_90
-                viewModel.gyroscopeAdapter.register()
+                viewModel.inputAdapter.register()
             }
             override fun onPause(owner: LifecycleOwner) {
-                viewModel.gyroscopeAdapter.unregister()
+                viewModel.inputAdapter.unregister()
                 viewModel.pauseIfPlaying()
             }
         }
