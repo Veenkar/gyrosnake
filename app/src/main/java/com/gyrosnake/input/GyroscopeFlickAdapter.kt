@@ -30,11 +30,10 @@ import kotlin.math.abs
 class GyroscopeFlickAdapter(context: Context) : TiltInputAdapter, SensorEventListener {
 
     companion object {
-        // Minimum angular velocity to register a flick (rad/s). ~115°/s — decisive but not twitchy.
-        private const val THRESHOLD_RAD_S = 2.0f
-
-        // Milliseconds to ignore input after a direction is triggered (one flick = one turn).
-        private const val COOLDOWN_MS = 400L
+        private const val THRESHOLD_RAD_S     = 2.0f
+        private const val COOLDOWN_MS          = 200L
+        // Opposite direction blocked longer to suppress return-movement false triggers
+        private const val OPPOSITE_COOLDOWN_MS = 700L
     }
 
     private val sensorManager = context.getSystemService(SensorManager::class.java)
@@ -45,8 +44,8 @@ class GyroscopeFlickAdapter(context: Context) : TiltInputAdapter, SensorEventLis
     private val _direction = MutableStateFlow<Direction?>(null)
     override val direction: StateFlow<Direction?> = _direction.asStateFlow()
 
-    // Timestamp of last triggered direction — enforces cooldown between flicks
-    @Volatile private var lastTriggerMs = 0L
+    @Volatile private var lastTriggerMs  = 0L
+    @Volatile private var lastDirection: Direction? = null
 
     override fun register() {
         sensor?.let { sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_GAME) }
@@ -79,12 +78,19 @@ class GyroscopeFlickAdapter(context: Context) : TiltInputAdapter, SensorEventLis
 
         if (abs(dominant) < THRESHOLD_RAD_S) return
 
-        lastTriggerMs = now
-        _direction.value = if (dominantRight) {
+        val candidate = if (dominantRight) {
             if (screenRightRate > 0) Direction.RIGHT else Direction.LEFT
         } else {
             if (screenUpRate > 0) Direction.UP else Direction.DOWN
         }
+
+        val elapsed = now - lastTriggerMs
+        if (elapsed < COOLDOWN_MS) return
+        if (elapsed < OPPOSITE_COOLDOWN_MS && lastDirection?.isOpposite(candidate) == true) return
+
+        lastTriggerMs  = now
+        lastDirection  = candidate
+        _direction.value = candidate
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) = Unit
