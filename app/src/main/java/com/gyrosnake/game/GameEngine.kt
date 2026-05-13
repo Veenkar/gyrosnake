@@ -105,6 +105,16 @@ class GameEngine(
         publish(GamePhase.MENU)
     }
 
+    /** Opens the settings screen — only valid from MENU. */
+    fun openSettings() {
+        if (_uiState.value.phase == GamePhase.MENU) publish(GamePhase.SETTINGS)
+    }
+
+    /** Returns from settings back to the main menu. */
+    fun closeSettings() {
+        if (_uiState.value.phase == GamePhase.SETTINGS) publish(GamePhase.MENU)
+    }
+
     /**
      * Receives a direction request from the input adapter.
      * Thread-safe volatile write — gyroscope runs on a sensor thread.
