@@ -37,7 +37,7 @@ import kotlin.math.abs
  * [displayRotation] must be set from the UI thread before [register] is called.
  * It is @Volatile so the sensor-callback thread sees the latest value immediately.
  */
-class GyroscopeAdapter(context: Context) : SensorEventListener {
+class GyroscopeAdapter(context: Context) : TiltInputAdapter, SensorEventListener {
 
     companion object {
         /** m/s² — phone must tilt past this to register a direction (dead zone). */
@@ -59,17 +59,16 @@ class GyroscopeAdapter(context: Context) : SensorEventListener {
         sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY)
             ?: sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
 
-    /** Set this to [Surface.ROTATION_90] or [Surface.ROTATION_270] before registering. */
-    @Volatile var displayRotation: Int = Surface.ROTATION_90
+    @Volatile override var displayRotation: Int = Surface.ROTATION_90
 
     private val _direction = MutableStateFlow<Direction?>(null)
-    val direction: StateFlow<Direction?> = _direction.asStateFlow()
+    override val direction: StateFlow<Direction?> = _direction.asStateFlow()
 
-    fun register() {
+    override fun register() {
         sensor?.let { sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_GAME) }
     }
 
-    fun unregister() {
+    override fun unregister() {
         sensorManager.unregisterListener(this)
     }
 
