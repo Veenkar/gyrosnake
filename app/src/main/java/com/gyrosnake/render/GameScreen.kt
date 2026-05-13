@@ -62,6 +62,7 @@ fun GameScreen(viewModel: GameViewModel) {
     val uiState by viewModel.engine.uiState.collectAsState()
 
     val isDiscoActive = uiState.activeEffects.any { it.effect is PowerUpEffect.Disco }
+    val isLeafActive  = uiState.activeEffects.any { it.effect is PowerUpEffect.Leaf }
 
     // Disco animations — only meaningful when isDiscoActive, but kept running so
     // there is no startup lag when the effect first triggers.
@@ -77,6 +78,15 @@ fun GameScreen(viewModel: GameViewModel) {
         targetValue   = 1f,
         animationSpec = infiniteRepeatable(tween(800, easing = LinearEasing), RepeatMode.Reverse),
         label         = "discoWobble"
+    )
+
+    // Leaf animations — slow breathing scale + green pulse overlay.
+    val leafTransition = rememberInfiniteTransition(label = "leaf")
+    val leafBreathe by leafTransition.animateFloat(
+        initialValue  = 0f,
+        targetValue   = 1f,
+        animationSpec = infiniteRepeatable(tween(4000, easing = LinearEasing), RepeatMode.Reverse),
+        label         = "leafBreathe"
     )
 
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -119,10 +129,16 @@ fun GameScreen(viewModel: GameViewModel) {
                 .fillMaxSize()
                 .graphicsLayer {
                     if (isDiscoActive) rotationZ = sin(discoWobble * Math.PI.toFloat()) * 2f
+                    if (isLeafActive) {
+                        val breathe = 1f + sin(leafBreathe * Math.PI.toFloat()) * 0.025f
+                        scaleX = breathe
+                        scaleY = breathe
+                    }
                 }
         )
 
         if (isDiscoActive) DiscoOverlay(discoPhase)
+        if (isLeafActive)  LeafOverlay(leafBreathe)
 
         HudBar(
             score     = uiState.score,
@@ -175,6 +191,32 @@ private fun DiscoOverlay(phase: Float) {
                 color   = Color.hsv(hue, 1f, 1f, 0.13f),
                 topLeft = Offset(waveOffX, i * bandH),
                 size    = Size(size.width, bandH)
+            )
+        }
+    }
+}
+
+// --- Leaf screen effect ---
+
+/**
+ * Decorator pattern: slow-pulsing green vignette drawn when the Leaf powerup is active.
+ * [breathe] (0→1 reversing) drives the alpha so the overlay gently fades in and out,
+ * giving a calm "breathing" feel distinct from the frantic Disco effect.
+ */
+@Composable
+private fun LeafOverlay(breathe: Float) {
+    Canvas(modifier = Modifier.fillMaxSize()) {
+        val alpha = sin(breathe * Math.PI.toFloat()) * 0.12f
+        // Green vignette rings radiating from the edges inward
+        val cx = size.width  / 2f
+        val cy = size.height / 2f
+        for (i in 0 until 6) {
+            val r = (size.width * (0.9f - i * 0.12f))
+            drawCircle(
+                color  = Color(0xFF00CC44).copy(alpha = alpha * (i + 1) / 6f),
+                radius = r,
+                center = Offset(cx, cy),
+                style  = androidx.compose.ui.graphics.drawscope.Stroke(width = size.width * 0.08f)
             )
         }
     }
