@@ -78,8 +78,13 @@ class GameEngine(
         // coroutine stays alive and resumes instantly on unpause.
         gameLoopJob = scope.launch {
             while (isActive) {
-                val candyActive = activeEffects.any { it.effect is PowerUpEffect.Candy }
-                val effectiveTickMs = if (candyActive) (tickMs / PowerUpEffect.Candy.SPEED_MULTIPLIER).toLong() else tickMs
+                val effectiveTickMs = when {
+                    activeEffects.any { it.effect is PowerUpEffect.Candy } ->
+                        (tickMs / PowerUpEffect.Candy.SPEED_MULTIPLIER).toLong()
+                    activeEffects.any { it.effect is PowerUpEffect.Leaf } ->
+                        (tickMs / PowerUpEffect.Leaf.SPEED_MULTIPLIER).toLong()
+                    else -> tickMs
+                }
                 delay(effectiveTickMs)
                 when (_uiState.value.phase) {
                     GamePhase.PLAYING  -> tick()
@@ -181,6 +186,15 @@ class GameEngine(
             )
             onEat()
         }
+
+        // Leaf powerup: maintain extra food while active, trim back to 1 when it expires
+        val foodTarget = if (activeEffects.any { it.effect is PowerUpEffect.Leaf })
+            PowerUpEffect.Leaf.FOOD_TARGET else 1
+        while (foods.size < foodTarget) {
+            val extra = EntityFactory.spawnFood(board, snake, foods, foodEatenCount) ?: break
+            foods = foods + extra
+        }
+        if (foods.size > foodTarget) foods = foods.take(foodTarget)
 
         tickCount++
         publish(GamePhase.PLAYING)

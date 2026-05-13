@@ -32,4 +32,15 @@ sealed class PowerUpEffect {
         override val maxDurationMs = 60_000L
         const val SPEED_MULTIPLIER = 1.5f
     }
+
+    /**
+     * Leaf powerup: snake slows down and extra food spawns on the board (munchies).
+     * SPEED_MULTIPLIER < 1 means dividing tickMs by it makes the delay longer = slower.
+     */
+    object Leaf : PowerUpEffect() {
+        override val minDurationMs = 20_000L
+        override val maxDurationMs = 60_000L
+        const val SPEED_MULTIPLIER = 0.6f
+        const val FOOD_TARGET = 3
+    }
 }

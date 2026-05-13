@@ -46,7 +46,11 @@ object EntityFactory {
         // Each spawn has a 1-in-POWERUP_ODDS chance of being a powerup, giving
         // a random distribution rather than a fixed interval.
         val effect: PowerUpEffect? = if (foodEatenCount > 0 && Random.nextInt(POWERUP_ODDS) == 0) {
-            if (Random.nextBoolean()) PowerUpEffect.Disco else PowerUpEffect.Candy
+            when (Random.nextInt(3)) {
+                0    -> PowerUpEffect.Disco
+                1    -> PowerUpEffect.Candy
+                else -> PowerUpEffect.Leaf
+            }
         } else null
 
         return Food(position, effect)

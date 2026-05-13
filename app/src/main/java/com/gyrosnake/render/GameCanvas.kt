@@ -14,6 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.font.FontFamily
@@ -162,6 +164,7 @@ private fun DrawScope.drawFoods(
             null                 -> drawNormalFood(food, ox, oy, cell, pulse)
             is PowerUpEffect.Disco -> drawDiscoPowerup(food, ox, oy, cell, discoPhase)
             is PowerUpEffect.Candy -> drawCandyPowerup(food, ox, oy, cell)
+            is PowerUpEffect.Leaf  -> drawLeafPowerup(food, ox, oy, cell)
         }
     }
 }
@@ -230,6 +233,34 @@ private fun DrawScope.drawCandyPowerup(food: Food, ox: Float, oy: Float, cell: F
         quadraticBezierTo(cx, smileY + radius * 0.38f, cx + smileW, smileY)
     }
     drawPath(path, Color.White, style = Stroke(width = radius * 0.14f, cap = androidx.compose.ui.graphics.StrokeCap.Round))
+}
+
+/**
+ * Leaf powerup sprite: a green leaf shape with a centre vein.
+ */
+private fun DrawScope.drawLeafPowerup(food: Food, ox: Float, oy: Float, cell: Float) {
+    val cx = ox + food.position.x * cell + cell / 2f
+    val cy = oy + food.position.y * cell + cell / 2f
+    val r  = cell * 0.4f
+
+    // Leaf outline: two cubic curves meeting at top and bottom points
+    val leaf = Path().apply {
+        moveTo(cx, cy - r)
+        cubicTo(cx + r * 0.9f, cy - r * 0.4f, cx + r * 0.9f, cy + r * 0.4f, cx, cy + r)
+        cubicTo(cx - r * 0.9f, cy + r * 0.4f, cx - r * 0.9f, cy - r * 0.4f, cx, cy - r)
+        close()
+    }
+    drawPath(leaf, Color(0xFF33CC44))
+    drawPath(leaf, Color(0xFF228833), style = Stroke(width = r * 0.08f))
+
+    // Centre vein
+    drawLine(
+        color       = Color(0xFF1A7722),
+        start       = Offset(cx, cy - r * 0.8f),
+        end         = Offset(cx, cy + r * 0.8f),
+        strokeWidth = r * 0.1f,
+        cap         = StrokeCap.Round
+    )
 }
 
 private fun DrawScope.drawScanlines() {
