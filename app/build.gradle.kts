@@ -12,8 +12,8 @@ android {
         applicationId = "com.gyrosnake"
         minSdk = 31          // Android 12
         targetSdk = 35
-        versionCode = 3
-        versionName = "1.2"
+        versionCode = 4
+        versionName = "1.3"
     }
 
     buildTypes {
