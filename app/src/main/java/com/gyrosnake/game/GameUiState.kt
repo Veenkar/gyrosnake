@@ -11,5 +11,6 @@ data class GameUiState(
     val score: Int = 0,
     val highScore: Int = 0,
     val phase: GamePhase = GamePhase.MENU,
-    val tickCount: Long = 0L   // monotonically increasing — forces recomposition each tick
+    val tickCount: Long = 0L,          // monotonically increasing — forces recomposition each tick
+    val activeEffects: List<ActiveEffect> = emptyList()
 )

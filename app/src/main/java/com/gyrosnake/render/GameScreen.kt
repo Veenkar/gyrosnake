@@ -6,6 +6,7 @@ import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -26,11 +27,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.gyrosnake.game.PowerUpEffect
+import kotlin.math.sin
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.LocalLifecycleOwner
@@ -54,6 +60,24 @@ private val COLOR_OVERLAY   = Color(0xCC000000)
 @Composable
 fun GameScreen(viewModel: GameViewModel) {
     val uiState by viewModel.engine.uiState.collectAsState()
+
+    val isDiscoActive = uiState.activeEffects.any { it.effect is PowerUpEffect.Disco }
+
+    // Disco animations — only meaningful when isDiscoActive, but kept running so
+    // there is no startup lag when the effect first triggers.
+    val discoTransition = rememberInfiniteTransition(label = "disco")
+    val discoPhase by discoTransition.animateFloat(
+        initialValue  = 0f,
+        targetValue   = 1f,
+        animationSpec = infiniteRepeatable(tween(3000, easing = LinearEasing), RepeatMode.Restart),
+        label         = "discoPhase"
+    )
+    val discoWobble by discoTransition.animateFloat(
+        initialValue  = -1f,
+        targetValue   = 1f,
+        animationSpec = infiniteRepeatable(tween(800, easing = LinearEasing), RepeatMode.Reverse),
+        label         = "discoWobble"
+    )
 
     val lifecycleOwner = LocalLifecycleOwner.current
     val view = LocalView.current
@@ -84,12 +108,21 @@ fun GameScreen(viewModel: GameViewModel) {
                 }
             }
     ) {
+        // Decorator pattern: graphicsLayer wraps GameCanvas with a wobble transform
+        // only when the Disco effect is active, leaving normal rendering untouched.
         GameCanvas(
-            snake    = uiState.snake,
-            foods    = uiState.foods,
-            board    = viewModel.board,
-            modifier = Modifier.fillMaxSize()
+            snake         = uiState.snake,
+            foods         = uiState.foods,
+            board         = viewModel.board,
+            activeEffects = uiState.activeEffects,
+            modifier      = Modifier
+                .fillMaxSize()
+                .graphicsLayer {
+                    if (isDiscoActive) rotationZ = sin(discoWobble * Math.PI.toFloat()) * 2f
+                }
         )
+
+        if (isDiscoActive) DiscoOverlay(discoPhase)
 
         HudBar(
             score     = uiState.score,
@@ -116,6 +149,33 @@ fun GameScreen(viewModel: GameViewModel) {
                 onBack           = { viewModel.closeSettings() }
             )
             GamePhase.PLAYING   -> Unit
+        }
+    }
+}
+
+// --- Disco screen effect ---
+
+/**
+ * Decorator pattern: drawn on top of the game canvas when the Disco power-up is active.
+ * Renders horizontal rainbow bands whose positions are offset by a sine wave so they
+ * appear to undulate. The [phase] value (0→1 looping) drives both hue rotation and wave motion.
+ *
+ * Kept as a standalone composable so it can be reused or replaced independently
+ * of the game canvas or overlay logic.
+ */
+@Composable
+private fun DiscoOverlay(phase: Float) {
+    Canvas(modifier = Modifier.fillMaxSize()) {
+        val bandCount = 18
+        val bandH     = size.height / bandCount
+        for (i in 0 until bandCount) {
+            val hue      = ((i.toFloat() / bandCount + phase) % 1f) * 360f
+            val waveOffX = sin((i * 0.8f + phase * 6.28f)) * size.width * 0.06f
+            drawRect(
+                color   = Color.hsv(hue, 1f, 1f, 0.13f),
+                topLeft = Offset(waveOffX, i * bandH),
+                size    = Size(size.width, bandH)
+            )
         }
     }
 }

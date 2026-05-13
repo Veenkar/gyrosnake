@@ -50,6 +50,8 @@ class GameEngine(
     private var highScore = 0
     private var tickMs = INITIAL_TICK_MS
     private var tickCount = 0L
+    private var foodEatenCount = 0
+    private var activeEffects: List<ActiveEffect> = emptyList()
 
     // Pending direction buffered from the gyroscope — applied at the start of each tick
     @Volatile private var pendingDirection: Direction? = null
@@ -66,6 +68,8 @@ class GameEngine(
         score = 0
         tickMs = INITIAL_TICK_MS
         tickCount = 0L
+        foodEatenCount = 0
+        activeEffects = emptyList()
         pendingDirection = null
         publish(GamePhase.PLAYING)
 
@@ -74,7 +78,9 @@ class GameEngine(
         // coroutine stays alive and resumes instantly on unpause.
         gameLoopJob = scope.launch {
             while (isActive) {
-                delay(tickMs)
+                val candyActive = activeEffects.any { it.effect is PowerUpEffect.Candy }
+                val effectiveTickMs = if (candyActive) (tickMs / PowerUpEffect.Candy.SPEED_MULTIPLIER).toLong() else tickMs
+                delay(effectiveTickMs)
                 when (_uiState.value.phase) {
                     GamePhase.PLAYING  -> tick()
                     GamePhase.GAME_OVER -> break   // engine killed by endGame()
@@ -126,6 +132,9 @@ class GameEngine(
     // --- Private game-loop tick ---
 
     private fun tick() {
+        // Expire any effects whose wall-clock time has passed
+        activeEffects = activeEffects.filterNot { it.isExpired() }
+
         // Apply buffered direction (ignores reversal — enforced inside SnakeState)
         pendingDirection?.let { snake = snake.withDirection(it) }
         pendingDirection = null
@@ -153,12 +162,23 @@ class GameEngine(
             return
         }
 
-        // Food eaten: update score, speed, spawn replacement
+        // Food eaten: update score, speed, apply power-up effect, spawn replacement
         if (growing) {
+            foodEatenCount++
             score += POINTS_PER_FOOD
             tickMs = maxOf(MIN_TICK_MS, tickMs - SPEED_STEP_MS)
+
+            // Observer / Strategy: apply effect if this was a power-up food.
+            // Adding new effect types only requires a new branch here.
+            eatenFood!!.effect?.let { effect ->
+                val durationMs = (effect.minDurationMs..effect.maxDurationMs).random()
+                activeEffects = activeEffects + ActiveEffect(effect, System.currentTimeMillis() + durationMs)
+            }
+
             val remaining = foods - eatenFood
-            foods = remaining + listOfNotNull(EntityFactory.spawnFood(board, snake, remaining))
+            foods = remaining + listOfNotNull(
+                EntityFactory.spawnFood(board, snake, remaining, foodEatenCount)
+            )
             onEat()
         }
 
@@ -176,12 +196,13 @@ class GameEngine(
     /** Emits a fresh [GameUiState] snapshot — triggers Compose recomposition. */
     private fun publish(phase: GamePhase) {
         _uiState.value = GameUiState(
-            snake     = snake,
-            foods     = foods,
-            score     = score,
-            highScore = highScore,
-            phase     = phase,
-            tickCount = tickCount
+            snake         = snake,
+            foods         = foods,
+            score         = score,
+            highScore     = highScore,
+            phase         = phase,
+            tickCount     = tickCount,
+            activeEffects = activeEffects
         )
     }
 }
