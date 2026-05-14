@@ -146,7 +146,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         private const val VOLUME_QUIET       = 0.3162f  // -10 dB: 10^(-10/20)
         private const val VOLUME_QUIET_DISCO = 0.1778f   // -15 dB: normalsnake under Disco (10^(-15/20))
         private const val VOLUME_DISCO_SOLO  = 0.5623f  //  -5 dB: discosnake_solo (10^(-5/20))
-        private const val VOLUME_MENU        = 0.1f     // -20 dB: 10^(-20/20)
+        private const val VOLUME_MENU        = 0.1778f   // -15 dB: 10^(-15/20)
     }
 
     override fun onCleared() {
