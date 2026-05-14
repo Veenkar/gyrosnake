@@ -163,6 +163,10 @@ fun GameScreen(viewModel: GameViewModel) {
             GamePhase.SETTINGS  -> SettingsOverlay(
                 currentScheme    = viewModel.settings.controlScheme,
                 onSchemeSelected = { viewModel.applyControlScheme(it) },
+                soundEnabled     = viewModel.settings.soundEnabled,
+                onSoundToggle    = { viewModel.applySoundEnabled(it) },
+                musicEnabled     = viewModel.settings.musicEnabled,
+                onMusicToggle    = { viewModel.applyMusicEnabled(it) },
                 onBack           = { viewModel.closeSettings() }
             )
             GamePhase.PLAYING   -> Unit
@@ -298,21 +302,33 @@ private fun GameOverOverlay(score: Int, highScore: Int, onRestart: () -> Unit) {
  * Selection is applied immediately (no confirm step) so the player can
  * try each scheme and the choice persists across sessions via SettingsRepository.
  */
+/**
+ * Settings overlay — controls, sound, and music toggles.
+ *
+ * Composite pattern: each option (SchemeOption, ToggleOption) is a self-contained
+ * interactive row. All changes apply immediately and persist via SettingsRepository.
+ */
 @Composable
 private fun SettingsOverlay(
     currentScheme: ControlScheme,
     onSchemeSelected: (ControlScheme) -> Unit,
+    soundEnabled: Boolean,
+    onSoundToggle: (Boolean) -> Unit,
+    musicEnabled: Boolean,
+    onMusicToggle: (Boolean) -> Unit,
     onBack: () -> Unit
 ) {
     var selected by remember { mutableStateOf(currentScheme) }
+    var soundOn  by remember { mutableStateOf(soundEnabled) }
+    var musicOn  by remember { mutableStateOf(musicEnabled) }
 
     FullOverlay {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             RetroText("SETTINGS", COLOR_GREEN, 36)
-            Spacer(Modifier.padding(16.dp))
-            RetroText("CONTROLS", COLOR_GREEN_DIM, 18)
             Spacer(Modifier.padding(12.dp))
 
+            RetroText("CONTROLS", COLOR_GREEN_DIM, 18)
+            Spacer(Modifier.padding(8.dp))
             ControlScheme.entries.forEach { scheme ->
                 val isSelected = selected == scheme
                 SchemeOption(
@@ -327,7 +343,20 @@ private fun SettingsOverlay(
                 Spacer(Modifier.padding(4.dp))
             }
 
-            Spacer(Modifier.padding(24.dp))
+            Spacer(Modifier.padding(12.dp))
+            RetroText("AUDIO", COLOR_GREEN_DIM, 18)
+            Spacer(Modifier.padding(8.dp))
+            ToggleOption("SOUND FX", soundOn) {
+                soundOn = !soundOn
+                onSoundToggle(soundOn)
+            }
+            Spacer(Modifier.padding(4.dp))
+            ToggleOption("MUSIC", musicOn) {
+                musicOn = !musicOn
+                onMusicToggle(musicOn)
+            }
+
+            Spacer(Modifier.padding(20.dp))
             BlinkingCta("[ BACK ]", COLOR_RED, onBack)
         }
     }
@@ -368,6 +397,27 @@ private fun SchemeOption(
             letterSpacing = 1.sp
         )
     }
+}
+
+@Composable
+private fun ToggleOption(label: String, enabled: Boolean, onClick: () -> Unit) {
+    val color  = if (enabled) COLOR_GREEN else COLOR_GREEN_DIM
+    val prefix = if (enabled) "> " else "  "
+    val suffix = if (enabled) " <" else "  "
+    val state  = if (enabled) "ON " else "OFF"
+    Text(
+        text          = "$prefix$label: $state$suffix",
+        color         = color,
+        fontSize      = 20.sp,
+        fontFamily    = FontFamily.Monospace,
+        textAlign     = TextAlign.Center,
+        letterSpacing = 2.sp,
+        modifier      = Modifier.clickable(
+            interactionSource = remember { MutableInteractionSource() },
+            indication        = null,
+            onClick           = onClick
+        )
+    )
 }
 
 // --- Reusable primitives ---

@@ -38,13 +38,13 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     val board    = GameBoard(columns = 20, rows = 12)
     // Facade pattern: single MusicPlayer instance for all background tracks.
     // Track selection is delegated to resolveTrack() — add new soundtracks there.
-    private val music = MusicPlayer(getApplication())
+    private val music    = MusicPlayer(getApplication())
+    val settings = SettingsRepository.getInstance(app)
     val engine   = GameEngine(
         board = board,
-        onEat = { SoundManager.playEat() },
-        onDie = { SoundManager.playDie() }
+        onEat = { if (settings.soundEnabled) SoundManager.playEat() },
+        onDie = { if (settings.soundEnabled) SoundManager.playDie() }
     )
-    val settings = SettingsRepository.getInstance(app)
 
     // Strategy pattern: holds the currently active input adapter.
     // MutableStateFlow allows flatMapLatest to transparently re-subscribe when swapped.
@@ -72,6 +72,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         // Kept separate from direction collection so the two concerns don't interfere.
         viewModelScope.launch {
             engine.uiState.collect { s ->
+                if (!settings.musicEnabled) { music.stop(); return@collect }
                 val cfg = resolveTrack(s)
                 when {
                     cfg != null && s.phase == GamePhase.PLAYING -> music.play(cfg.resId, cfg.volume, cfg.startFromBeginning)
@@ -144,6 +145,9 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
      * old adapter and registers the new one if the sensor is currently active.
      * Factory Method pattern: [createAdapter] handles the concrete instantiation.
      */
+    fun applySoundEnabled(enabled: Boolean) { settings.soundEnabled = enabled }
+    fun applyMusicEnabled(enabled: Boolean) { settings.musicEnabled = enabled; if (!enabled) music.stop() }
+
     fun applyControlScheme(scheme: ControlScheme) {
         settings.controlScheme = scheme
         val prev = _inputAdapter.value
@@ -163,7 +167,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
 
     // --- Game actions ---
 
-    fun startGame()      { SoundManager.playStart(); engine.startGame(viewModelScope) }
+    fun startGame()      { if (settings.soundEnabled) SoundManager.playStart(); engine.startGame(viewModelScope) }
     fun togglePause()    = engine.togglePause()
     fun pauseIfPlaying() = engine.pauseIfPlaying()
     fun goToMenu()       = engine.goToMenu()

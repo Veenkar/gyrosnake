@@ -15,6 +15,8 @@ class SettingsRepository private constructor(context: Context) {
     companion object {
         private const val PREFS_NAME          = "gyrosnake_settings"
         private const val KEY_CONTROL_SCHEME  = "control_scheme"
+        private const val KEY_SOUND_ENABLED   = "sound_enabled"
+        private const val KEY_MUSIC_ENABLED   = "music_enabled"
 
         @Volatile private var instance: SettingsRepository? = null
 
@@ -32,4 +34,12 @@ class SettingsRepository private constructor(context: Context) {
                 ?: ControlScheme.GRAVITY.name
         )
         set(value) = prefs.edit().putString(KEY_CONTROL_SCHEME, value.name).apply()
+
+    var soundEnabled: Boolean
+        get() = prefs.getBoolean(KEY_SOUND_ENABLED, true)
+        set(value) = prefs.edit().putBoolean(KEY_SOUND_ENABLED, value).apply()
+
+    var musicEnabled: Boolean
+        get() = prefs.getBoolean(KEY_MUSIC_ENABLED, true)
+        set(value) = prefs.edit().putBoolean(KEY_MUSIC_ENABLED, value).apply()
 }
