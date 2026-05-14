@@ -86,15 +86,18 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
      * Routing table: maps current game state to a background music track resource ID.
      * Returns null for silence. Add new powerup or screen soundtracks here.
      *
-     * PAUSED keeps the same track as PLAYING so music resumes seamlessly on unpause.
-     * Phases with no dedicated music (MENU, SETTINGS, GAME_OVER) return null — the
-     * observer's else branch then calls music.stop(), resetting track position.
+     * Open/Closed principle: MusicPlayer and the observer loop never change — only
+     * this function grows when new tracks are introduced.
+     *
+     * Priority: powerup tracks override the gameplay theme (first matching branch wins).
+     * PAUSED returns the same track as PLAYING so music resumes seamlessly on unpause.
+     * Phases with no music (MENU, SETTINGS, GAME_OVER) return null — the observer's
+     * else branch calls music.stop(), resetting the track position for the next game.
      */
     private fun resolveTrack(s: GameUiState): Int? = when (s.phase) {
         GamePhase.PLAYING, GamePhase.PAUSED -> when {
             s.activeEffects.any { it.effect is PowerUpEffect.Leaf } -> R.raw.leafsnake
-            // R.raw.background — add here when a background track is ready
-            else -> null
+            else -> R.raw.normsnake
         }
         // GamePhase.MENU -> R.raw.menu_music  // future
         // GamePhase.GAME_OVER -> R.raw.death_sting  // future
