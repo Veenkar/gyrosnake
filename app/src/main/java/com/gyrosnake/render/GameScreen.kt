@@ -187,8 +187,7 @@ fun GameScreen(viewModel: GameViewModel) {
                 onSoundToggle    = { viewModel.applySoundEnabled(it) },
                 musicEnabled     = viewModel.settings.musicEnabled,
                 onMusicToggle    = { viewModel.applyMusicEnabled(it) },
-                onBack           = { viewModel.closeSettings() },
-                onMenu           = if (viewModel.engine.settingsOpenedFromPause) {{ viewModel.goToMenu() }} else null
+                onBack           = { viewModel.closeSettings() }
             )
             GamePhase.PLAYING   -> Unit
         }
@@ -340,17 +339,13 @@ private fun SettingsOverlay(
     onSoundToggle: (Boolean) -> Unit,
     musicEnabled: Boolean,
     onMusicToggle: (Boolean) -> Unit,
-    onBack: () -> Unit,
-    onMenu: (() -> Unit)? = null
+    onBack: () -> Unit
 ) {
     BackHandler(onBack = onBack)
 
     var selected by remember { mutableStateOf(currentScheme) }
     var soundOn  by remember { mutableStateOf(soundEnabled) }
     var musicOn  by remember { mutableStateOf(musicEnabled) }
-
-    // Bottom bar height: BACK + optional MENU + padding
-    val bottomBarDp = if (onMenu != null) 112.dp else 72.dp
 
     Box(modifier = Modifier
         .fillMaxSize()
@@ -367,7 +362,7 @@ private fun SettingsOverlay(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
-                .padding(top = 32.dp, bottom = bottomBarDp),
+                .padding(top = 32.dp, bottom = 72.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             RetroText("SETTINGS", COLOR_GREEN, 36)
@@ -403,19 +398,15 @@ private fun SettingsOverlay(
             }
         }
 
-        // Pinned top-left — always visible above the scrollable content
-        Column(
+        // Pinned top-left — always visible
+        BlinkingCta(
+            text    = "[ BACK ]",
+            color   = COLOR_GREEN_DIM,
+            onClick = onBack,
             modifier = Modifier
                 .align(Alignment.TopStart)
-                .padding(start = 24.dp, top = 24.dp),
-            horizontalAlignment = Alignment.Start
-        ) {
-            BlinkingCta("[ BACK ]", COLOR_GREEN_DIM, onBack)
-            if (onMenu != null) {
-                Spacer(Modifier.padding(8.dp))
-                BlinkingCta("[ MENU ]", COLOR_RED, onMenu)
-            }
-        }
+                .padding(start = 24.dp, top = 24.dp)
+        )
     }
 }
 
@@ -547,7 +538,7 @@ private fun RetroText(text: String, color: Color, fontSize: Int) {
  * up to the parent Box (which would trigger pause/resume).
  */
 @Composable
-private fun BlinkingCta(text: String, color: Color, onClick: () -> Unit) {
+private fun BlinkingCta(text: String, color: Color, onClick: () -> Unit, modifier: Modifier = Modifier) {
     val inf = rememberInfiniteTransition(label = "blink")
     val alpha by inf.animateFloat(
         initialValue  = 1f,
@@ -565,7 +556,7 @@ private fun BlinkingCta(text: String, color: Color, onClick: () -> Unit) {
         fontFamily    = FontFamily.Monospace,
         textAlign     = TextAlign.Center,
         letterSpacing = 3.sp,
-        modifier      = Modifier.clickable(
+        modifier      = modifier.clickable(
             interactionSource = remember { MutableInteractionSource() },
             indication        = null,
             onClick           = onClick
