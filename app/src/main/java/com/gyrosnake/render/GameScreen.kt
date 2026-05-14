@@ -465,7 +465,7 @@ private fun SchemeOption(
 private fun OverlayControls(onDirection: (Direction) -> Unit, modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
-            .size(240.dp)
+            .size(320.dp)
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication        = null,
