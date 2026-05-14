@@ -141,7 +141,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     companion object {
         private const val VOLUME_FULL       = 1.0f
         private const val VOLUME_QUIET      = 0.3162f  // -10 dB: 10^(-10/20)
-        private const val VOLUME_DISCO_SOLO = 0.0562f  // -25 dB: VOLUME_QUIET − 15 dB
+        private const val VOLUME_DISCO_SOLO = 1.0f     // full volume; normalsnake stays at VOLUME_QUIET unchanged
     }
 
     override fun onCleared() {
