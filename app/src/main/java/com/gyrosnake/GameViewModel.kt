@@ -10,11 +10,13 @@ import com.gyrosnake.data.SettingsRepository
 import com.gyrosnake.game.ControlScheme
 import com.gyrosnake.game.GameBoard
 import com.gyrosnake.game.GameEngine
+import com.gyrosnake.game.Direction
 import com.gyrosnake.game.GamePhase
 import com.gyrosnake.game.GameUiState
 import com.gyrosnake.game.PowerUpEffect
 import com.gyrosnake.input.GyroscopeAdapter
 import com.gyrosnake.input.GyroscopeFlickAdapter
+import com.gyrosnake.input.OverlayInputAdapter
 import com.gyrosnake.input.TiltInputAdapter
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filterNotNull
@@ -167,11 +169,13 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     private fun createAdapter(scheme: ControlScheme): TiltInputAdapter = when (scheme) {
         ControlScheme.GRAVITY -> GyroscopeAdapter(getApplication())
         ControlScheme.FLICK   -> GyroscopeFlickAdapter(getApplication())
+        ControlScheme.OVERLAY -> OverlayInputAdapter()
     }
 
     // --- Game actions ---
 
-    fun startGame()      { if (settings.soundEnabled) SoundManager.playStart(); engine.startGame(viewModelScope) }
+    fun startGame()          { if (settings.soundEnabled) SoundManager.playStart(); engine.startGame(viewModelScope) }
+    fun onOverlayButton(dir: Direction) = engine.onDirectionRequest(dir)
     fun togglePause()    = engine.togglePause()
     fun pauseIfPlaying() = engine.pauseIfPlaying()
     fun goToMenu()       = engine.goToMenu()

@@ -17,6 +17,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.ui.draw.clip
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -44,6 +47,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import com.gyrosnake.GameViewModel
 import com.gyrosnake.game.ControlScheme
+import com.gyrosnake.game.Direction
 import com.gyrosnake.game.GamePhase
 
 private val COLOR_GREEN     = Color(0xFF00FF55)
@@ -146,6 +150,17 @@ fun GameScreen(viewModel: GameViewModel) {
             highScore = uiState.highScore,
             modifier  = Modifier.align(Alignment.TopCenter).fillMaxWidth()
         )
+
+        // Overlay controls: shown only when the OVERLAY scheme is active and the game
+        // is running. Phase-specific overlays (pause, menu) sit above this in the Z-order
+        // and capture all touches, so buttons are unreachable when not needed.
+        if (viewModel.settings.controlScheme == ControlScheme.OVERLAY &&
+            uiState.phase == GamePhase.PLAYING) {
+            OverlayControls(
+                onDirection = { viewModel.onOverlayButton(it) },
+                modifier    = Modifier.align(Alignment.BottomEnd).padding(16.dp)
+            )
+        }
 
         // State pattern: one overlay per GamePhase
         when (uiState.phase) {
@@ -400,6 +415,48 @@ private fun SchemeOption(
             fontFamily    = FontFamily.Monospace,
             textAlign     = TextAlign.Center,
             letterSpacing = 1.sp
+        )
+    }
+}
+
+// --- Overlay D-pad controls ---
+
+/**
+ * Composite pattern: four ArrowButtons arranged in a cross, each firing a Direction.
+ * Positioned by the caller (BottomEnd in GameScreen) so layout concerns stay separated.
+ */
+@Composable
+private fun OverlayControls(onDirection: (Direction) -> Unit, modifier: Modifier = Modifier) {
+    Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
+        ArrowButton("▲") { onDirection(Direction.UP) }
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            ArrowButton("◄") { onDirection(Direction.LEFT) }
+            Spacer(Modifier.size(56.dp))
+            ArrowButton("►") { onDirection(Direction.RIGHT) }
+        }
+        ArrowButton("▼") { onDirection(Direction.DOWN) }
+    }
+}
+
+@Composable
+private fun ArrowButton(symbol: String, onClick: () -> Unit) {
+    Box(
+        modifier = Modifier
+            .size(56.dp)
+            .clip(CircleShape)
+            .background(Color.White.copy(alpha = 0.12f))
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication        = null,
+                onClick           = onClick
+            ),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text       = symbol,
+            color      = COLOR_GREEN.copy(alpha = 0.7f),
+            fontSize   = 22.sp,
+            fontFamily = FontFamily.Monospace
         )
     }
 }
