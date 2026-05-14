@@ -3,11 +3,16 @@ package com.gyrosnake
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.gyrosnake.audio.MusicPlayer
 import com.gyrosnake.audio.SoundManager
+import com.gyrosnake.R
 import com.gyrosnake.data.SettingsRepository
 import com.gyrosnake.game.ControlScheme
 import com.gyrosnake.game.GameBoard
 import com.gyrosnake.game.GameEngine
+import com.gyrosnake.game.GamePhase
+import com.gyrosnake.game.GameUiState
+import com.gyrosnake.game.PowerUpEffect
 import com.gyrosnake.input.GyroscopeAdapter
 import com.gyrosnake.input.GyroscopeFlickAdapter
 import com.gyrosnake.input.TiltInputAdapter
@@ -31,6 +36,9 @@ import kotlinx.coroutines.launch
 class GameViewModel(app: Application) : AndroidViewModel(app) {
 
     val board    = GameBoard(columns = 20, rows = 12)
+    // Facade pattern: single MusicPlayer instance for all background tracks.
+    // Track selection is delegated to resolveTrack() — add new soundtracks there.
+    private val music = MusicPlayer(getApplication())
     val engine   = GameEngine(
         board = board,
         onEat = { SoundManager.playEat() },
@@ -59,6 +67,43 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
                 .filterNotNull()
                 .collect { dir -> engine.onDirectionRequest(dir) }
         }
+
+        // Observer pattern: watches every uiState emission to drive background music.
+        // Kept separate from direction collection so the two concerns don't interfere.
+        viewModelScope.launch {
+            engine.uiState.collect { s ->
+                val track = resolveTrack(s)
+                when {
+                    track != null && s.phase == GamePhase.PLAYING -> music.play(track)
+                    track != null                                  -> music.pause()
+                    else                                           -> music.stop()
+                }
+            }
+        }
+    }
+
+    /**
+     * Routing table: maps current game state to a background music track resource ID.
+     * Returns null for silence. Add new powerup or screen soundtracks here.
+     *
+     * PAUSED keeps the same track as PLAYING so music resumes seamlessly on unpause.
+     * Phases with no dedicated music (MENU, SETTINGS, GAME_OVER) return null — the
+     * observer's else branch then calls music.stop(), resetting track position.
+     */
+    private fun resolveTrack(s: GameUiState): Int? = when (s.phase) {
+        GamePhase.PLAYING, GamePhase.PAUSED -> when {
+            s.activeEffects.any { it.effect is PowerUpEffect.Leaf } -> R.raw.leafsnake
+            // R.raw.background — add here when a background track is ready
+            else -> null
+        }
+        // GamePhase.MENU -> R.raw.menu_music  // future
+        // GamePhase.GAME_OVER -> R.raw.death_sting  // future
+        else -> null
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        music.release()
     }
 
     // --- Lifecycle hooks called by GameScreen's DisposableEffect ---
