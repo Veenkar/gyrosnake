@@ -53,6 +53,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
 import kotlin.math.abs
+import kotlin.math.sqrt
+import androidx.compose.ui.graphics.drawscope.Stroke
 import com.gyrosnake.GameViewModel
 import com.gyrosnake.game.ControlScheme
 import com.gyrosnake.game.Direction
@@ -455,27 +457,25 @@ private fun SchemeOption(
 // --- Overlay D-pad controls ---
 
 /**
- * Composite pattern: four ArrowButtons arranged in a cross.
+ * Virtual joystick — outer ring + floating thumb.
  *
- * Input is handled by a single pointerInput on the outer Box rather than individual
- * button clickables. On every pointer event (down or move) while the finger is pressed,
- * the position is compared to the D-pad centre to determine the quadrant (UP/DOWN/LEFT/RIGHT)
- * and onDirection is fired immediately. This allows the user to hold a button and slide to
- * another without lifting their finger.
+ * A single pointerInput on the 320 dp Box tracks every pointer event:
+ *   - While pressed: compute direction from thumb offset quadrant, move thumb visually.
+ *   - On release: snap thumb back to centre, stop sending directions.
+ * All events are consumed so nothing reaches the full-screen pause handler (dead zone).
  *
- * The Box (320 dp) is larger than the visual D-pad (~204 dp), acting as a dead zone:
- * all events inside it are consumed so near-miss taps never reach the full-screen pause handler.
- * A subtle quarter-circle drawn at the corner gives a visual hint of the safe area.
- *
- * D-pad centre in Box coordinates with Column anchored BottomEnd:
- *   centre X = (320 - 200) + (68 + 64/2) = 120 + 100 = 220 dp
- *   centre Y = (320 - 204) + (68 + 68/2) = 116 + 102 = 218 dp
+ * Joystick centre sits 100 dp from the right and 102 dp from the bottom of the Box,
+ * matching where the old D-pad cross centre was.
  */
 @Composable
 private fun OverlayControls(onDirection: (Direction) -> Unit, modifier: Modifier = Modifier) {
-    val density = LocalDensity.current
-    val centerXPx = with(density) { 220.dp.toPx() }
-    val centerYPx = with(density) { 218.dp.toPx() }
+    val density      = LocalDensity.current
+    val outerRadiusPx = with(density) { 80.dp.toPx() }
+    val thumbRadiusPx = with(density) { 30.dp.toPx() }
+    val centerXPx    = with(density) { 220.dp.toPx() }   // 100 dp from Box right
+    val centerYPx    = with(density) { 218.dp.toPx() }   // 102 dp from Box bottom
+
+    var thumbOffset by remember { mutableStateOf(Offset.Zero) }
 
     Box(
         modifier = modifier
@@ -485,10 +485,17 @@ private fun OverlayControls(onDirection: (Direction) -> Unit, modifier: Modifier
                     while (true) {
                         val event  = awaitPointerEvent()
                         val change = event.changes.firstOrNull() ?: continue
-                        change.consume()                    // always consume — prevents pause
-                        if (!change.pressed) continue      // ignore finger-up events
-                        val dx  = change.position.x - centerXPx
-                        val dy  = change.position.y - centerYPx
+                        change.consume()
+                        if (!change.pressed) {
+                            thumbOffset = Offset.Zero
+                            continue
+                        }
+                        val dx   = change.position.x - centerXPx
+                        val dy   = change.position.y - centerYPx
+                        val dist = sqrt(dx * dx + dy * dy)
+                        // Clamp thumb to outer ring for the visual, use raw delta for direction
+                        thumbOffset = if (dist <= outerRadiusPx) Offset(dx, dy)
+                                      else Offset(dx / dist * outerRadiusPx, dy / dist * outerRadiusPx)
                         if (dx == 0f && dy == 0f) continue
                         val dir = if (abs(dx) >= abs(dy)) {
                             if (dx > 0) Direction.RIGHT else Direction.LEFT
@@ -498,44 +505,23 @@ private fun OverlayControls(onDirection: (Direction) -> Unit, modifier: Modifier
                         onDirection(dir)
                     }
                 }
-            },
-        contentAlignment = Alignment.BottomEnd
-    ) {
-        Canvas(modifier = Modifier.matchParentSize()) {
-            drawCircle(
-                color  = Color.White.copy(alpha = 0.05f),
-                radius = size.width,
-                center = Offset(size.width, size.height)
-            )
-        }
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            ArrowButton("▲")
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                ArrowButton("◄")
-                Spacer(Modifier.size(64.dp))
-                ArrowButton("►")
             }
-            ArrowButton("▼")
-        }
-    }
-}
-
-// Purely visual — all input is handled by the parent Box's pointerInput.
-@Composable
-private fun ArrowButton(symbol: String) {
-    Box(
-        modifier = Modifier
-            .size(68.dp)
-            .clip(CircleShape)
-            .background(Color.White.copy(alpha = 0.12f)),
-        contentAlignment = Alignment.Center
     ) {
-        Text(
-            text       = symbol,
-            color      = COLOR_GREEN.copy(alpha = 0.7f),
-            fontSize   = 26.sp,
-            fontFamily = FontFamily.Monospace
-        )
+        Canvas(modifier = Modifier.fillMaxSize()) {
+            val cx = centerXPx
+            val cy = centerYPx
+            val stroke = Stroke(width = 2.dp.toPx())
+
+            // Outer ring
+            drawCircle(color = Color.White.copy(alpha = 0.07f), radius = outerRadiusPx, center = Offset(cx, cy))
+            drawCircle(color = Color.White.copy(alpha = 0.30f), radius = outerRadiusPx, center = Offset(cx, cy), style = stroke)
+
+            // Thumb
+            val tx = cx + thumbOffset.x
+            val ty = cy + thumbOffset.y
+            drawCircle(color = COLOR_GREEN.copy(alpha = 0.30f), radius = thumbRadiusPx, center = Offset(tx, ty))
+            drawCircle(color = COLOR_GREEN.copy(alpha = 0.85f), radius = thumbRadiusPx, center = Offset(tx, ty), style = stroke)
+        }
     }
 }
 
