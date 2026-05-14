@@ -101,6 +101,8 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         GamePhase.PLAYING, GamePhase.PAUSED -> when {
             s.activeEffects.any { it.effect is PowerUpEffect.Leaf }  ->
                 TrackConfig(R.raw.leafsnake,   VOLUME_FULL,  startFromBeginning = true)
+            s.activeEffects.any { it.effect is PowerUpEffect.Candy } ->
+                TrackConfig(R.raw.candysnake,  VOLUME_QUIET, startFromBeginning = true)
             s.activeEffects.any { it.effect is PowerUpEffect.Disco } ->
                 TrackConfig(R.raw.discosnake,  VOLUME_QUIET)
             else ->
