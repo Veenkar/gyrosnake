@@ -49,8 +49,8 @@ class MusicPlayer(private val context: Context) {
      */
     fun play(resId: Int, volume: Float = 1f, startFromBeginning: Boolean = false) {
         if (resId == currentResId) {
+            player?.setVolume(volume, volume)   // always sync volume (slider changes land here)
             if (state != State.PLAYING) {
-                player?.setVolume(volume, volume)
                 player?.start()
                 state = State.PLAYING
             }

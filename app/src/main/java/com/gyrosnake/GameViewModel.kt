@@ -45,8 +45,8 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     val engine   = GameEngine(
         board            = board,
         initialHighScore = settings.highScore,
-        onEat            = { if (settings.soundEnabled) SoundManager.playEat() },
-        onDie            = { if (settings.soundEnabled) SoundManager.playDie() },
+        onEat            = { SoundManager.playEat(settings.soundVolume) },
+        onDie            = { SoundManager.playDie(settings.soundVolume) },
         onNewHighScore   = { settings.highScore = it }
     )
 
@@ -75,15 +75,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         // Observer pattern: watches every uiState emission to drive background music.
         // Kept separate from direction collection so the two concerns don't interfere.
         viewModelScope.launch {
-            engine.uiState.collect { s ->
-                if (!settings.musicEnabled) { music.stop(); return@collect }
-                val cfg = resolveTrack(s)
-                when {
-                    cfg != null && s.phase == GamePhase.PLAYING -> music.play(cfg.resId, cfg.volume, cfg.startFromBeginning)
-                    cfg != null                                  -> music.pause()
-                    else                                         -> music.stop()
-                }
-            }
+            engine.uiState.collect { s -> updateMusicForState(s) }
         }
     }
 
@@ -91,22 +83,16 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     private data class TrackConfig(val resId: Int, val volume: Float, val startFromBeginning: Boolean = false)
 
     /**
-     * Routing table: maps current game state to a TrackConfig (track + volume).
+     * Routing table: maps current game state to a TrackConfig (track + base volume).
      * Returns null for silence. Add new powerup or screen soundtracks here.
      *
-     * Open/Closed principle: MusicPlayer and the observer loop never change — only
+     * Open/Closed principle: MusicPlayer and updateMusicForState never change — only
      * this function grows when new tracks are introduced.
      *
-     * Priority: powerup tracks override the gameplay theme (first matching branch wins).
-     * PAUSED returns the same config as PLAYING so music resumes seamlessly on unpause.
-     * Phases with no music (MENU, SETTINGS, GAME_OVER) return null — the observer's
-     * else branch calls music.stop(), resetting the track position for the next game.
-     */
-    /**
      * Sound priority: activeEffects is ordered oldest-first (effects are appended on eat).
      * lastOrNull() gives the most recently eaten non-expired effect, so whichever powerup
-     * was eaten last drives the music. When it expires and is removed, lastOrNull() falls
-     * back to the next most recent, eventually returning to the main theme when none remain.
+     * was eaten last drives the music. PAUSED returns the same config as PLAYING so music
+     * resumes seamlessly on unpause. Phases with no music return null → music.stop().
      */
     private fun resolveTrack(s: GameUiState): TrackConfig? = when (s.phase) {
         GamePhase.PLAYING, GamePhase.PAUSED -> when (s.activeEffects.lastOrNull()?.effect) {
@@ -115,9 +101,20 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
             is PowerUpEffect.Disco -> TrackConfig(R.raw.discosnake,  VOLUME_QUIET)
             else                   -> TrackConfig(R.raw.normalsnake, VOLUME_QUIET)
         }
-        // GamePhase.MENU -> TrackConfig(R.raw.menu_music, VOLUME_QUIET)  // future
-        // GamePhase.GAME_OVER -> TrackConfig(R.raw.death_sting, VOLUME_FULL)  // future
         else -> null
+    }
+
+    /** Applies the current music state immediately — called by both the uiState observer
+     *  and applyMusicVolume so slider changes take effect without waiting for the next tick. */
+    private fun updateMusicForState(s: GameUiState) {
+        val mv = settings.musicVolume
+        if (mv <= 0f) { music.stop(); return }
+        val cfg = resolveTrack(s)
+        when {
+            cfg != null && s.phase == GamePhase.PLAYING -> music.play(cfg.resId, cfg.volume * mv, cfg.startFromBeginning)
+            cfg != null                                  -> music.pause()
+            else                                         -> music.stop()
+        }
     }
 
     companion object {
@@ -151,8 +148,8 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
      * old adapter and registers the new one if the sensor is currently active.
      * Factory Method pattern: [createAdapter] handles the concrete instantiation.
      */
-    fun applySoundEnabled(enabled: Boolean) { settings.soundEnabled = enabled }
-    fun applyMusicEnabled(enabled: Boolean) { settings.musicEnabled = enabled; if (!enabled) music.stop() }
+    fun applySoundVolume(vol: Float) { settings.soundVolume = vol }
+    fun applyMusicVolume(vol: Float) { settings.musicVolume = vol; updateMusicForState(engine.uiState.value) }
 
     fun applyControlScheme(scheme: ControlScheme) {
         settings.controlScheme = scheme
@@ -174,7 +171,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
 
     // --- Game actions ---
 
-    fun startGame()          { if (settings.soundEnabled) SoundManager.playStart(); engine.startGame(viewModelScope) }
+    fun startGame()          { SoundManager.playStart(settings.soundVolume); engine.startGame(viewModelScope) }
     fun onOverlayButton(dir: Direction) = engine.onDirectionRequest(dir)
     fun togglePause()    = engine.togglePause()
     fun pauseIfPlaying() = engine.pauseIfPlaying()

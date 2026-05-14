@@ -65,22 +65,24 @@ object SoundManager {
     // --- Public sound API (Observer hook points called by GameEngine callbacks) ---
 
     /** Short high blip — played when snake eats food. */
-    fun playEat() = play(squareWave(880f, 70))
+    fun playEat(vol: Float = 1f) { if (vol > 0f) play(squareWave(880f, 70, VOLUME * vol)) }
 
     /** Descending two-tone — played on death. */
-    fun playDie() {
+    fun playDie(vol: Float = 1f) {
+        if (vol <= 0f) return
         Thread {
-            play(squareWave(330f, 120))
+            play(squareWave(330f, 120, VOLUME * vol))
             Thread.sleep(100)
-            play(squareWave(220f, 280))
+            play(squareWave(220f, 280, VOLUME * vol))
         }.start()
     }
 
     /** Ascending arpeggio — played when a new game starts. */
-    fun playStart() {
+    fun playStart(vol: Float = 1f) {
+        if (vol <= 0f) return
         Thread {
             listOf(440f, 554f, 659f, 880f).forEach { f ->
-                play(squareWave(f, 70))
+                play(squareWave(f, 70, VOLUME * vol))
                 Thread.sleep(70)
             }
         }.start()

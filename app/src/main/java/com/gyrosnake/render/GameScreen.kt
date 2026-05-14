@@ -23,6 +23,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.draw.clip
+import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -183,10 +185,10 @@ fun GameScreen(viewModel: GameViewModel) {
             GamePhase.SETTINGS  -> SettingsOverlay(
                 currentScheme    = viewModel.settings.controlScheme,
                 onSchemeSelected = { viewModel.applyControlScheme(it) },
-                soundEnabled     = viewModel.settings.soundEnabled,
-                onSoundToggle    = { viewModel.applySoundEnabled(it) },
-                musicEnabled     = viewModel.settings.musicEnabled,
-                onMusicToggle    = { viewModel.applyMusicEnabled(it) },
+                soundVolume      = viewModel.settings.soundVolume,
+                onSoundVolume    = { viewModel.applySoundVolume(it) },
+                musicVolume      = viewModel.settings.musicVolume,
+                onMusicVolume    = { viewModel.applyMusicVolume(it) },
                 onBack           = { viewModel.closeSettings() }
             )
             GamePhase.PLAYING   -> Unit
@@ -335,17 +337,17 @@ private fun GameOverOverlay(score: Int, highScore: Int, onRestart: () -> Unit) {
 private fun SettingsOverlay(
     currentScheme: ControlScheme,
     onSchemeSelected: (ControlScheme) -> Unit,
-    soundEnabled: Boolean,
-    onSoundToggle: (Boolean) -> Unit,
-    musicEnabled: Boolean,
-    onMusicToggle: (Boolean) -> Unit,
+    soundVolume: Float,
+    onSoundVolume: (Float) -> Unit,
+    musicVolume: Float,
+    onMusicVolume: (Float) -> Unit,
     onBack: () -> Unit
 ) {
     BackHandler(onBack = onBack)
 
     var selected by remember { mutableStateOf(currentScheme) }
-    var soundOn  by remember { mutableStateOf(soundEnabled) }
-    var musicOn  by remember { mutableStateOf(musicEnabled) }
+    var soundVol by remember { mutableStateOf(soundVolume) }
+    var musicVol by remember { mutableStateOf(musicVolume) }
 
     Box(modifier = Modifier
         .fillMaxSize()
@@ -387,14 +389,14 @@ private fun SettingsOverlay(
             Spacer(Modifier.padding(12.dp))
             RetroText("AUDIO", COLOR_GREEN_DIM, 18)
             Spacer(Modifier.padding(8.dp))
-            ToggleOption("SOUND FX", soundOn) {
-                soundOn = !soundOn
-                onSoundToggle(soundOn)
+            VolumeOption("SOUND FX", soundVol) { v ->
+                soundVol = v
+                onSoundVolume(v)
             }
             Spacer(Modifier.padding(4.dp))
-            ToggleOption("MUSIC", musicOn) {
-                musicOn = !musicOn
-                onMusicToggle(musicOn)
+            VolumeOption("MUSIC", musicVol) { v ->
+                musicVol = v
+                onMusicVolume(v)
             }
         }
 
@@ -489,25 +491,37 @@ private fun ArrowButton(symbol: String, onClick: () -> Unit) {
     }
 }
 
+/**
+ * Composite pattern: label + percentage readout + Material3 Slider grouped as one option row.
+ * The slider's own pointer input captures drag events, preventing them from bubbling to the
+ * background Box's clickable (which would dismiss the overlay).
+ */
 @Composable
-private fun ToggleOption(label: String, enabled: Boolean, onClick: () -> Unit) {
-    val color  = if (enabled) COLOR_GREEN else COLOR_GREEN_DIM
-    val prefix = if (enabled) "> " else "  "
-    val suffix = if (enabled) " <" else "  "
-    val state  = if (enabled) "ON " else "OFF"
-    Text(
-        text          = "$prefix$label: $state$suffix",
-        color         = color,
-        fontSize      = 20.sp,
-        fontFamily    = FontFamily.Monospace,
-        textAlign     = TextAlign.Center,
-        letterSpacing = 2.sp,
-        modifier      = Modifier.clickable(
-            interactionSource = remember { MutableInteractionSource() },
-            indication        = null,
-            onClick           = onClick
+private fun VolumeOption(label: String, volume: Float, onVolumeChange: (Float) -> Unit) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 32.dp)
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication        = null,
+                onClick           = {}  // consume tap so it doesn't reach the dismiss clickable
+            ),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        val pct = (volume * 100).toInt()
+        RetroText("$label: $pct%", COLOR_GREEN_DIM, 18)
+        Slider(
+            value         = volume,
+            onValueChange = onVolumeChange,
+            valueRange    = 0f..1f,
+            colors        = SliderDefaults.colors(
+                thumbColor         = COLOR_GREEN,
+                activeTrackColor   = COLOR_GREEN,
+                inactiveTrackColor = COLOR_GREEN_DIM
+            )
         )
-    )
+    }
 }
 
 // --- Reusable primitives ---

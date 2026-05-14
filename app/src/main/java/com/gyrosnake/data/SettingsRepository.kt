@@ -15,8 +15,8 @@ class SettingsRepository private constructor(context: Context) {
     companion object {
         private const val PREFS_NAME          = "gyrosnake_settings"
         private const val KEY_CONTROL_SCHEME  = "control_scheme"
-        private const val KEY_SOUND_ENABLED   = "sound_enabled"
-        private const val KEY_MUSIC_ENABLED   = "music_enabled"
+        private const val KEY_SOUND_VOLUME    = "sound_volume"
+        private const val KEY_MUSIC_VOLUME    = "music_volume"
         private const val KEY_HIGH_SCORE      = "high_score"
 
         @Volatile private var instance: SettingsRepository? = null
@@ -36,13 +36,13 @@ class SettingsRepository private constructor(context: Context) {
         )
         set(value) = prefs.edit().putString(KEY_CONTROL_SCHEME, value.name).apply()
 
-    var soundEnabled: Boolean
-        get() = prefs.getBoolean(KEY_SOUND_ENABLED, true)
-        set(value) = prefs.edit().putBoolean(KEY_SOUND_ENABLED, value).apply()
+    var soundVolume: Float
+        get() = prefs.getFloat(KEY_SOUND_VOLUME, 1.0f)
+        set(value) = prefs.edit().putFloat(KEY_SOUND_VOLUME, value).apply()
 
-    var musicEnabled: Boolean
-        get() = prefs.getBoolean(KEY_MUSIC_ENABLED, true)
-        set(value) = prefs.edit().putBoolean(KEY_MUSIC_ENABLED, value).apply()
+    var musicVolume: Float
+        get() = prefs.getFloat(KEY_MUSIC_VOLUME, 1.0f)
+        set(value) = prefs.edit().putFloat(KEY_MUSIC_VOLUME, value).apply()
 
     var highScore: Int
         get() = prefs.getInt(KEY_HIGH_SCORE, 0)
