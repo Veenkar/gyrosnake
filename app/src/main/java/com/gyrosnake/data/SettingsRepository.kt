@@ -37,7 +37,7 @@ class SettingsRepository private constructor(context: Context) {
         set(value) = prefs.edit().putString(KEY_CONTROL_SCHEME, value.name).apply()
 
     var soundVolume: Float
-        get() = prefs.getFloat(KEY_SOUND_VOLUME, 1.0f)
+        get() = prefs.getFloat(KEY_SOUND_VOLUME, 0.2f)
         set(value) = prefs.edit().putFloat(KEY_SOUND_VOLUME, value).apply()
 
     var musicVolume: Float
