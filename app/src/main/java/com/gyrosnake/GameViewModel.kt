@@ -40,7 +40,8 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     val board    = GameBoard(columns = 20, rows = 12)
     // Facade pattern: single MusicPlayer instance for all background tracks.
     // Track selection is delegated to resolveTrack() — add new soundtracks there.
-    private val music    = MusicPlayer(getApplication())
+    private val music        = MusicPlayer(getApplication())
+    private val musicOverlay = MusicPlayer(getApplication())  // Disco solo layer
     val settings = SettingsRepository.getInstance(app)
     val engine   = GameEngine(
         board            = board,
@@ -94,13 +95,24 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
      * was eaten last drives the music. PAUSED returns the same config as PLAYING so music
      * resumes seamlessly on unpause. Phases with no music return null → music.stop().
      */
+    // Disco is excluded from the base-track switch: normalsnake keeps playing underneath.
+    // lastOrNull{non-Disco} finds the correct base when Disco stacks with Leaf or Candy.
     private fun resolveTrack(s: GameUiState): TrackConfig? = when (s.phase) {
-        GamePhase.PLAYING, GamePhase.PAUSED -> when (s.activeEffects.lastOrNull()?.effect) {
+        GamePhase.PLAYING, GamePhase.PAUSED -> when (s.activeEffects.lastOrNull { it.effect !is PowerUpEffect.Disco }?.effect) {
             is PowerUpEffect.Leaf  -> TrackConfig(R.raw.leafsnake,   VOLUME_FULL,  startFromBeginning = true)
             is PowerUpEffect.Candy -> TrackConfig(R.raw.candysnake,  VOLUME_QUIET, startFromBeginning = true)
-            is PowerUpEffect.Disco -> TrackConfig(R.raw.discosnake,  VOLUME_QUIET)
             else                   -> TrackConfig(R.raw.normalsnake, VOLUME_QUIET)
         }
+        else -> null
+    }
+
+    // Disco overlay: discosnake_solo.ogg plays simultaneously with the base track,
+    // synchronized to its position, at 15 dB below VOLUME_QUIET (−25 dB total).
+    private fun resolveOverlay(s: GameUiState): TrackConfig? = when (s.phase) {
+        GamePhase.PLAYING, GamePhase.PAUSED ->
+            if (s.activeEffects.any { it.effect is PowerUpEffect.Disco })
+                TrackConfig(R.raw.discosnake_solo, VOLUME_DISCO_SOLO)
+            else null
         else -> null
     }
 
@@ -108,23 +120,34 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
      *  and applyMusicVolume so slider changes take effect without waiting for the next tick. */
     private fun updateMusicForState(s: GameUiState) {
         val mv = settings.musicVolume
-        if (mv <= 0f) { music.stop(); return }
-        val cfg = resolveTrack(s)
+        if (mv <= 0f) { music.stop(); musicOverlay.stop(); return }
+        val cfg     = resolveTrack(s)
+        val overlay = resolveOverlay(s)
         when {
             cfg != null && s.phase == GamePhase.PLAYING -> music.play(cfg.resId, cfg.volume * mv, cfg.startFromBeginning)
             cfg != null                                  -> music.pause()
             else                                         -> music.stop()
         }
+        // Overlay seeked to base track's current position on first start for sync.
+        // Subsequent calls hit the early-return in MusicPlayer.play() — no re-seek.
+        when {
+            overlay != null && s.phase == GamePhase.PLAYING ->
+                musicOverlay.play(overlay.resId, overlay.volume * mv, startPositionMs = music.currentPosition)
+            overlay != null -> musicOverlay.pause()
+            else            -> musicOverlay.stop()
+        }
     }
 
     companion object {
-        private const val VOLUME_FULL  = 1.0f
-        private const val VOLUME_QUIET = 0.3162f  // -10 dB: 10^(-10/20)
+        private const val VOLUME_FULL       = 1.0f
+        private const val VOLUME_QUIET      = 0.3162f  // -10 dB: 10^(-10/20)
+        private const val VOLUME_DISCO_SOLO = 0.0562f  // -25 dB: VOLUME_QUIET − 15 dB
     }
 
     override fun onCleared() {
         super.onCleared()
         music.release()
+        musicOverlay.release()
     }
 
     // --- Lifecycle hooks called by GameScreen's DisposableEffect ---

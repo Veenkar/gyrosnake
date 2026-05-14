@@ -47,7 +47,14 @@ class MusicPlayer(private val context: Context) {
      * Falls back to 0 if the offset overshoots the new track's duration, or if the
      * outgoing track had opted out of sync.
      */
-    fun play(resId: Int, volume: Float = 1f, startFromBeginning: Boolean = false) {
+    /** Current playback position in ms — read by the overlay player to sync on first start. */
+    val currentPosition: Int get() = player?.currentPosition ?: 0
+
+    /**
+     * [startPositionMs] overrides Memento when ≥ 0. Pass the base player's [currentPosition]
+     * when starting a simultaneous overlay so both tracks begin at the same offset.
+     */
+    fun play(resId: Int, volume: Float = 1f, startFromBeginning: Boolean = false, startPositionMs: Int = -1) {
         if (resId == currentResId) {
             player?.setVolume(volume, volume)   // always sync volume (slider changes land here)
             if (state != State.PLAYING) {
@@ -56,8 +63,11 @@ class MusicPlayer(private val context: Context) {
             }
             return
         }
-        // Memento: only carry offset when both outgoing and incoming tracks participate.
-        val offsetMs = if (syncable && !startFromBeginning) player?.currentPosition ?: 0 else 0
+        val offsetMs = when {
+            startPositionMs >= 0            -> startPositionMs
+            syncable && !startFromBeginning -> player?.currentPosition ?: 0
+            else                            -> 0
+        }
         player?.release()
         currentResId = resId
         syncable = !startFromBeginning
