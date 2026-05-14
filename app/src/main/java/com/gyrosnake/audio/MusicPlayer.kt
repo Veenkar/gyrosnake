@@ -8,11 +8,14 @@ import android.media.MediaPlayer
  *
  * Callers pass a raw resource ID to [play] — if the same track is already playing, it
  * resumes; if a different track is requested, the old one is released and the new one starts
- * from the beginning. This makes it trivial to add new soundtrack tracks without changing
- * any logic here — only the caller's routing table (see GameViewModel.resolveTrack) needs
- * updating.
+ * at the same playback offset (Memento pattern: position is captured before release and
+ * restored on the incoming track). If the offset overshoots the new track's duration,
+ * playback starts from the beginning instead.
  *
- * All tracks are looped automatically. Short one-shot sound effects belong in SoundManager.
+ * This keeps paired tracks (e.g. normalsnake / discosnake / leafsnake) perceptually in sync
+ * across powerup transitions without any coordination from the caller.
+ *
+ * All tracks loop automatically. Short one-shot sound effects belong in SoundManager.
  *
  * Internal 3-state machine (PLAYING, PAUSED, STOPPED) shields callers from MediaPlayer's
  * own complex state transitions. All commands are safe to call from any state.
@@ -31,8 +34,10 @@ class MusicPlayer(private val context: Context) {
     /**
      * Plays [resId]:
      * - Same track, already playing → no-op.
-     * - Same track, paused or stopped → resume / restart from current position.
-     * - Different track → release old player, create and start new one from the beginning.
+     * - Same track, paused or stopped → resume from current position.
+     * - Different track → capture current position (Memento), release old player,
+     *   create new one and seek to the same offset. Falls back to 0 if the offset
+     *   exceeds the new track's duration.
      */
     fun play(resId: Int) {
         if (resId == currentResId) {
@@ -42,9 +47,15 @@ class MusicPlayer(private val context: Context) {
             }
             return
         }
+        // Memento: save playback offset before releasing the outgoing track.
+        val offsetMs = player?.currentPosition ?: 0
         player?.release()
         currentResId = resId
-        player = MediaPlayer.create(context, resId)?.apply { isLooping = true }
+        player = MediaPlayer.create(context, resId)?.apply {
+            isLooping = true
+            val targetMs = if (offsetMs < duration) offsetMs else 0
+            seekTo(targetMs)
+        }
         player?.start()
         state = State.PLAYING
     }

@@ -96,8 +96,9 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
      */
     private fun resolveTrack(s: GameUiState): Int? = when (s.phase) {
         GamePhase.PLAYING, GamePhase.PAUSED -> when {
-            s.activeEffects.any { it.effect is PowerUpEffect.Leaf } -> R.raw.leafsnake
-            else -> R.raw.normsnake
+            s.activeEffects.any { it.effect is PowerUpEffect.Leaf }  -> R.raw.leafsnake
+            s.activeEffects.any { it.effect is PowerUpEffect.Disco } -> R.raw.discosnake
+            else -> R.raw.normalsnake
         }
         // GamePhase.MENU -> R.raw.menu_music  // future
         // GamePhase.GAME_OVER -> R.raw.death_sting  // future
