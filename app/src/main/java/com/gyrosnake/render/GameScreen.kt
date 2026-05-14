@@ -454,17 +454,41 @@ private fun SchemeOption(
 /**
  * Composite pattern: four ArrowButtons arranged in a cross, each firing a Direction.
  * Positioned by the caller (BottomEnd in GameScreen) so layout concerns stay separated.
+ *
+ * Dead-zone pattern: the outer Box is a 240 dp clickable that consumes all tap events,
+ * so near-misses around the D-pad never bubble up to the full-screen pause handler.
+ * contentAlignment = BottomEnd keeps the buttons anchored to the same corner as before;
+ * the extra space extends upward and to the left where accidental taps occur.
+ * A subtle quarter-circle drawn at the corner gives a faint visual hint of the safe zone.
  */
 @Composable
 private fun OverlayControls(onDirection: (Direction) -> Unit, modifier: Modifier = Modifier) {
-    Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
-        ArrowButton("▲") { onDirection(Direction.UP) }
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            ArrowButton("◄") { onDirection(Direction.LEFT) }
-            Spacer(Modifier.size(56.dp))
-            ArrowButton("►") { onDirection(Direction.RIGHT) }
+    Box(
+        modifier = modifier
+            .size(240.dp)
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication        = null,
+                onClick           = {}  // dead zone — swallows miss-taps, never triggers pause
+            ),
+        contentAlignment = Alignment.BottomEnd
+    ) {
+        Canvas(modifier = Modifier.matchParentSize()) {
+            drawCircle(
+                color  = Color.White.copy(alpha = 0.05f),
+                radius = size.width,
+                center = Offset(size.width, size.height)
+            )
         }
-        ArrowButton("▼") { onDirection(Direction.DOWN) }
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            ArrowButton("▲") { onDirection(Direction.UP) }
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                ArrowButton("◄") { onDirection(Direction.LEFT) }
+                Spacer(Modifier.size(64.dp))
+                ArrowButton("►") { onDirection(Direction.RIGHT) }
+            }
+            ArrowButton("▼") { onDirection(Direction.DOWN) }
+        }
     }
 }
 
@@ -472,7 +496,7 @@ private fun OverlayControls(onDirection: (Direction) -> Unit, modifier: Modifier
 private fun ArrowButton(symbol: String, onClick: () -> Unit) {
     Box(
         modifier = Modifier
-            .size(56.dp)
+            .size(68.dp)
             .clip(CircleShape)
             .background(Color.White.copy(alpha = 0.12f))
             .clickable(
@@ -485,7 +509,7 @@ private fun ArrowButton(symbol: String, onClick: () -> Unit) {
         Text(
             text       = symbol,
             color      = COLOR_GREEN.copy(alpha = 0.7f),
-            fontSize   = 22.sp,
+            fontSize   = 26.sp,
             fontFamily = FontFamily.Monospace
         )
     }
