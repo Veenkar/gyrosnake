@@ -100,9 +100,10 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     // Any other effect as last → its own track, Disco overlay suppressed.
     private fun resolveTrack(s: GameUiState): TrackConfig? = when (s.phase) {
         GamePhase.PLAYING, GamePhase.PAUSED -> when (s.activeEffects.lastOrNull()?.effect) {
-            is PowerUpEffect.Leaf  -> TrackConfig(R.raw.leafsnake,   VOLUME_FULL,  startFromBeginning = true)
-            is PowerUpEffect.Candy -> TrackConfig(R.raw.candysnake,  VOLUME_QUIET, startFromBeginning = true)
-            else                   -> TrackConfig(R.raw.normalsnake, VOLUME_QUIET)  // Disco and no-effect both use normalsnake
+            is PowerUpEffect.Leaf  -> TrackConfig(R.raw.leafsnake,   VOLUME_FULL,       startFromBeginning = true)
+            is PowerUpEffect.Candy -> TrackConfig(R.raw.candysnake,  VOLUME_QUIET,      startFromBeginning = true)
+            is PowerUpEffect.Disco -> TrackConfig(R.raw.normalsnake, VOLUME_QUIET_DISCO) // dimmed −10 dB while solo plays
+            else                   -> TrackConfig(R.raw.normalsnake, VOLUME_QUIET)
         }
         else -> null
     }
@@ -139,9 +140,10 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     companion object {
-        private const val VOLUME_FULL       = 1.0f
-        private const val VOLUME_QUIET      = 0.3162f  // -10 dB: 10^(-10/20)
-        private const val VOLUME_DISCO_SOLO = 1.0f     // full volume; normalsnake stays at VOLUME_QUIET unchanged
+        private const val VOLUME_FULL        = 1.0f
+        private const val VOLUME_QUIET       = 0.3162f  // -10 dB: 10^(-10/20)
+        private const val VOLUME_QUIET_DISCO = 0.1f     // -20 dB: normalsnake under Disco (VOLUME_QUIET − 10 dB)
+        private const val VOLUME_DISCO_SOLO  = 0.3162f  // -10 dB: discosnake_solo (10 dB below full)
     }
 
     override fun onCleared() {
