@@ -40,6 +40,7 @@ import kotlin.math.sin
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import com.gyrosnake.GameViewModel
 import com.gyrosnake.game.ControlScheme
@@ -237,6 +238,12 @@ private fun HudBar(score: Int, highScore: Int, modifier: Modifier = Modifier) {
 
 @Composable
 private fun MenuOverlay(onStart: () -> Unit, onSettings: () -> Unit) {
+    val context = LocalContext.current
+    val versionName = remember {
+        runCatching {
+            context.packageManager.getPackageInfo(context.packageName, 0).versionName ?: ""
+        }.getOrDefault("")
+    }
     FullOverlay {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             RetroText("GYRO", COLOR_GREEN, 52)
@@ -247,6 +254,8 @@ private fun MenuOverlay(onStart: () -> Unit, onSettings: () -> Unit) {
             BlinkingCta("[ TAP TO START ]", COLOR_RED, onStart)
             Spacer(Modifier.padding(8.dp))
             BlinkingCta("[ SETTINGS ]", COLOR_GREEN_DIM, onSettings)
+            Spacer(Modifier.padding(16.dp))
+            RetroText("v$versionName", COLOR_GREEN_DIM.copy(alpha = 0.4f), 12)
         }
     }
 }
