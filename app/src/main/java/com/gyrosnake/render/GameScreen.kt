@@ -150,6 +150,7 @@ fun GameScreen(viewModel: GameViewModel) {
         // State pattern: one overlay per GamePhase
         when (uiState.phase) {
             GamePhase.MENU      -> MenuOverlay(
+                highScore  = uiState.highScore,
                 onStart    = { viewModel.startGame() },
                 onSettings = { viewModel.openSettings() }
             )
@@ -241,7 +242,7 @@ private fun HudBar(score: Int, highScore: Int, modifier: Modifier = Modifier) {
 // --- Overlays (State pattern: one overlay per GamePhase) ---
 
 @Composable
-private fun MenuOverlay(onStart: () -> Unit, onSettings: () -> Unit) {
+private fun MenuOverlay(highScore: Int, onStart: () -> Unit, onSettings: () -> Unit) {
     val context = LocalContext.current
     val versionName = remember {
         runCatching {
@@ -254,6 +255,10 @@ private fun MenuOverlay(onStart: () -> Unit, onSettings: () -> Unit) {
             RetroText("SNAKE", COLOR_GREEN, 52)
             Spacer(Modifier.padding(12.dp))
             RetroText("TILT TO STEER", COLOR_GREEN_DIM, 18)
+            if (highScore > 0) {
+                Spacer(Modifier.padding(8.dp))
+                RetroText("BEST: $highScore", COLOR_GREEN_DIM, 18)
+            }
             Spacer(Modifier.padding(24.dp))
             BlinkingCta("[ TAP TO START ]", COLOR_RED, onStart)
             Spacer(Modifier.padding(8.dp))
