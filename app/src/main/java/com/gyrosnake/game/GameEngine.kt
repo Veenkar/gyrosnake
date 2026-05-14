@@ -118,14 +118,21 @@ class GameEngine(
         publish(GamePhase.MENU)
     }
 
-    /** Opens the settings screen — only valid from MENU. */
+    // Tracks which phase opened settings so closeSettings() can return to the right screen.
+    private var settingsOrigin: GamePhase = GamePhase.MENU
+
+    /** Opens the settings screen from MENU or PAUSED. */
     fun openSettings() {
-        if (_uiState.value.phase == GamePhase.MENU) publish(GamePhase.SETTINGS)
+        val phase = _uiState.value.phase
+        if (phase == GamePhase.MENU || phase == GamePhase.PAUSED) {
+            settingsOrigin = phase
+            publish(GamePhase.SETTINGS)
+        }
     }
 
-    /** Returns from settings back to the main menu. */
+    /** Returns from settings to whichever phase opened it (MENU or PAUSED). */
     fun closeSettings() {
-        if (_uiState.value.phase == GamePhase.SETTINGS) publish(GamePhase.MENU)
+        if (_uiState.value.phase == GamePhase.SETTINGS) publish(settingsOrigin)
     }
 
     /**

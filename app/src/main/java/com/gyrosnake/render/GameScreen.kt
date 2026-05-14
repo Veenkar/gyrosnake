@@ -170,8 +170,9 @@ fun GameScreen(viewModel: GameViewModel) {
                 onSettings = { viewModel.openSettings() }
             )
             GamePhase.PAUSED    -> PauseOverlay(
-                onResume = { viewModel.togglePause() },
-                onMenu   = { viewModel.goToMenu() }
+                onResume   = { viewModel.togglePause() },
+                onSettings = { viewModel.openSettings() },
+                onMenu     = { viewModel.goToMenu() }
             )
             GamePhase.GAME_OVER -> GameOverOverlay(uiState.score, uiState.highScore) {
                 viewModel.startGame()
@@ -285,12 +286,14 @@ private fun MenuOverlay(highScore: Int, onStart: () -> Unit, onSettings: () -> U
 }
 
 @Composable
-private fun PauseOverlay(onResume: () -> Unit, onMenu: () -> Unit) {
+private fun PauseOverlay(onResume: () -> Unit, onSettings: () -> Unit, onMenu: () -> Unit) {
     FullOverlay {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             RetroText("PAUSED", COLOR_GREEN, 42)
             Spacer(Modifier.padding(16.dp))
             BlinkingCta("[ TAP TO RESUME ]", COLOR_GREEN_DIM, onResume)
+            Spacer(Modifier.padding(8.dp))
+            BlinkingCta("[ SETTINGS ]", COLOR_GREEN_DIM, onSettings)
             Spacer(Modifier.padding(8.dp))
             BlinkingCta("[ MENU ]", COLOR_RED, onMenu)
         }
