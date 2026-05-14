@@ -48,8 +48,11 @@ import kotlin.math.sin
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
+import kotlin.math.abs
 import com.gyrosnake.GameViewModel
 import com.gyrosnake.game.ControlScheme
 import com.gyrosnake.game.Direction
@@ -452,25 +455,50 @@ private fun SchemeOption(
 // --- Overlay D-pad controls ---
 
 /**
- * Composite pattern: four ArrowButtons arranged in a cross, each firing a Direction.
- * Positioned by the caller (BottomEnd in GameScreen) so layout concerns stay separated.
+ * Composite pattern: four ArrowButtons arranged in a cross.
  *
- * Dead-zone pattern: the outer Box is a 240 dp clickable that consumes all tap events,
- * so near-misses around the D-pad never bubble up to the full-screen pause handler.
- * contentAlignment = BottomEnd keeps the buttons anchored to the same corner as before;
- * the extra space extends upward and to the left where accidental taps occur.
- * A subtle quarter-circle drawn at the corner gives a faint visual hint of the safe zone.
+ * Input is handled by a single pointerInput on the outer Box rather than individual
+ * button clickables. On every pointer event (down or move) while the finger is pressed,
+ * the position is compared to the D-pad centre to determine the quadrant (UP/DOWN/LEFT/RIGHT)
+ * and onDirection is fired immediately. This allows the user to hold a button and slide to
+ * another without lifting their finger.
+ *
+ * The Box (320 dp) is larger than the visual D-pad (~204 dp), acting as a dead zone:
+ * all events inside it are consumed so near-miss taps never reach the full-screen pause handler.
+ * A subtle quarter-circle drawn at the corner gives a visual hint of the safe area.
+ *
+ * D-pad centre in Box coordinates with Column anchored BottomEnd:
+ *   centre X = (320 - 200) + (68 + 64/2) = 120 + 100 = 220 dp
+ *   centre Y = (320 - 204) + (68 + 68/2) = 116 + 102 = 218 dp
  */
 @Composable
 private fun OverlayControls(onDirection: (Direction) -> Unit, modifier: Modifier = Modifier) {
+    val density = LocalDensity.current
+    val centerXPx = with(density) { 220.dp.toPx() }
+    val centerYPx = with(density) { 218.dp.toPx() }
+
     Box(
         modifier = modifier
             .size(320.dp)
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication        = null,
-                onClick           = {}  // dead zone — swallows miss-taps, never triggers pause
-            ),
+            .pointerInput(Unit) {
+                awaitPointerEventScope {
+                    while (true) {
+                        val event  = awaitPointerEvent()
+                        val change = event.changes.firstOrNull() ?: continue
+                        change.consume()                    // always consume — prevents pause
+                        if (!change.pressed) continue      // ignore finger-up events
+                        val dx  = change.position.x - centerXPx
+                        val dy  = change.position.y - centerYPx
+                        if (dx == 0f && dy == 0f) continue
+                        val dir = if (abs(dx) >= abs(dy)) {
+                            if (dx > 0) Direction.RIGHT else Direction.LEFT
+                        } else {
+                            if (dy > 0) Direction.DOWN else Direction.UP
+                        }
+                        onDirection(dir)
+                    }
+                }
+            },
         contentAlignment = Alignment.BottomEnd
     ) {
         Canvas(modifier = Modifier.matchParentSize()) {
@@ -481,29 +509,25 @@ private fun OverlayControls(onDirection: (Direction) -> Unit, modifier: Modifier
             )
         }
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            ArrowButton("▲") { onDirection(Direction.UP) }
+            ArrowButton("▲")
             Row(verticalAlignment = Alignment.CenterVertically) {
-                ArrowButton("◄") { onDirection(Direction.LEFT) }
+                ArrowButton("◄")
                 Spacer(Modifier.size(64.dp))
-                ArrowButton("►") { onDirection(Direction.RIGHT) }
+                ArrowButton("►")
             }
-            ArrowButton("▼") { onDirection(Direction.DOWN) }
+            ArrowButton("▼")
         }
     }
 }
 
+// Purely visual — all input is handled by the parent Box's pointerInput.
 @Composable
-private fun ArrowButton(symbol: String, onClick: () -> Unit) {
+private fun ArrowButton(symbol: String) {
     Box(
         modifier = Modifier
             .size(68.dp)
             .clip(CircleShape)
-            .background(Color.White.copy(alpha = 0.12f))
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication        = null,
-                onClick           = onClick
-            ),
+            .background(Color.White.copy(alpha = 0.12f)),
         contentAlignment = Alignment.Center
     ) {
         Text(
