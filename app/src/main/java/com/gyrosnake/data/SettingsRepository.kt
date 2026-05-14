@@ -17,6 +17,7 @@ class SettingsRepository private constructor(context: Context) {
         private const val KEY_CONTROL_SCHEME  = "control_scheme"
         private const val KEY_SOUND_ENABLED   = "sound_enabled"
         private const val KEY_MUSIC_ENABLED   = "music_enabled"
+        private const val KEY_HIGH_SCORE      = "high_score"
 
         @Volatile private var instance: SettingsRepository? = null
 
@@ -42,4 +43,8 @@ class SettingsRepository private constructor(context: Context) {
     var musicEnabled: Boolean
         get() = prefs.getBoolean(KEY_MUSIC_ENABLED, true)
         set(value) = prefs.edit().putBoolean(KEY_MUSIC_ENABLED, value).apply()
+
+    var highScore: Int
+        get() = prefs.getInt(KEY_HIGH_SCORE, 0)
+        set(value) = prefs.edit().putInt(KEY_HIGH_SCORE, value).apply()
 }

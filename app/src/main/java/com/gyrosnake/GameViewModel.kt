@@ -41,9 +41,11 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     private val music    = MusicPlayer(getApplication())
     val settings = SettingsRepository.getInstance(app)
     val engine   = GameEngine(
-        board = board,
-        onEat = { if (settings.soundEnabled) SoundManager.playEat() },
-        onDie = { if (settings.soundEnabled) SoundManager.playDie() }
+        board            = board,
+        initialHighScore = settings.highScore,
+        onEat            = { if (settings.soundEnabled) SoundManager.playEat() },
+        onDie            = { if (settings.soundEnabled) SoundManager.playDie() },
+        onNewHighScore   = { settings.highScore = it }
     )
 
     // Strategy pattern: holds the currently active input adapter.

@@ -33,8 +33,10 @@ private const val POINTS_PER_FOOD  = 10
  */
 class GameEngine(
     val board: GameBoard,
+    initialHighScore: Int = 0,
     private val onEat: () -> Unit = {},
-    private val onDie: () -> Unit = {}
+    private val onDie: () -> Unit = {},
+    private val onNewHighScore: (Int) -> Unit = {}
 ) {
 
     // --- Observer pattern: single StateFlow acting as the event bus ---
@@ -47,7 +49,7 @@ class GameEngine(
     private var snake: SnakeState = EntityFactory.createSnake(board)
     private var foods: List<Food> = emptyList()
     private var score = 0
-    private var highScore = 0
+    private var highScore = initialHighScore
     private var tickMs = INITIAL_TICK_MS
     private var tickCount = 0L
     private var foodEatenCount = 0
@@ -216,7 +218,10 @@ class GameEngine(
     }
 
     private fun endGame() {
-        if (score > highScore) highScore = score
+        if (score > highScore) {
+            highScore = score
+            onNewHighScore(highScore)
+        }
         gameLoopJob?.cancel()
         onDie()
         publish(GamePhase.GAME_OVER)
