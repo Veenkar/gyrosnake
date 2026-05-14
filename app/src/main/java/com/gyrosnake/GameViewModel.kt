@@ -72,37 +72,48 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         // Kept separate from direction collection so the two concerns don't interfere.
         viewModelScope.launch {
             engine.uiState.collect { s ->
-                val track = resolveTrack(s)
+                val cfg = resolveTrack(s)
                 when {
-                    track != null && s.phase == GamePhase.PLAYING -> music.play(track)
-                    track != null                                  -> music.pause()
-                    else                                           -> music.stop()
+                    cfg != null && s.phase == GamePhase.PLAYING -> music.play(cfg.resId, cfg.volume)
+                    cfg != null                                  -> music.pause()
+                    else                                         -> music.stop()
                 }
             }
         }
     }
 
+    // Value object carrying a track resource ID and its playback volume.
+    private data class TrackConfig(val resId: Int, val volume: Float)
+
     /**
-     * Routing table: maps current game state to a background music track resource ID.
+     * Routing table: maps current game state to a TrackConfig (track + volume).
      * Returns null for silence. Add new powerup or screen soundtracks here.
      *
      * Open/Closed principle: MusicPlayer and the observer loop never change — only
      * this function grows when new tracks are introduced.
      *
      * Priority: powerup tracks override the gameplay theme (first matching branch wins).
-     * PAUSED returns the same track as PLAYING so music resumes seamlessly on unpause.
+     * PAUSED returns the same config as PLAYING so music resumes seamlessly on unpause.
      * Phases with no music (MENU, SETTINGS, GAME_OVER) return null — the observer's
      * else branch calls music.stop(), resetting the track position for the next game.
      */
-    private fun resolveTrack(s: GameUiState): Int? = when (s.phase) {
+    private fun resolveTrack(s: GameUiState): TrackConfig? = when (s.phase) {
         GamePhase.PLAYING, GamePhase.PAUSED -> when {
-            s.activeEffects.any { it.effect is PowerUpEffect.Leaf }  -> R.raw.leafsnake
-            s.activeEffects.any { it.effect is PowerUpEffect.Disco } -> R.raw.discosnake
-            else -> R.raw.normalsnake
+            s.activeEffects.any { it.effect is PowerUpEffect.Leaf }  ->
+                TrackConfig(R.raw.leafsnake,   VOLUME_FULL)
+            s.activeEffects.any { it.effect is PowerUpEffect.Disco } ->
+                TrackConfig(R.raw.discosnake,  VOLUME_QUIET)
+            else ->
+                TrackConfig(R.raw.normalsnake, VOLUME_QUIET)
         }
-        // GamePhase.MENU -> R.raw.menu_music  // future
-        // GamePhase.GAME_OVER -> R.raw.death_sting  // future
+        // GamePhase.MENU -> TrackConfig(R.raw.menu_music, VOLUME_QUIET)  // future
+        // GamePhase.GAME_OVER -> TrackConfig(R.raw.death_sting, VOLUME_FULL)  // future
         else -> null
+    }
+
+    companion object {
+        private const val VOLUME_FULL  = 1.0f
+        private const val VOLUME_QUIET = 0.3162f  // -10 dB: 10^(-10/20)
     }
 
     override fun onCleared() {

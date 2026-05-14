@@ -32,16 +32,17 @@ class MusicPlayer(private val context: Context) {
     private var state = State.STOPPED
 
     /**
-     * Plays [resId]:
+     * Plays [resId] at the given [volume] (0.0–1.0, linear amplitude):
      * - Same track, already playing → no-op.
-     * - Same track, paused or stopped → resume from current position.
+     * - Same track, paused or stopped → reapply volume and resume from current position.
      * - Different track → capture current position (Memento), release old player,
      *   create new one and seek to the same offset. Falls back to 0 if the offset
      *   exceeds the new track's duration.
      */
-    fun play(resId: Int) {
+    fun play(resId: Int, volume: Float = 1f) {
         if (resId == currentResId) {
             if (state != State.PLAYING) {
+                player?.setVolume(volume, volume)
                 player?.start()
                 state = State.PLAYING
             }
@@ -53,6 +54,7 @@ class MusicPlayer(private val context: Context) {
         currentResId = resId
         player = MediaPlayer.create(context, resId)?.apply {
             isLooping = true
+            setVolume(volume, volume)
             val targetMs = if (offsetMs < duration) offsetMs else 0
             seekTo(targetMs)
         }
