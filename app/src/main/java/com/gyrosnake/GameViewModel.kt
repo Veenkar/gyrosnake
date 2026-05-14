@@ -40,8 +40,9 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     val board    = GameBoard(columns = 20, rows = 12)
     // Facade pattern: single MusicPlayer instance for all background tracks.
     // Track selection is delegated to resolveTrack() — add new soundtracks there.
-    private val music        = MusicPlayer(getApplication())
+    private val music        = MusicPlayer(getApplication())  // game tracks
     private val musicOverlay = MusicPlayer(getApplication())  // Disco solo layer
+    private val musicMenu    = MusicPlayer(getApplication())  // menu.ogg — runs independently
     val settings = SettingsRepository.getInstance(app)
     val engine   = GameEngine(
         board            = board,
@@ -98,8 +99,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     // Sound priority: the most recently eaten effect (lastOrNull) wins.
     // Disco as base → normalsnake; the overlay adds discosnake_solo on top.
     // Any other effect as last → its own track, Disco overlay suppressed.
-    // PLAYING + PAUSED both return the same game track so MusicPlayer can pause/resume
-    // at the same position. menu.ogg plays on all true menu screens (not during pause).
+    // Game track: PLAYING drives it, PAUSED pauses it (preserves position for seamless resume).
     private fun resolveTrack(s: GameUiState): TrackConfig? = when (s.phase) {
         GamePhase.PLAYING, GamePhase.PAUSED -> when (s.activeEffects.lastOrNull()?.effect) {
             is PowerUpEffect.Leaf  -> TrackConfig(R.raw.leafsnake,   VOLUME_FULL,       startFromBeginning = true)
@@ -107,9 +107,6 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
             is PowerUpEffect.Disco -> TrackConfig(R.raw.normalsnake, VOLUME_QUIET_DISCO)
             else                   -> TrackConfig(R.raw.normalsnake, VOLUME_QUIET)
         }
-        // menu.ogg loops continuously across menu screens; same resId keeps it uninterrupted.
-        GamePhase.MENU, GamePhase.SETTINGS, GamePhase.GAME_OVER ->
-            TrackConfig(R.raw.menu, VOLUME_MENU, startFromBeginning = true)
         else -> null
     }
 
@@ -120,26 +117,42 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
             TrackConfig(R.raw.discosnake_solo, VOLUME_DISCO_SOLO)
         else null
 
+    // Menu music runs on its own player so it never interferes with game track pause/resume.
+    // startFromBeginning=false: same resId → MusicPlayer early-return keeps it playing
+    // uninterrupted as the user moves between PAUSED → MENU → SETTINGS → GAME_OVER.
+    private fun resolveMenu(s: GameUiState): TrackConfig? = when (s.phase) {
+        GamePhase.MENU, GamePhase.PAUSED, GamePhase.SETTINGS, GamePhase.GAME_OVER ->
+            TrackConfig(R.raw.menu, VOLUME_MENU)
+        else -> null
+    }
+
     /** Applies the current music state immediately — called by both the uiState observer
      *  and applyMusicVolume so slider changes take effect without waiting for the next tick. */
     private fun updateMusicForState(s: GameUiState) {
         val mv      = settings.musicVolume
-        if (mv <= 0f) { music.stop(); musicOverlay.stop(); return }
+        if (mv <= 0f) { music.stop(); musicOverlay.stop(); musicMenu.stop(); return }
         val cfg     = resolveTrack(s)
         val overlay = resolveOverlay(s)
+        val menuCfg = resolveMenu(s)
         val playing = s.phase == GamePhase.PLAYING
+
+        // Game track: play or pause to preserve position, stop on menu screens.
         when {
-            cfg != null && (playing || s.phase == GamePhase.MENU ||
-                s.phase == GamePhase.SETTINGS || s.phase == GamePhase.GAME_OVER)
-                            -> music.play(cfg.resId, cfg.volume * mv, cfg.startFromBeginning)
-            cfg != null     -> music.pause()   // PAUSED: preserve position for seamless resume
-            else            -> music.stop()
+            cfg != null && playing -> music.play(cfg.resId, cfg.volume * mv, cfg.startFromBeginning)
+            cfg != null            -> music.pause()
+            else                   -> music.stop()
         }
+        // Disco overlay: mirrors game track play/pause.
         when {
             overlay != null && playing ->
                 musicOverlay.play(overlay.resId, overlay.volume * mv, startPositionMs = music.currentPosition)
             overlay != null -> musicOverlay.pause()
             else            -> musicOverlay.stop()
+        }
+        // Menu music: independent loop, unaffected by game track state.
+        when {
+            menuCfg != null -> musicMenu.play(menuCfg.resId, menuCfg.volume * mv)
+            else            -> musicMenu.stop()
         }
     }
 
@@ -155,6 +168,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         super.onCleared()
         music.release()
         musicOverlay.release()
+        musicMenu.release()
     }
 
     // --- Lifecycle hooks called by GameScreen's DisposableEffect ---
