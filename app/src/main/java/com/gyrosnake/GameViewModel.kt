@@ -98,16 +98,18 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
      * Phases with no music (MENU, SETTINGS, GAME_OVER) return null — the observer's
      * else branch calls music.stop(), resetting the track position for the next game.
      */
+    /**
+     * Sound priority: activeEffects is ordered oldest-first (effects are appended on eat).
+     * lastOrNull() gives the most recently eaten non-expired effect, so whichever powerup
+     * was eaten last drives the music. When it expires and is removed, lastOrNull() falls
+     * back to the next most recent, eventually returning to the main theme when none remain.
+     */
     private fun resolveTrack(s: GameUiState): TrackConfig? = when (s.phase) {
-        GamePhase.PLAYING, GamePhase.PAUSED -> when {
-            s.activeEffects.any { it.effect is PowerUpEffect.Leaf }  ->
-                TrackConfig(R.raw.leafsnake,   VOLUME_FULL,  startFromBeginning = true)
-            s.activeEffects.any { it.effect is PowerUpEffect.Candy } ->
-                TrackConfig(R.raw.candysnake,  VOLUME_QUIET, startFromBeginning = true)
-            s.activeEffects.any { it.effect is PowerUpEffect.Disco } ->
-                TrackConfig(R.raw.discosnake,  VOLUME_QUIET)
-            else ->
-                TrackConfig(R.raw.normalsnake, VOLUME_QUIET)
+        GamePhase.PLAYING, GamePhase.PAUSED -> when (s.activeEffects.lastOrNull()?.effect) {
+            is PowerUpEffect.Leaf  -> TrackConfig(R.raw.leafsnake,   VOLUME_FULL,  startFromBeginning = true)
+            is PowerUpEffect.Candy -> TrackConfig(R.raw.candysnake,  VOLUME_QUIET, startFromBeginning = true)
+            is PowerUpEffect.Disco -> TrackConfig(R.raw.discosnake,  VOLUME_QUIET)
+            else                   -> TrackConfig(R.raw.normalsnake, VOLUME_QUIET)
         }
         // GamePhase.MENU -> TrackConfig(R.raw.menu_music, VOLUME_QUIET)  // future
         // GamePhase.GAME_OVER -> TrackConfig(R.raw.death_sting, VOLUME_FULL)  // future

@@ -175,9 +175,24 @@ class GameEngine(
 
             // Observer / Strategy: apply effect if this was a power-up food.
             // Adding new effect types only requires a new branch here.
+            //
+            // Cancellation rule: Candy and Leaf are opposites — eating one while the
+            // other is active removes both, returning the snake to the normal state.
+            // Disco is orthogonal and always stacks freely with either.
             eatenFood!!.effect?.let { effect ->
-                val durationMs = (effect.minDurationMs..effect.maxDurationMs).random()
-                activeEffects = activeEffects + ActiveEffect(effect, System.currentTimeMillis() + durationMs)
+                val oppositeActive = when (effect) {
+                    is PowerUpEffect.Candy -> activeEffects.any { it.effect is PowerUpEffect.Leaf }
+                    is PowerUpEffect.Leaf  -> activeEffects.any { it.effect is PowerUpEffect.Candy }
+                    else                   -> false
+                }
+                if (oppositeActive) {
+                    activeEffects = activeEffects.filterNot {
+                        it.effect is PowerUpEffect.Candy || it.effect is PowerUpEffect.Leaf
+                    }
+                } else {
+                    val durationMs = (effect.minDurationMs..effect.maxDurationMs).random()
+                    activeEffects = activeEffects + ActiveEffect(effect, System.currentTimeMillis() + durationMs)
+                }
             }
 
             val remaining = foods - eatenFood
