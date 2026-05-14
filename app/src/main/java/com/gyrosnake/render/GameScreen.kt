@@ -395,12 +395,12 @@ private fun SettingsOverlay(
             }
         }
 
-        // Pinned bottom-right — always visible above the scrollable content
+        // Pinned top-left — always visible above the scrollable content
         Column(
             modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(end = 24.dp, bottom = 24.dp),
-            horizontalAlignment = Alignment.End
+                .align(Alignment.TopStart)
+                .padding(start = 24.dp, top = 24.dp),
+            horizontalAlignment = Alignment.Start
         ) {
             BlinkingCta("[ BACK ]", COLOR_GREEN_DIM, onBack)
             if (onMenu != null) {
