@@ -352,7 +352,15 @@ private fun SettingsOverlay(
     // Bottom bar height: BACK + optional MENU + padding
     val bottomBarDp = if (onMenu != null) 112.dp else 72.dp
 
-    Box(modifier = Modifier.fillMaxSize().background(COLOR_OVERLAY)) {
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .background(COLOR_OVERLAY)
+        .clickable(
+            interactionSource = remember { MutableInteractionSource() },
+            indication        = null,
+            onClick           = onBack
+        )
+    ) {
 
         // Scrollable content — padded at the bottom so it never slides under the pinned bar
         Column(
