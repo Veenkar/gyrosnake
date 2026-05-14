@@ -62,6 +62,9 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     // Tracks whether the adapter is currently registered (between onResume / onPause)
     // so that applyControlScheme can hand off registration to the new adapter atomically.
     @Volatile private var adapterActive = false
+    // Set true between onPause and onResume so updateMusicForState silences all players
+    // even when the game phase (PAUSED, MENU, etc.) would normally keep menu music running.
+    @Volatile private var appInBackground = false
 
     init {
         // Observer pattern: flatMapLatest cancels the previous direction collection
@@ -129,6 +132,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     /** Applies the current music state immediately — called by both the uiState observer
      *  and applyMusicVolume so slider changes take effect without waiting for the next tick. */
     private fun updateMusicForState(s: GameUiState) {
+        if (appInBackground) { music.pause(); musicOverlay.pause(); musicMenu.pause(); return }
         val mv      = settings.musicVolume
         if (mv <= 0f) { music.stop(); musicOverlay.stop(); musicMenu.stop(); return }
         val cfg     = resolveTrack(s)
@@ -174,15 +178,21 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     // --- Lifecycle hooks called by GameScreen's DisposableEffect ---
 
     fun onAdapterResumed(displayRotation: Int) {
+        appInBackground = false
         adapterActive = true
         inputAdapter.displayRotation = displayRotation
         inputAdapter.register()
+        updateMusicForState(engine.uiState.value)
     }
 
     fun onAdapterPaused() {
+        appInBackground = true
         adapterActive = false
         inputAdapter.unregister()
         pauseIfPlaying()
+        music.pause()
+        musicOverlay.pause()
+        musicMenu.pause()
     }
 
     // --- Settings ---
