@@ -99,10 +99,11 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     // Disco as base → normalsnake; the overlay adds discosnake_solo on top.
     // Any other effect as last → its own track, Disco overlay suppressed.
     private fun resolveTrack(s: GameUiState): TrackConfig? = when (s.phase) {
+        GamePhase.MENU          -> TrackConfig(R.raw.menu,          VOLUME_MENU,  startFromBeginning = true)
         GamePhase.PLAYING, GamePhase.PAUSED -> when (s.activeEffects.lastOrNull()?.effect) {
             is PowerUpEffect.Leaf  -> TrackConfig(R.raw.leafsnake,   VOLUME_FULL,       startFromBeginning = true)
             is PowerUpEffect.Candy -> TrackConfig(R.raw.candysnake,  VOLUME_QUIET,      startFromBeginning = true)
-            is PowerUpEffect.Disco -> TrackConfig(R.raw.normalsnake, VOLUME_QUIET_DISCO) // dimmed −10 dB while solo plays
+            is PowerUpEffect.Disco -> TrackConfig(R.raw.normalsnake, VOLUME_QUIET_DISCO)
             else                   -> TrackConfig(R.raw.normalsnake, VOLUME_QUIET)
         }
         else -> null
@@ -124,10 +125,11 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         if (mv <= 0f) { music.stop(); musicOverlay.stop(); return }
         val cfg     = resolveTrack(s)
         val overlay = resolveOverlay(s)
+        val shouldPlay = s.phase == GamePhase.PLAYING || s.phase == GamePhase.MENU
         when {
-            cfg != null && s.phase == GamePhase.PLAYING -> music.play(cfg.resId, cfg.volume * mv, cfg.startFromBeginning)
-            cfg != null                                  -> music.pause()
-            else                                         -> music.stop()
+            cfg != null && shouldPlay -> music.play(cfg.resId, cfg.volume * mv, cfg.startFromBeginning)
+            cfg != null               -> music.pause()
+            else                      -> music.stop()
         }
         // Overlay seeked to base track's current position on first start for sync.
         // Subsequent calls hit the early-return in MusicPlayer.play() — no re-seek.
@@ -144,6 +146,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         private const val VOLUME_QUIET       = 0.3162f  // -10 dB: 10^(-10/20)
         private const val VOLUME_QUIET_DISCO = 0.1f     // -20 dB: normalsnake under Disco (VOLUME_QUIET − 10 dB)
         private const val VOLUME_DISCO_SOLO  = 0.3162f  // -10 dB: discosnake_solo (10 dB below full)
+        private const val VOLUME_MENU        = 0.1f     // -20 dB: 10^(-20/20)
     }
 
     override fun onCleared() {
