@@ -95,22 +95,22 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
      * was eaten last drives the music. PAUSED returns the same config as PLAYING so music
      * resumes seamlessly on unpause. Phases with no music return null → music.stop().
      */
-    // Disco is excluded from the base-track switch: normalsnake keeps playing underneath.
-    // lastOrNull{non-Disco} finds the correct base when Disco stacks with Leaf or Candy.
+    // Sound priority: the most recently eaten effect (lastOrNull) wins.
+    // Disco as base → normalsnake; the overlay adds discosnake_solo on top.
+    // Any other effect as last → its own track, Disco overlay suppressed.
     private fun resolveTrack(s: GameUiState): TrackConfig? = when (s.phase) {
-        GamePhase.PLAYING, GamePhase.PAUSED -> when (s.activeEffects.lastOrNull { it.effect !is PowerUpEffect.Disco }?.effect) {
+        GamePhase.PLAYING, GamePhase.PAUSED -> when (s.activeEffects.lastOrNull()?.effect) {
             is PowerUpEffect.Leaf  -> TrackConfig(R.raw.leafsnake,   VOLUME_FULL,  startFromBeginning = true)
             is PowerUpEffect.Candy -> TrackConfig(R.raw.candysnake,  VOLUME_QUIET, startFromBeginning = true)
-            else                   -> TrackConfig(R.raw.normalsnake, VOLUME_QUIET)
+            else                   -> TrackConfig(R.raw.normalsnake, VOLUME_QUIET)  // Disco and no-effect both use normalsnake
         }
         else -> null
     }
 
-    // Disco overlay: discosnake_solo.ogg plays simultaneously with the base track,
-    // synchronized to its position, at 15 dB below VOLUME_QUIET (−25 dB total).
+    // Overlay only when Disco is the most recently eaten effect — same lastOrNull() priority.
     private fun resolveOverlay(s: GameUiState): TrackConfig? = when (s.phase) {
         GamePhase.PLAYING, GamePhase.PAUSED ->
-            if (s.activeEffects.any { it.effect is PowerUpEffect.Disco })
+            if (s.activeEffects.lastOrNull()?.effect is PowerUpEffect.Disco)
                 TrackConfig(R.raw.discosnake_solo, VOLUME_DISCO_SOLO)
             else null
         else -> null
