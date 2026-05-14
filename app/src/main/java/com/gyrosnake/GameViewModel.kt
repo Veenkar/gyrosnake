@@ -74,7 +74,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
             engine.uiState.collect { s ->
                 val cfg = resolveTrack(s)
                 when {
-                    cfg != null && s.phase == GamePhase.PLAYING -> music.play(cfg.resId, cfg.volume)
+                    cfg != null && s.phase == GamePhase.PLAYING -> music.play(cfg.resId, cfg.volume, cfg.startFromBeginning)
                     cfg != null                                  -> music.pause()
                     else                                         -> music.stop()
                 }
@@ -82,8 +82,8 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
-    // Value object carrying a track resource ID and its playback volume.
-    private data class TrackConfig(val resId: Int, val volume: Float)
+    // Value object carrying a track resource ID, playback volume, and sync behaviour.
+    private data class TrackConfig(val resId: Int, val volume: Float, val startFromBeginning: Boolean = false)
 
     /**
      * Routing table: maps current game state to a TrackConfig (track + volume).
@@ -100,7 +100,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     private fun resolveTrack(s: GameUiState): TrackConfig? = when (s.phase) {
         GamePhase.PLAYING, GamePhase.PAUSED -> when {
             s.activeEffects.any { it.effect is PowerUpEffect.Leaf }  ->
-                TrackConfig(R.raw.leafsnake,   VOLUME_FULL)
+                TrackConfig(R.raw.leafsnake,   VOLUME_FULL,  startFromBeginning = true)
             s.activeEffects.any { it.effect is PowerUpEffect.Disco } ->
                 TrackConfig(R.raw.discosnake,  VOLUME_QUIET)
             else ->

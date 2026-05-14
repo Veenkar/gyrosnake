@@ -30,16 +30,24 @@ class MusicPlayer(private val context: Context) {
     private var player: MediaPlayer? = null
     private var currentResId: Int = 0
     private var state = State.STOPPED
+    // True only while a track that participates in cross-track position sync is loaded.
+    // Tracks marked startFromBeginning opt out of sync both when entered and exited.
+    private var syncable = false
 
     /**
-     * Plays [resId] at the given [volume] (0.0–1.0, linear amplitude):
-     * - Same track, already playing → no-op.
-     * - Same track, paused or stopped → reapply volume and resume from current position.
-     * - Different track → capture current position (Memento), release old player,
-     *   create new one and seek to the same offset. Falls back to 0 if the offset
-     *   exceeds the new track's duration.
+     * Plays [resId] at [volume] (0.0–1.0, linear amplitude).
+     *
+     * [startFromBeginning] = true: always start this track from 0, and do not carry
+     * its playback position forward to the next track (opts out of Memento sync in
+     * both directions). Use for tracks like Leaf that are independent of the main loop.
+     *
+     * [startFromBeginning] = false (default): participate in cross-track sync —
+     * Memento captures the outgoing position and seeks the incoming track to the same
+     * offset, keeping paired tracks (e.g. normalsnake / discosnake) perceptually aligned.
+     * Falls back to 0 if the offset overshoots the new track's duration, or if the
+     * outgoing track had opted out of sync.
      */
-    fun play(resId: Int, volume: Float = 1f) {
+    fun play(resId: Int, volume: Float = 1f, startFromBeginning: Boolean = false) {
         if (resId == currentResId) {
             if (state != State.PLAYING) {
                 player?.setVolume(volume, volume)
@@ -48,14 +56,15 @@ class MusicPlayer(private val context: Context) {
             }
             return
         }
-        // Memento: save playback offset before releasing the outgoing track.
-        val offsetMs = player?.currentPosition ?: 0
+        // Memento: only carry offset when both outgoing and incoming tracks participate.
+        val offsetMs = if (syncable && !startFromBeginning) player?.currentPosition ?: 0 else 0
         player?.release()
         currentResId = resId
+        syncable = !startFromBeginning
         player = MediaPlayer.create(context, resId)?.apply {
             isLooping = true
             setVolume(volume, volume)
-            val targetMs = if (offsetMs < duration) offsetMs else 0
+            val targetMs = if (offsetMs in 1 until duration) offsetMs else 0
             seekTo(targetMs)
         }
         player?.start()
