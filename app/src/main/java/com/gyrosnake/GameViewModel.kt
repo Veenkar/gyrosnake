@@ -98,25 +98,29 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     // Sound priority: the most recently eaten effect (lastOrNull) wins.
     // Disco as base → normalsnake; the overlay adds discosnake_solo on top.
     // Any other effect as last → its own track, Disco overlay suppressed.
+    // Game tracks: PLAYING only. menu.ogg covers all menu-like screens continuously.
     private fun resolveTrack(s: GameUiState): TrackConfig? = when (s.phase) {
-        GamePhase.MENU          -> TrackConfig(R.raw.menu,          VOLUME_MENU,  startFromBeginning = true)
-        GamePhase.PLAYING, GamePhase.PAUSED -> when (s.activeEffects.lastOrNull()?.effect) {
+        GamePhase.PLAYING -> when (s.activeEffects.lastOrNull()?.effect) {
             is PowerUpEffect.Leaf  -> TrackConfig(R.raw.leafsnake,   VOLUME_FULL,       startFromBeginning = true)
             is PowerUpEffect.Candy -> TrackConfig(R.raw.candysnake,  VOLUME_QUIET,      startFromBeginning = true)
             is PowerUpEffect.Disco -> TrackConfig(R.raw.normalsnake, VOLUME_QUIET_DISCO)
             else                   -> TrackConfig(R.raw.normalsnake, VOLUME_QUIET)
         }
+        // menu.ogg loops continuously across all non-gameplay screens.
+        // startFromBeginning=true so it never donates its position to game tracks on switch.
+        // MusicPlayer's early-return (same resId) keeps it playing without interruption
+        // as the user moves between MENU → SETTINGS → PAUSED → GAME_OVER.
+        GamePhase.MENU, GamePhase.PAUSED, GamePhase.SETTINGS, GamePhase.GAME_OVER ->
+            TrackConfig(R.raw.menu, VOLUME_MENU, startFromBeginning = true)
         else -> null
     }
 
-    // Overlay only when Disco is the most recently eaten effect — same lastOrNull() priority.
-    private fun resolveOverlay(s: GameUiState): TrackConfig? = when (s.phase) {
-        GamePhase.PLAYING, GamePhase.PAUSED ->
-            if (s.activeEffects.lastOrNull()?.effect is PowerUpEffect.Disco)
-                TrackConfig(R.raw.discosnake_solo, VOLUME_DISCO_SOLO)
-            else null
-        else -> null
-    }
+    // Overlay only during PLAYING — no Disco solo over menu music.
+    private fun resolveOverlay(s: GameUiState): TrackConfig? =
+        if (s.phase == GamePhase.PLAYING &&
+                s.activeEffects.lastOrNull()?.effect is PowerUpEffect.Disco)
+            TrackConfig(R.raw.discosnake_solo, VOLUME_DISCO_SOLO)
+        else null
 
     /** Applies the current music state immediately — called by both the uiState observer
      *  and applyMusicVolume so slider changes take effect without waiting for the next tick. */
@@ -125,19 +129,15 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         if (mv <= 0f) { music.stop(); musicOverlay.stop(); return }
         val cfg     = resolveTrack(s)
         val overlay = resolveOverlay(s)
-        val shouldPlay = s.phase == GamePhase.PLAYING || s.phase == GamePhase.MENU
+        // No phase needs "pause" anymore: PAUSED plays menu.ogg, PLAYING plays game tracks.
         when {
-            cfg != null && shouldPlay -> music.play(cfg.resId, cfg.volume * mv, cfg.startFromBeginning)
-            cfg != null               -> music.pause()
-            else                      -> music.stop()
+            cfg != null -> music.play(cfg.resId, cfg.volume * mv, cfg.startFromBeginning)
+            else        -> music.stop()
         }
-        // Overlay seeked to base track's current position on first start for sync.
-        // Subsequent calls hit the early-return in MusicPlayer.play() — no re-seek.
         when {
-            overlay != null && s.phase == GamePhase.PLAYING ->
+            overlay != null ->
                 musicOverlay.play(overlay.resId, overlay.volume * mv, startPositionMs = music.currentPosition)
-            overlay != null -> musicOverlay.pause()
-            else            -> musicOverlay.stop()
+            else -> musicOverlay.stop()
         }
     }
 
