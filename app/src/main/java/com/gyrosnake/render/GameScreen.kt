@@ -14,11 +14,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.draw.clip
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -184,7 +187,8 @@ fun GameScreen(viewModel: GameViewModel) {
                 onSoundToggle    = { viewModel.applySoundEnabled(it) },
                 musicEnabled     = viewModel.settings.musicEnabled,
                 onMusicToggle    = { viewModel.applyMusicEnabled(it) },
-                onBack           = { viewModel.closeSettings() }
+                onBack           = { viewModel.closeSettings() },
+                onMenu           = if (viewModel.engine.settingsOpenedFromPause) {{ viewModel.goToMenu() }} else null
             )
             GamePhase.PLAYING   -> Unit
         }
@@ -319,17 +323,14 @@ private fun GameOverOverlay(score: Int, highScore: Int, onRestart: () -> Unit) {
 }
 
 /**
- * Settings overlay — allows selecting a control scheme at runtime.
- *
- * Composite pattern: each scheme option is a self-contained selectable row.
- * Selection is applied immediately (no confirm step) so the player can
- * try each scheme and the choice persists across sessions via SettingsRepository.
- */
-/**
  * Settings overlay — controls, sound, and music toggles.
  *
  * Composite pattern: each option (SchemeOption, ToggleOption) is a self-contained
  * interactive row. All changes apply immediately and persist via SettingsRepository.
+ *
+ * Layout: BACK is pinned to the bottom of the screen so it is always reachable
+ * regardless of content height. The settings body scrolls independently above it.
+ * The system back button is wired via BackHandler so hardware/gesture back works too.
  */
 @Composable
 private fun SettingsOverlay(
@@ -339,14 +340,28 @@ private fun SettingsOverlay(
     onSoundToggle: (Boolean) -> Unit,
     musicEnabled: Boolean,
     onMusicToggle: (Boolean) -> Unit,
-    onBack: () -> Unit
+    onBack: () -> Unit,
+    onMenu: (() -> Unit)? = null
 ) {
+    BackHandler(onBack = onBack)
+
     var selected by remember { mutableStateOf(currentScheme) }
     var soundOn  by remember { mutableStateOf(soundEnabled) }
     var musicOn  by remember { mutableStateOf(musicEnabled) }
 
-    FullOverlay {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+    // Bottom bar height: BACK + optional MENU + padding
+    val bottomBarDp = if (onMenu != null) 112.dp else 72.dp
+
+    Box(modifier = Modifier.fillMaxSize().background(COLOR_OVERLAY)) {
+
+        // Scrollable content — padded at the bottom so it never slides under the pinned bar
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(top = 32.dp, bottom = bottomBarDp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             RetroText("SETTINGS", COLOR_GREEN, 36)
             Spacer(Modifier.padding(12.dp))
 
@@ -378,9 +393,20 @@ private fun SettingsOverlay(
                 musicOn = !musicOn
                 onMusicToggle(musicOn)
             }
+        }
 
-            Spacer(Modifier.padding(20.dp))
-            BlinkingCta("[ BACK ]", COLOR_RED, onBack)
+        // Pinned bottom bar — always visible above the scrollable content
+        Column(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 24.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            BlinkingCta("[ BACK ]", COLOR_GREEN_DIM, onBack)
+            if (onMenu != null) {
+                Spacer(Modifier.padding(8.dp))
+                BlinkingCta("[ MENU ]", COLOR_RED, onMenu)
+            }
         }
     }
 }
