@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.gyrosnake"
-        minSdk = 31          // Android 12
+        minSdk = 23          // Android 6.0
         targetSdk = 35
         versionCode = 9
         versionName = "1.8"
