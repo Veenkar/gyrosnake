@@ -13,11 +13,12 @@ import com.gyrosnake.game.ControlScheme
 class SettingsRepository private constructor(context: Context) {
 
     companion object {
-        private const val PREFS_NAME          = "gyrosnake_settings"
-        private const val KEY_CONTROL_SCHEME  = "control_scheme"
-        private const val KEY_SOUND_VOLUME    = "sound_volume"
-        private const val KEY_MUSIC_VOLUME    = "music_volume"
-        private const val KEY_HIGH_SCORE      = "high_score"
+        private const val PREFS_NAME                    = "gyrosnake_settings"
+        private const val KEY_CONTROL_SCHEME            = "control_scheme"
+        private const val KEY_CONTROL_SCHEME_CONFIGURED = "control_scheme_configured"
+        private const val KEY_SOUND_VOLUME              = "sound_volume"
+        private const val KEY_MUSIC_VOLUME              = "music_volume"
+        private const val KEY_HIGH_SCORE                = "high_score"
 
         @Volatile private var instance: SettingsRepository? = null
 
@@ -31,10 +32,14 @@ class SettingsRepository private constructor(context: Context) {
 
     var controlScheme: ControlScheme
         get() = ControlScheme.valueOf(
-            prefs.getString(KEY_CONTROL_SCHEME, ControlScheme.GRAVITY.name)
-                ?: ControlScheme.GRAVITY.name
+            prefs.getString(KEY_CONTROL_SCHEME, ControlScheme.OVERLAY.name)
+                ?: ControlScheme.OVERLAY.name
         )
         set(value) = prefs.edit().putString(KEY_CONTROL_SCHEME, value.name).apply()
+
+    var isControlSchemeConfigured: Boolean
+        get() = prefs.getBoolean(KEY_CONTROL_SCHEME_CONFIGURED, false)
+        set(value) = prefs.edit().putBoolean(KEY_CONTROL_SCHEME_CONFIGURED, value).apply()
 
     var soundVolume: Float
         get() = prefs.getFloat(KEY_SOUND_VOLUME, 0.2f)

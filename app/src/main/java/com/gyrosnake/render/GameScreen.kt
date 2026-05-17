@@ -74,7 +74,8 @@ private val COLOR_OVERLAY   = Color(0xCC000000)
  */
 @Composable
 fun GameScreen(viewModel: GameViewModel) {
-    val uiState by viewModel.engine.uiState.collectAsState()
+    val uiState       by viewModel.engine.uiState.collectAsState()
+    val needsSetup    by viewModel.needsControlSetup.collectAsState()
 
     val isDiscoActive = uiState.activeEffects.any { it.effect is PowerUpEffect.Disco }
     val isLeafActive  = uiState.activeEffects.any { it.effect is PowerUpEffect.Leaf }
@@ -197,6 +198,13 @@ fun GameScreen(viewModel: GameViewModel) {
                 onBack           = { viewModel.closeSettings() }
             )
             GamePhase.PLAYING   -> Unit
+        }
+
+        if (needsSetup) {
+            ControlSetupOverlay(
+                initial  = viewModel.settings.controlScheme,
+                onConfirm = { viewModel.confirmControlSetup(it) }
+            )
         }
     }
 }
@@ -414,6 +422,43 @@ private fun SettingsOverlay(
                 .align(Alignment.TopStart)
                 .padding(start = 24.dp, top = 24.dp)
         )
+    }
+}
+
+/**
+ * First-launch control scheme picker — shown once until the user confirms a choice.
+ * OVERLAY is pre-selected (first entry in ControlScheme.entries after reordering).
+ * Confirming persists the selection and dismisses this overlay permanently.
+ */
+@Composable
+private fun ControlSetupOverlay(initial: ControlScheme, onConfirm: (ControlScheme) -> Unit) {
+    var selected by remember { mutableStateOf(initial) }
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(COLOR_BG)
+    ) {
+        Column(
+            modifier            = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(vertical = 48.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            RetroText("CHOOSE CONTROLS", COLOR_GREEN, 28)
+            Spacer(Modifier.padding(20.dp))
+            ControlScheme.entries.forEach { scheme ->
+                SchemeOption(
+                    label      = scheme.label,
+                    hint       = scheme.description,
+                    isSelected = selected == scheme,
+                    onClick    = { selected = scheme }
+                )
+                Spacer(Modifier.padding(12.dp))
+            }
+            Spacer(Modifier.padding(16.dp))
+            BlinkingCta("[ CONFIRM ]", COLOR_GREEN, onClick = { onConfirm(selected) })
+        }
     }
 }
 

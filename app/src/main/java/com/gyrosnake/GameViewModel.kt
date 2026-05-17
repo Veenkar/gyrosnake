@@ -52,6 +52,9 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         onNewHighScore   = { settings.highScore = it }
     )
 
+    // True until the user picks a control scheme on first launch.
+    val needsControlSetup = MutableStateFlow(!settings.isControlSchemeConfigured)
+
     // Strategy pattern: holds the currently active input adapter.
     // MutableStateFlow allows flatMapLatest to transparently re-subscribe when swapped.
     private val _inputAdapter = MutableStateFlow<TiltInputAdapter>(
@@ -202,6 +205,12 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
      * old adapter and registers the new one if the sensor is currently active.
      * Factory Method pattern: [createAdapter] handles the concrete instantiation.
      */
+    fun confirmControlSetup(scheme: ControlScheme) {
+        applyControlScheme(scheme)
+        settings.isControlSchemeConfigured = true
+        needsControlSetup.value = false
+    }
+
     fun applySoundVolume(vol: Float) { settings.soundVolume = vol }
     fun applyMusicVolume(vol: Float) { settings.musicVolume = vol; updateMusicForState(engine.uiState.value) }
 
