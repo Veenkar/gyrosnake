@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GyroSnake</string>
+
+    <string name="score_label">SCORE : %1$d</string>
+    <string name="best_label">RECORD : %1$d</string>
+
+    <string name="title_gyro">GYRO</string>
+    <string name="title_snake">SNAKE</string>
+    <string name="tilt_to_steer">INCLINEZ POUR DIRIGER</string>
+    <string name="tap_to_start">[ TOUCHER POUR COMMENCER ]</string>
+    <string name="settings_cta">[ PARAMÈTRES ]</string>
+    <string name="version_label">v%1$s</string>
+
+    <string name="paused">PAUSE</string>
+    <string name="tap_to_resume">[ TOUCHER POUR REPRENDRE ]</string>
+    <string name="menu_cta">[ MENU ]</string>
+
+    <string name="game_over">PARTIE TERMINÉE</string>
+    <string name="new_best">NOUVEAU RECORD !</string>
+    <string name="tap_to_retry">[ TOUCHER POUR REJOUER ]</string>
+
+    <string name="settings_title">PARAMÈTRES</string>
+    <string name="controls_label">CONTRÔLES</string>
+    <string name="audio_label">AUDIO</string>
+    <string name="sound_fx">EFFETS SONORES</string>
+    <string name="music">MUSIQUE</string>
+    <string name="back_cta">[ RETOUR ]</string>
+    <string name="volume_pct">%1$s : %2$d%%</string>
+    <string name="language_label">LANGUE</string>
+    <string name="language_system_default">PAR DÉFAUT DU SYSTÈME</string>
+
+    <string name="choose_controls">CHOISIR LES CONTRÔLES</string>
+    <string name="confirm_cta">[ CONFIRMER ]</string>
+
+    <string name="scheme_overlay_label">MANETTE</string>
+    <string name="scheme_overlay_desc">Joystick virtuel à l'écran</string>
+    <string name="scheme_flick_label">MOUVEMENT (GYRO)</string>
+    <string name="scheme_flick_desc">Faites un mouvement du poignet pour tourner</string>
+    <string name="scheme_gravity_label">INCLINAISON (GRAVITÉ)</string>
+    <string name="scheme_gravity_desc">Tenez à plat, inclinez pour diriger\nPosez le téléphone sur le bureau, écran vers le haut</string>
+</resources>

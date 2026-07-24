@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GyroSnake</string>
+
+    <string name="score_label">得分：%1$d</string>
+    <string name="best_label">最高分：%1$d</string>
+
+    <string name="title_gyro">GYRO</string>
+    <string name="title_snake">SNAKE</string>
+    <string name="tilt_to_steer">倾斜手机进行操控</string>
+    <string name="tap_to_start">[ 点击开始 ]</string>
+    <string name="settings_cta">[ 设置 ]</string>
+    <string name="version_label">v%1$s</string>
+
+    <string name="paused">已暂停</string>
+    <string name="tap_to_resume">[ 点击继续 ]</string>
+    <string name="menu_cta">[ 菜单 ]</string>
+
+    <string name="game_over">游戏结束</string>
+    <string name="new_best">新纪录！</string>
+    <string name="tap_to_retry">[ 点击重试 ]</string>
+
+    <string name="settings_title">设置</string>
+    <string name="controls_label">操控方式</string>
+    <string name="audio_label">音频</string>
+    <string name="sound_fx">音效</string>
+    <string name="music">音乐</string>
+    <string name="back_cta">[ 返回 ]</string>
+    <string name="volume_pct">%1$s：%2$d%%</string>
+    <string name="language_label">语言</string>
+    <string name="language_system_default">系统默认</string>
+
+    <string name="choose_controls">选择操控方式</string>
+    <string name="confirm_cta">[ 确认 ]</string>
+
+    <string name="scheme_overlay_label">虚拟摇杆</string>
+    <string name="scheme_overlay_desc">屏幕上的虚拟摇杆</string>
+    <string name="scheme_flick_label">甩动（陀螺仪）</string>
+    <string name="scheme_flick_desc">甩动手腕即可转向</string>
+    <string name="scheme_gravity_label">倾斜（重力感应）</string>
+    <string name="scheme_gravity_desc">平放手机，倾斜以操控\n将手机放在桌上，屏幕朝上</string>
+</resources>

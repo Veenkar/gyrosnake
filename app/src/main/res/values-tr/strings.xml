@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GyroSnake</string>
+
+    <string name="score_label">SKOR: %1$d</string>
+    <string name="best_label">EN İYİ: %1$d</string>
+
+    <string name="title_gyro">GYRO</string>
+    <string name="title_snake">SNAKE</string>
+    <string name="tilt_to_steer">YÖNLENDİRMEK İÇİN EĞİN</string>
+    <string name="tap_to_start">[ BAŞLAMAK İÇİN DOKUN ]</string>
+    <string name="settings_cta">[ AYARLAR ]</string>
+    <string name="version_label">v%1$s</string>
+
+    <string name="paused">DURAKLATILDI</string>
+    <string name="tap_to_resume">[ DEVAM İÇİN DOKUN ]</string>
+    <string name="menu_cta">[ MENÜ ]</string>
+
+    <string name="game_over">OYUN BİTTİ</string>
+    <string name="new_best">YENİ REKOR!</string>
+    <string name="tap_to_retry">[ TEKRAR DENEMEK İÇİN DOKUN ]</string>
+
+    <string name="settings_title">AYARLAR</string>
+    <string name="controls_label">KONTROLLER</string>
+    <string name="audio_label">SES</string>
+    <string name="sound_fx">SES EFEKTLERİ</string>
+    <string name="music">MÜZİK</string>
+    <string name="back_cta">[ GERİ ]</string>
+    <string name="volume_pct">%1$s: %2$d%%</string>
+    <string name="language_label">DİL</string>
+    <string name="language_system_default">SİSTEM VARSAYILANI</string>
+
+    <string name="choose_controls">KONTROLLERİ SEÇ</string>
+    <string name="confirm_cta">[ ONAYLA ]</string>
+
+    <string name="scheme_overlay_label">JOYSTICK</string>
+    <string name="scheme_overlay_desc">Ekranda sanal joystick</string>
+    <string name="scheme_flick_label">SAVURMA (JİROSKOP)</string>
+    <string name="scheme_flick_desc">Dönmek için bileğini savur</string>
+    <string name="scheme_gravity_label">EĞİM (YERÇEKİMİ)</string>
+    <string name="scheme_gravity_desc">Düz tut, yönlendirmek için eğ\nTelefonu masaya ekran yukarı bakacak şekilde koy</string>
+</resources>

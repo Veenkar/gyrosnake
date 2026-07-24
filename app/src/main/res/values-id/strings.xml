@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GyroSnake</string>
+
+    <string name="score_label">SKOR: %1$d</string>
+    <string name="best_label">TERBAIK: %1$d</string>
+
+    <string name="title_gyro">GYRO</string>
+    <string name="title_snake">SNAKE</string>
+    <string name="tilt_to_steer">MIRINGKAN UNTUK MENGARAHKAN</string>
+    <string name="tap_to_start">[ KETUK UNTUK MULAI ]</string>
+    <string name="settings_cta">[ PENGATURAN ]</string>
+    <string name="version_label">v%1$s</string>
+
+    <string name="paused">JEDA</string>
+    <string name="tap_to_resume">[ KETUK UNTUK LANJUT ]</string>
+    <string name="menu_cta">[ MENU ]</string>
+
+    <string name="game_over">PERMAINAN BERAKHIR</string>
+    <string name="new_best">REKOR BARU!</string>
+    <string name="tap_to_retry">[ KETUK UNTUK ULANGI ]</string>
+
+    <string name="settings_title">PENGATURAN</string>
+    <string name="controls_label">KONTROL</string>
+    <string name="audio_label">AUDIO</string>
+    <string name="sound_fx">EFEK SUARA</string>
+    <string name="music">MUSIK</string>
+    <string name="back_cta">[ KEMBALI ]</string>
+    <string name="volume_pct">%1$s: %2$d%%</string>
+    <string name="language_label">BAHASA</string>
+    <string name="language_system_default">BAWAAN SISTEM</string>
+
+    <string name="choose_controls">PILIH KONTROL</string>
+    <string name="confirm_cta">[ KONFIRMASI ]</string>
+
+    <string name="scheme_overlay_label">JOYSTICK</string>
+    <string name="scheme_overlay_desc">Joystick virtual di layar</string>
+    <string name="scheme_flick_label">SENTAK (GIRO)</string>
+    <string name="scheme_flick_desc">Sentakkan pergelangan tangan untuk berbelok</string>
+    <string name="scheme_gravity_label">MIRING (GRAVITASI)</string>
+    <string name="scheme_gravity_desc">Pegang datar, miringkan untuk mengarahkan\nLetakkan ponsel di meja, layar menghadap ke atas</string>
+</resources>

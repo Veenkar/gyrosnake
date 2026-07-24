@@ -1,4 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">GyroSnake</string>
+
+    <!-- HUD -->
+    <string name="score_label">SCORE: %1$d</string>
+    <string name="best_label">BEST: %1$d</string>
+
+    <!-- Menu -->
+    <string name="title_gyro">GYRO</string>
+    <string name="title_snake">SNAKE</string>
+    <string name="tilt_to_steer">TILT TO STEER</string>
+    <string name="tap_to_start">[ TAP TO START ]</string>
+    <string name="settings_cta">[ SETTINGS ]</string>
+    <string name="version_label">v%1$s</string>
+
+    <!-- Pause -->
+    <string name="paused">PAUSED</string>
+    <string name="tap_to_resume">[ TAP TO RESUME ]</string>
+    <string name="menu_cta">[ MENU ]</string>
+
+    <!-- Game over -->
+    <string name="game_over">GAME OVER</string>
+    <string name="new_best">NEW BEST!</string>
+    <string name="tap_to_retry">[ TAP TO RETRY ]</string>
+
+    <!-- Settings -->
+    <string name="settings_title">SETTINGS</string>
+    <string name="controls_label">CONTROLS</string>
+    <string name="audio_label">AUDIO</string>
+    <string name="sound_fx">SOUND FX</string>
+    <string name="music">MUSIC</string>
+    <string name="back_cta">[ BACK ]</string>
+    <string name="volume_pct">%1$s: %2$d%%</string>
+    <string name="language_label">LANGUAGE</string>
+    <string name="language_system_default">SYSTEM DEFAULT</string>
+
+    <!-- Control setup (first launch) -->
+    <string name="choose_controls">CHOOSE CONTROLS</string>
+    <string name="confirm_cta">[ CONFIRM ]</string>
+
+    <!-- Control schemes -->
+    <string name="scheme_overlay_label">OVERLAY</string>
+    <string name="scheme_overlay_desc">Virtual joystick on screen</string>
+    <string name="scheme_flick_label">FLICK (GYRO)</string>
+    <string name="scheme_flick_desc">Flick wrist to turn</string>
+    <string name="scheme_gravity_label">TILT (GRAVITY)</string>
+    <string name="scheme_gravity_desc">Hold flat, tilt to steer\nPlace phone on desk, screen facing ceiling</string>
 </resources>

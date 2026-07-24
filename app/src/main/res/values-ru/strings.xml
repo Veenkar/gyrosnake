@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GyroSnake</string>
+
+    <string name="score_label">ОЧКИ: %1$d</string>
+    <string name="best_label">РЕКОРД: %1$d</string>
+
+    <string name="title_gyro">GYRO</string>
+    <string name="title_snake">SNAKE</string>
+    <string name="tilt_to_steer">НАКЛОНЯЙТЕ, ЧТОБЫ УПРАВЛЯТЬ</string>
+    <string name="tap_to_start">[ КОСНИТЕСЬ, ЧТОБЫ НАЧАТЬ ]</string>
+    <string name="settings_cta">[ НАСТРОЙКИ ]</string>
+    <string name="version_label">в%1$s</string>
+
+    <string name="paused">ПАУЗА</string>
+    <string name="tap_to_resume">[ КОСНИТЕСЬ, ЧТОБЫ ПРОДОЛЖИТЬ ]</string>
+    <string name="menu_cta">[ МЕНЮ ]</string>
+
+    <string name="game_over">ИГРА ОКОНЧЕНА</string>
+    <string name="new_best">НОВЫЙ РЕКОРД!</string>
+    <string name="tap_to_retry">[ КОСНИТЕСЬ ДЛЯ ПОВТОРА ]</string>
+
+    <string name="settings_title">НАСТРОЙКИ</string>
+    <string name="controls_label">УПРАВЛЕНИЕ</string>
+    <string name="audio_label">ЗВУК</string>
+    <string name="sound_fx">ЗВУКОВЫЕ ЭФФЕКТЫ</string>
+    <string name="music">МУЗЫКА</string>
+    <string name="back_cta">[ НАЗАД ]</string>
+    <string name="volume_pct">%1$s: %2$d%%</string>
+    <string name="language_label">ЯЗЫК</string>
+    <string name="language_system_default">СИСТЕМНЫЙ ПО УМОЛЧАНИЮ</string>
+
+    <string name="choose_controls">ВЫБЕРИТЕ УПРАВЛЕНИЕ</string>
+    <string name="confirm_cta">[ ПОДТВЕРДИТЬ ]</string>
+
+    <string name="scheme_overlay_label">ДЖОЙСТИК</string>
+    <string name="scheme_overlay_desc">Виртуальный джойстик на экране</string>
+    <string name="scheme_flick_label">РЫВОК (ГИРОСКОП)</string>
+    <string name="scheme_flick_desc">Взмахните запястьем, чтобы повернуть</string>
+    <string name="scheme_gravity_label">НАКЛОН (ГРАВИТАЦИЯ)</string>
+    <string name="scheme_gravity_desc">Держите ровно, наклоняйте для управления\nПоложите телефон на стол экраном вверх</string>
+</resources>

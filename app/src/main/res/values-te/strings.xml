@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GyroSnake</string>
+
+    <string name="score_label">స్కోరు: %1$d</string>
+    <string name="best_label">అత్యుత్తమం: %1$d</string>
+
+    <string name="title_gyro">GYRO</string>
+    <string name="title_snake">SNAKE</string>
+    <string name="tilt_to_steer">నడిపించడానికి వంచండి</string>
+    <string name="tap_to_start">[ ప్రారంభించడానికి నొక్కండి ]</string>
+    <string name="settings_cta">[ సెట్టింగ్‌లు ]</string>
+    <string name="version_label">v%1$s</string>
+
+    <string name="paused">నిలిపివేయబడింది</string>
+    <string name="tap_to_resume">[ కొనసాగించడానికి నొక్కండి ]</string>
+    <string name="menu_cta">[ మెనూ ]</string>
+
+    <string name="game_over">గేమ్ ముగిసింది</string>
+    <string name="new_best">కొత్త రికార్డు!</string>
+    <string name="tap_to_retry">[ మళ్లీ ప్రయత్నించడానికి నొక్కండి ]</string>
+
+    <string name="settings_title">సెట్టింగ్‌లు</string>
+    <string name="controls_label">నియంత్రణలు</string>
+    <string name="audio_label">ఆడియో</string>
+    <string name="sound_fx">సౌండ్ ఎఫెక్ట్‌లు</string>
+    <string name="music">సంగీతం</string>
+    <string name="back_cta">[ వెనుకకు ]</string>
+    <string name="volume_pct">%1$s: %2$d%%</string>
+    <string name="language_label">భాష</string>
+    <string name="language_system_default">సిస్టమ్ డిఫాల్ట్</string>
+
+    <string name="choose_controls">నియంత్రణలను ఎంచుకోండి</string>
+    <string name="confirm_cta">[ నిర్ధారించండి ]</string>
+
+    <string name="scheme_overlay_label">జాయ్‌స్టిక్</string>
+    <string name="scheme_overlay_desc">స్క్రీన్‌పై వర్చువల్ జాయ్‌స్టిక్</string>
+    <string name="scheme_flick_label">తడబాటు (గైరో)</string>
+    <string name="scheme_flick_desc">తిరగడానికి మణికట్టును ఊపండి</string>
+    <string name="scheme_gravity_label">వంపు (గురుత్వాకర్షణ)</string>
+    <string name="scheme_gravity_desc">నిటారుగా పట్టుకోండి, నడిపించడానికి వంచండి\nఫోన్‌ను బల్లపై ఉంచండి, స్క్రీన్ పైకి</string>
+</resources>

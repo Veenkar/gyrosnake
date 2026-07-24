@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GyroSnake</string>
+
+    <string name="score_label">ALAMA: %1$d</string>
+    <string name="best_label">BORA: %1$d</string>
+
+    <string name="title_gyro">GYRO</string>
+    <string name="title_snake">SNAKE</string>
+    <string name="tilt_to_steer">INAMISHA KUONGOZA</string>
+    <string name="tap_to_start">[ GUSA KUANZA ]</string>
+    <string name="settings_cta">[ MIPANGILIO ]</string>
+    <string name="version_label">v%1$s</string>
+
+    <string name="paused">IMESIMAMISHWA</string>
+    <string name="tap_to_resume">[ GUSA KUENDELEA ]</string>
+    <string name="menu_cta">[ MENYU ]</string>
+
+    <string name="game_over">MCHEZO UMEISHA</string>
+    <string name="new_best">REKODI MPYA!</string>
+    <string name="tap_to_retry">[ GUSA KUJARIBU TENA ]</string>
+
+    <string name="settings_title">MIPANGILIO</string>
+    <string name="controls_label">VIDHIBITI</string>
+    <string name="audio_label">SAUTI</string>
+    <string name="sound_fx">MIGUNIO YA SAUTI</string>
+    <string name="music">MUZIKI</string>
+    <string name="back_cta">[ RUDI ]</string>
+    <string name="volume_pct">%1$s: %2$d%%</string>
+    <string name="language_label">LUGHA</string>
+    <string name="language_system_default">CHAGUO-MSINGI LA MFUMO</string>
+
+    <string name="choose_controls">CHAGUA VIDHIBITI</string>
+    <string name="confirm_cta">[ THIBITISHA ]</string>
+
+    <string name="scheme_overlay_label">JOYSTICK</string>
+    <string name="scheme_overlay_desc">Joystick ya mtandaoni kwenye skrini</string>
+    <string name="scheme_flick_label">RUKA (GYRO)</string>
+    <string name="scheme_flick_desc">Tikisa kifundo cha mkono kugeuza</string>
+    <string name="scheme_gravity_label">KUINAMA (UVUTANO)</string>
+    <string name="scheme_gravity_desc">Shikilia sawasawa, inamisha kuongoza\nWeka simu mezani, skrini ikitazama juu</string>
+</resources>

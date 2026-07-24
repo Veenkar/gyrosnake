@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GyroSnake</string>
+
+    <string name="score_label">স্কোর: %1$d</string>
+    <string name="best_label">সেরা: %1$d</string>
+
+    <string name="title_gyro">GYRO</string>
+    <string name="title_snake">SNAKE</string>
+    <string name="tilt_to_steer">চালাতে হেলান</string>
+    <string name="tap_to_start">[ শুরু করতে ট্যাপ করুন ]</string>
+    <string name="settings_cta">[ সেটিংস ]</string>
+    <string name="version_label">v%1$s</string>
+
+    <string name="paused">বিরতি</string>
+    <string name="tap_to_resume">[ চালিয়ে যেতে ট্যাপ করুন ]</string>
+    <string name="menu_cta">[ মেনু ]</string>
+
+    <string name="game_over">গেম ওভার</string>
+    <string name="new_best">নতুন সেরা রেকর্ড!</string>
+    <string name="tap_to_retry">[ আবার চেষ্টা করতে ট্যাপ করুন ]</string>
+
+    <string name="settings_title">সেটিংস</string>
+    <string name="controls_label">নিয়ন্ত্রণ</string>
+    <string name="audio_label">অডিও</string>
+    <string name="sound_fx">সাউন্ড এফেক্ট</string>
+    <string name="music">সংগীত</string>
+    <string name="back_cta">[ পেছনে ]</string>
+    <string name="volume_pct">%1$s: %2$d%%</string>
+    <string name="language_label">ভাষা</string>
+    <string name="language_system_default">সিস্টেম ডিফল্ট</string>
+
+    <string name="choose_controls">নিয়ন্ত্রণ বেছে নিন</string>
+    <string name="confirm_cta">[ নিশ্চিত করুন ]</string>
+
+    <string name="scheme_overlay_label">জয়স্টিক</string>
+    <string name="scheme_overlay_desc">স্ক্রিনে ভার্চুয়াল জয়স্টিক</string>
+    <string name="scheme_flick_label">ঝাঁকুনি (জাইরো)</string>
+    <string name="scheme_flick_desc">ঘোরাতে কব্জি ঝাঁকান</string>
+    <string name="scheme_gravity_label">হেলানো (গ্র্যাভিটি)</string>
+    <string name="scheme_gravity_desc">সমতল ধরুন, চালাতে হেলান\nফোনটি টেবিলে রাখুন, স্ক্রিন উপরের দিকে</string>
+</resources>

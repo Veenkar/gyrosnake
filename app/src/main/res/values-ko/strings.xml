@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GyroSnake</string>
+
+    <string name="score_label">점수: %1$d</string>
+    <string name="best_label">최고 기록: %1$d</string>
+
+    <string name="title_gyro">GYRO</string>
+    <string name="title_snake">SNAKE</string>
+    <string name="tilt_to_steer">기울여서 조종하세요</string>
+    <string name="tap_to_start">[ 탭하여 시작 ]</string>
+    <string name="settings_cta">[ 설정 ]</string>
+    <string name="version_label">v%1$s</string>
+
+    <string name="paused">일시정지</string>
+    <string name="tap_to_resume">[ 탭하여 계속 ]</string>
+    <string name="menu_cta">[ 메뉴 ]</string>
+
+    <string name="game_over">게임 오버</string>
+    <string name="new_best">신기록!</string>
+    <string name="tap_to_retry">[ 탭하여 다시 시도 ]</string>
+
+    <string name="settings_title">설정</string>
+    <string name="controls_label">조작 방식</string>
+    <string name="audio_label">오디오</string>
+    <string name="sound_fx">효과음</string>
+    <string name="music">음악</string>
+    <string name="back_cta">[ 뒤로 ]</string>
+    <string name="volume_pct">%1$s: %2$d%%</string>
+    <string name="language_label">언어</string>
+    <string name="language_system_default">시스템 기본값</string>
+
+    <string name="choose_controls">조작 방식 선택</string>
+    <string name="confirm_cta">[ 확인 ]</string>
+
+    <string name="scheme_overlay_label">조이스틱</string>
+    <string name="scheme_overlay_desc">화면 속 가상 조이스틱</string>
+    <string name="scheme_flick_label">플릭 (자이로)</string>
+    <string name="scheme_flick_desc">손목을 튕겨서 방향 전환</string>
+    <string name="scheme_gravity_label">기울기 (중력)</string>
+    <string name="scheme_gravity_desc">평평하게 들고 기울여서 조종하세요\n화면이 위를 향하도록 책상에 놓으세요</string>
+</resources>

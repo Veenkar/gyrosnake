@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GyroSnake</string>
+
+    <string name="score_label">PUNKTE: %1$d</string>
+    <string name="best_label">BESTWERT: %1$d</string>
+
+    <string name="title_gyro">GYRO</string>
+    <string name="title_snake">SNAKE</string>
+    <string name="tilt_to_steer">ZUM STEUERN NEIGEN</string>
+    <string name="tap_to_start">[ TIPPEN ZUM STARTEN ]</string>
+    <string name="settings_cta">[ EINSTELLUNGEN ]</string>
+    <string name="version_label">v%1$s</string>
+
+    <string name="paused">PAUSE</string>
+    <string name="tap_to_resume">[ TIPPEN ZUM FORTSETZEN ]</string>
+    <string name="menu_cta">[ MENÜ ]</string>
+
+    <string name="game_over">GAME OVER</string>
+    <string name="new_best">NEUER BESTWERT!</string>
+    <string name="tap_to_retry">[ TIPPEN FÜR NEUEN VERSUCH ]</string>
+
+    <string name="settings_title">EINSTELLUNGEN</string>
+    <string name="controls_label">STEUERUNG</string>
+    <string name="audio_label">AUDIO</string>
+    <string name="sound_fx">SOUNDEFFEKTE</string>
+    <string name="music">MUSIK</string>
+    <string name="back_cta">[ ZURÜCK ]</string>
+    <string name="volume_pct">%1$s: %2$d%%</string>
+    <string name="language_label">SPRACHE</string>
+    <string name="language_system_default">SYSTEMSTANDARD</string>
+
+    <string name="choose_controls">STEUERUNG WÄHLEN</string>
+    <string name="confirm_cta">[ BESTÄTIGEN ]</string>
+
+    <string name="scheme_overlay_label">OVERLAY</string>
+    <string name="scheme_overlay_desc">Virtueller Joystick auf dem Bildschirm</string>
+    <string name="scheme_flick_label">SCHNIPPEN (GYRO)</string>
+    <string name="scheme_flick_desc">Handgelenk schnippen, um zu drehen</string>
+    <string name="scheme_gravity_label">NEIGUNG (GRAVITATION)</string>
+    <string name="scheme_gravity_desc">Flach halten, zum Steuern neigen\nTelefon mit Bildschirm nach oben auf den Tisch legen</string>
+</resources>

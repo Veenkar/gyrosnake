@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GyroSnake</string>
+
+    <string name="score_label">ĐIỂM: %1$d</string>
+    <string name="best_label">CAO NHẤT: %1$d</string>
+
+    <string name="title_gyro">GYRO</string>
+    <string name="title_snake">SNAKE</string>
+    <string name="tilt_to_steer">NGHIÊNG ĐỂ ĐIỀU KHIỂN</string>
+    <string name="tap_to_start">[ CHẠM ĐỂ BẮT ĐẦU ]</string>
+    <string name="settings_cta">[ CÀI ĐẶT ]</string>
+    <string name="version_label">v%1$s</string>
+
+    <string name="paused">TẠM DỪNG</string>
+    <string name="tap_to_resume">[ CHẠM ĐỂ TIẾP TỤC ]</string>
+    <string name="menu_cta">[ MENU ]</string>
+
+    <string name="game_over">TRÒ CHƠI KẾT THÚC</string>
+    <string name="new_best">KỶ LỤC MỚI!</string>
+    <string name="tap_to_retry">[ CHẠM ĐỂ THỬ LẠI ]</string>
+
+    <string name="settings_title">CÀI ĐẶT</string>
+    <string name="controls_label">ĐIỀU KHIỂN</string>
+    <string name="audio_label">ÂM THANH</string>
+    <string name="sound_fx">HIỆU ỨNG ÂM THANH</string>
+    <string name="music">NHẠC</string>
+    <string name="back_cta">[ QUAY LẠI ]</string>
+    <string name="volume_pct">%1$s: %2$d%%</string>
+    <string name="language_label">NGÔN NGỮ</string>
+    <string name="language_system_default">MẶC ĐỊNH HỆ THỐNG</string>
+
+    <string name="choose_controls">CHỌN ĐIỀU KHIỂN</string>
+    <string name="confirm_cta">[ XÁC NHẬN ]</string>
+
+    <string name="scheme_overlay_label">CẦN ĐIỀU KHIỂN</string>
+    <string name="scheme_overlay_desc">Cần điều khiển ảo trên màn hình</string>
+    <string name="scheme_flick_label">VẨY TAY (CON QUAY HỒI CHUYỂN)</string>
+    <string name="scheme_flick_desc">Vẩy cổ tay để rẽ hướng</string>
+    <string name="scheme_gravity_label">NGHIÊNG (TRỌNG LỰC)</string>
+    <string name="scheme_gravity_desc">Giữ phẳng, nghiêng để điều khiển\nĐặt điện thoại lên bàn, màn hình hướng lên trên</string>
+</resources>

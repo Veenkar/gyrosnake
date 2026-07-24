@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GyroSnake</string>
+
+    <string name="score_label">WYNIK: %1$d</string>
+    <string name="best_label">REKORD: %1$d</string>
+
+    <string name="title_gyro">GYRO</string>
+    <string name="title_snake">SNAKE</string>
+    <string name="tilt_to_steer">PRZECHYLAJ, ABY STEROWAĆ</string>
+    <string name="tap_to_start">[ DOTKNIJ, ABY ZACZĄĆ ]</string>
+    <string name="settings_cta">[ USTAWIENIA ]</string>
+    <string name="version_label">w%1$s</string>
+
+    <string name="paused">PAUZA</string>
+    <string name="tap_to_resume">[ DOTKNIJ, ABY WZNOWIĆ ]</string>
+    <string name="menu_cta">[ MENU ]</string>
+
+    <string name="game_over">KONIEC GRY</string>
+    <string name="new_best">NOWY REKORD!</string>
+    <string name="tap_to_retry">[ DOTKNIJ, ABY SPRÓBOWAĆ PONOWNIE ]</string>
+
+    <string name="settings_title">USTAWIENIA</string>
+    <string name="controls_label">STEROWANIE</string>
+    <string name="audio_label">DŹWIĘK</string>
+    <string name="sound_fx">EFEKTY DŹWIĘKOWE</string>
+    <string name="music">MUZYKA</string>
+    <string name="back_cta">[ WSTECZ ]</string>
+    <string name="volume_pct">%1$s: %2$d%%</string>
+    <string name="language_label">JĘZYK</string>
+    <string name="language_system_default">DOMYŚLNY SYSTEMOWY</string>
+
+    <string name="choose_controls">WYBIERZ STEROWANIE</string>
+    <string name="confirm_cta">[ POTWIERDŹ ]</string>
+
+    <string name="scheme_overlay_label">NAKŁADKA</string>
+    <string name="scheme_overlay_desc">Wirtualny joystick na ekranie</string>
+    <string name="scheme_flick_label">MACHNIĘCIE (ŻYROSKOP)</string>
+    <string name="scheme_flick_desc">Machnij nadgarstkiem, aby skręcić</string>
+    <string name="scheme_gravity_label">PRZECHYŁ (GRAWITACJA)</string>
+    <string name="scheme_gravity_desc">Trzymaj płasko, przechylaj, aby sterować\nPołóż telefon na biurku, ekranem do góry</string>
+</resources>

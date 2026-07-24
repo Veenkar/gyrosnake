@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GyroSnake</string>
+
+    <string name="score_label">மதிப்பெண்: %1$d</string>
+    <string name="best_label">சிறந்தது: %1$d</string>
+
+    <string name="title_gyro">GYRO</string>
+    <string name="title_snake">SNAKE</string>
+    <string name="tilt_to_steer">திருப்ப சாய்க்கவும்</string>
+    <string name="tap_to_start">[ தொடங்க தட்டவும் ]</string>
+    <string name="settings_cta">[ அமைப்புகள் ]</string>
+    <string name="version_label">v%1$s</string>
+
+    <string name="paused">இடைநிறுத்தப்பட்டது</string>
+    <string name="tap_to_resume">[ தொடர தட்டவும் ]</string>
+    <string name="menu_cta">[ மெனு ]</string>
+
+    <string name="game_over">விளையாட்டு முடிந்தது</string>
+    <string name="new_best">புதிய சாதனை!</string>
+    <string name="tap_to_retry">[ மீண்டும் முயற்சிக்க தட்டவும் ]</string>
+
+    <string name="settings_title">அமைப்புகள்</string>
+    <string name="controls_label">கட்டுப்பாடுகள்</string>
+    <string name="audio_label">ஆடியோ</string>
+    <string name="sound_fx">ஒலி விளைவுகள்</string>
+    <string name="music">இசை</string>
+    <string name="back_cta">[ பின் ]</string>
+    <string name="volume_pct">%1$s: %2$d%%</string>
+    <string name="language_label">மொழி</string>
+    <string name="language_system_default">கணினி இயல்புநிலை</string>
+
+    <string name="choose_controls">கட்டுப்பாடுகளைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="confirm_cta">[ உறுதிப்படுத்து ]</string>
+
+    <string name="scheme_overlay_label">ஜாய்ஸ்டிக்</string>
+    <string name="scheme_overlay_desc">திரையில் மெய்நிகர் ஜாய்ஸ்டிக்</string>
+    <string name="scheme_flick_label">சிலுப்பு (ஜைரோ)</string>
+    <string name="scheme_flick_desc">திரும்ப மணிக்கட்டை சிலுப்பவும்</string>
+    <string name="scheme_gravity_label">சாய்வு (ஈர்ப்பு)</string>
+    <string name="scheme_gravity_desc">தட்டையாக பிடித்து, திருப்ப சாய்க்கவும்\nதொலைபேசியை மேசையில் திரை மேல்நோக்கி வையுங்கள்</string>
+</resources>

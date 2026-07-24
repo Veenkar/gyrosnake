@@ -55,7 +55,11 @@ import androidx.compose.ui.platform.LocalView
 import kotlin.math.abs
 import kotlin.math.sqrt
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.res.stringResource
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import com.gyrosnake.GameViewModel
+import com.gyrosnake.R
 import com.gyrosnake.game.ControlScheme
 import com.gyrosnake.game.Direction
 import com.gyrosnake.game.GamePhase
@@ -267,9 +271,9 @@ private fun LeafOverlay(breathe: Float) {
 @Composable
 private fun HudBar(score: Int, highScore: Int, modifier: Modifier = Modifier) {
     Row(modifier = modifier.padding(horizontal = 16.dp, vertical = 6.dp)) {
-        RetroText("SCORE: $score", COLOR_GREEN, 18)
+        RetroText(stringResource(R.string.score_label, score), COLOR_GREEN, 18)
         Spacer(Modifier.weight(1f))
-        RetroText("BEST: $highScore", COLOR_GREEN_DIM, 18)
+        RetroText(stringResource(R.string.best_label, highScore), COLOR_GREEN_DIM, 18)
     }
 }
 
@@ -285,20 +289,20 @@ private fun MenuOverlay(highScore: Int, onStart: () -> Unit, onSettings: () -> U
     }
     FullOverlay {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            RetroText("GYRO", COLOR_GREEN, 52)
-            RetroText("SNAKE", COLOR_GREEN, 52)
+            RetroText(stringResource(R.string.title_gyro), COLOR_GREEN, 52)
+            RetroText(stringResource(R.string.title_snake), COLOR_GREEN, 52)
             Spacer(Modifier.padding(12.dp))
-            RetroText("TILT TO STEER", COLOR_GREEN_DIM, 18)
+            RetroText(stringResource(R.string.tilt_to_steer), COLOR_GREEN_DIM, 18)
             if (highScore > 0) {
                 Spacer(Modifier.padding(8.dp))
-                RetroText("BEST: $highScore", COLOR_GREEN_DIM, 18)
+                RetroText(stringResource(R.string.best_label, highScore), COLOR_GREEN_DIM, 18)
             }
             Spacer(Modifier.padding(24.dp))
-            BlinkingCta("[ TAP TO START ]", COLOR_RED, onStart)
+            BlinkingCta(stringResource(R.string.tap_to_start), COLOR_RED, onStart)
             Spacer(Modifier.padding(8.dp))
-            BlinkingCta("[ SETTINGS ]", COLOR_GREEN_DIM, onSettings)
+            BlinkingCta(stringResource(R.string.settings_cta), COLOR_GREEN_DIM, onSettings)
             Spacer(Modifier.padding(16.dp))
-            RetroText("v$versionName", COLOR_GREEN_DIM.copy(alpha = 0.4f), 12)
+            RetroText(stringResource(R.string.version_label, versionName), COLOR_GREEN_DIM.copy(alpha = 0.4f), 12)
         }
     }
 }
@@ -307,13 +311,13 @@ private fun MenuOverlay(highScore: Int, onStart: () -> Unit, onSettings: () -> U
 private fun PauseOverlay(onResume: () -> Unit, onSettings: () -> Unit, onMenu: () -> Unit) {
     FullOverlay {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            RetroText("PAUSED", COLOR_GREEN, 42)
+            RetroText(stringResource(R.string.paused), COLOR_GREEN, 42)
             Spacer(Modifier.padding(16.dp))
-            BlinkingCta("[ TAP TO RESUME ]", COLOR_GREEN_DIM, onResume)
+            BlinkingCta(stringResource(R.string.tap_to_resume), COLOR_GREEN_DIM, onResume)
             Spacer(Modifier.padding(8.dp))
-            BlinkingCta("[ SETTINGS ]", COLOR_GREEN_DIM, onSettings)
+            BlinkingCta(stringResource(R.string.settings_cta), COLOR_GREEN_DIM, onSettings)
             Spacer(Modifier.padding(8.dp))
-            BlinkingCta("[ MENU ]", COLOR_RED, onMenu)
+            BlinkingCta(stringResource(R.string.menu_cta), COLOR_RED, onMenu)
         }
     }
 }
@@ -322,16 +326,16 @@ private fun PauseOverlay(onResume: () -> Unit, onSettings: () -> Unit, onMenu: (
 private fun GameOverOverlay(score: Int, highScore: Int, onRestart: () -> Unit) {
     FullOverlay {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            RetroText("GAME OVER", COLOR_RED, 42)
+            RetroText(stringResource(R.string.game_over), COLOR_RED, 42)
             Spacer(Modifier.padding(8.dp))
-            RetroText("SCORE: $score", COLOR_GREEN, 24)
+            RetroText(stringResource(R.string.score_label, score), COLOR_GREEN, 24)
             if (score > 0 && score >= highScore) {
-                RetroText("NEW BEST!", COLOR_RED, 20)
+                RetroText(stringResource(R.string.new_best), COLOR_RED, 20)
             } else {
-                RetroText("BEST: $highScore", COLOR_GREEN_DIM, 20)
+                RetroText(stringResource(R.string.best_label, highScore), COLOR_GREEN_DIM, 20)
             }
             Spacer(Modifier.padding(24.dp))
-            BlinkingCta("[ TAP TO RETRY ]", COLOR_GREEN, onRestart)
+            BlinkingCta(stringResource(R.string.tap_to_retry), COLOR_GREEN, onRestart)
         }
     }
 }
@@ -361,6 +365,12 @@ private fun SettingsOverlay(
     var selected by remember { mutableStateOf(currentScheme) }
     var soundVol by remember { mutableStateOf(soundVolume) }
     var musicVol by remember { mutableStateOf(musicVolume) }
+    var showLanguagePicker by remember { mutableStateOf(false) }
+    // Observer pattern: AppCompatDelegate is the single source of truth for the
+    // locale override; re-read after the picker closes so the row label updates.
+    var currentLanguageTag by remember {
+        mutableStateOf(AppCompatDelegate.getApplicationLocales().toLanguageTags().substringBefore(','))
+    }
 
     Box(modifier = Modifier
         .fillMaxSize()
@@ -380,16 +390,16 @@ private fun SettingsOverlay(
                 .padding(top = 32.dp, bottom = 72.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            RetroText("SETTINGS", COLOR_GREEN, 36)
+            RetroText(stringResource(R.string.settings_title), COLOR_GREEN, 36)
             Spacer(Modifier.padding(12.dp))
 
-            RetroText("CONTROLS", COLOR_GREEN_DIM, 18)
+            RetroText(stringResource(R.string.controls_label), COLOR_GREEN_DIM, 18)
             Spacer(Modifier.padding(8.dp))
             ControlScheme.entries.forEach { scheme ->
                 val isSelected = selected == scheme
                 SchemeOption(
-                    label      = scheme.label,
-                    hint       = scheme.description,
+                    label      = stringResource(scheme.labelRes),
+                    hint       = stringResource(scheme.descriptionRes),
                     isSelected = isSelected,
                     onClick    = {
                         selected = scheme
@@ -400,28 +410,53 @@ private fun SettingsOverlay(
             }
 
             Spacer(Modifier.padding(12.dp))
-            RetroText("AUDIO", COLOR_GREEN_DIM, 18)
+            RetroText(stringResource(R.string.audio_label), COLOR_GREEN_DIM, 18)
             Spacer(Modifier.padding(8.dp))
-            VolumeOption("SOUND FX", soundVol) { v ->
+            VolumeOption(stringResource(R.string.sound_fx), soundVol) { v ->
                 soundVol = v
                 onSoundVolume(v)
             }
             Spacer(Modifier.padding(4.dp))
-            VolumeOption("MUSIC", musicVol) { v ->
+            VolumeOption(stringResource(R.string.music), musicVol) { v ->
                 musicVol = v
                 onMusicVolume(v)
             }
+
+            Spacer(Modifier.padding(12.dp))
+            RetroText(stringResource(R.string.language_label), COLOR_GREEN_DIM, 18)
+            Spacer(Modifier.padding(8.dp))
+            SchemeOption(
+                label      = languageNativeName(currentLanguageTag),
+                hint       = "",
+                isSelected = false,
+                onClick    = { showLanguagePicker = true }
+            )
         }
 
         // Pinned top-left — always visible
         BlinkingCta(
-            text    = "[ BACK ]",
+            text    = stringResource(R.string.back_cta),
             color   = COLOR_GREEN_DIM,
             onClick = onBack,
             modifier = Modifier
                 .align(Alignment.TopStart)
                 .padding(start = 24.dp, top = 24.dp)
         )
+
+        if (showLanguagePicker) {
+            LanguagePickerOverlay(
+                currentTag = currentLanguageTag,
+                onSelect   = { tag ->
+                    AppCompatDelegate.setApplicationLocales(
+                        if (tag == null) LocaleListCompat.getEmptyLocaleList()
+                        else LocaleListCompat.forLanguageTags(tag)
+                    )
+                    currentLanguageTag = tag ?: ""
+                    showLanguagePicker = false
+                },
+                onBack = { showLanguagePicker = false }
+            )
+        }
     }
 }
 
@@ -445,19 +480,19 @@ private fun ControlSetupOverlay(initial: ControlScheme, onConfirm: (ControlSchem
                 .padding(vertical = 48.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            RetroText("CHOOSE CONTROLS", COLOR_GREEN, 28)
+            RetroText(stringResource(R.string.choose_controls), COLOR_GREEN, 28)
             Spacer(Modifier.padding(20.dp))
             ControlScheme.entries.forEach { scheme ->
                 SchemeOption(
-                    label      = scheme.label,
-                    hint       = scheme.description,
+                    label      = stringResource(scheme.labelRes),
+                    hint       = stringResource(scheme.descriptionRes),
                     isSelected = selected == scheme,
                     onClick    = { selected = scheme }
                 )
                 Spacer(Modifier.padding(12.dp))
             }
             Spacer(Modifier.padding(16.dp))
-            BlinkingCta("[ CONFIRM ]", COLOR_GREEN, onClick = { onConfirm(selected) })
+            BlinkingCta(stringResource(R.string.confirm_cta), COLOR_GREEN, onClick = { onConfirm(selected) })
         }
     }
 }
@@ -496,6 +531,77 @@ private fun SchemeOption(
             textAlign     = TextAlign.Center,
             letterSpacing = 1.sp
         )
+    }
+}
+
+// --- Language picker ---
+
+// Value Object: language tag paired with its own native-script display name.
+// Native names are not translated resources — a language's name is always
+// shown in that language, regardless of the app's current locale.
+private data class AppLanguage(val tag: String?, val nativeName: String)
+
+private val LANGUAGE_OPTIONS = listOf(
+    AppLanguage(null,   "SYSTEM DEFAULT"),
+    AppLanguage("en",   "ENGLISH"),
+    AppLanguage("zh",   "中文"),
+    AppLanguage("hi",   "हिन्दी"),
+    AppLanguage("es",   "ESPAÑOL"),
+    AppLanguage("fr",   "FRANÇAIS"),
+    AppLanguage("ar",   "العربية"),
+    AppLanguage("bn",   "বাংলা"),
+    AppLanguage("pt",   "PORTUGUÊS"),
+    AppLanguage("ru",   "РУССКИЙ"),
+    AppLanguage("ur",   "اردو"),
+    AppLanguage("id",   "BAHASA INDONESIA"),
+    AppLanguage("de",   "DEUTSCH"),
+    AppLanguage("ja",   "日本語"),
+    AppLanguage("sw",   "KISWAHILI"),
+    AppLanguage("mr",   "मराठी"),
+    AppLanguage("te",   "తెలుగు"),
+    AppLanguage("tr",   "TÜRKÇE"),
+    AppLanguage("ta",   "தமிழ்"),
+    AppLanguage("vi",   "TIẾNG VIỆT"),
+    AppLanguage("ko",   "한국어"),
+    AppLanguage("pl",   "POLSKI"),
+)
+
+private fun languageNativeName(tag: String): String =
+    LANGUAGE_OPTIONS.firstOrNull { it.tag == tag }?.nativeName
+        ?: LANGUAGE_OPTIONS.first().nativeName // empty/unknown tag -> "SYSTEM DEFAULT"
+
+/**
+ * Full-screen language list — mirrors [ControlSetupOverlay]'s layout so the
+ * picker feels consistent with the rest of Settings. Selecting an entry
+ * applies it immediately via the caller's [onSelect].
+ */
+@Composable
+private fun LanguagePickerOverlay(currentTag: String, onSelect: (String?) -> Unit, onBack: () -> Unit) {
+    BackHandler(onBack = onBack)
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(COLOR_BG)
+    ) {
+        Column(
+            modifier            = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(vertical = 48.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            RetroText(stringResource(R.string.language_label), COLOR_GREEN, 28)
+            Spacer(Modifier.padding(20.dp))
+            LANGUAGE_OPTIONS.forEach { lang ->
+                SchemeOption(
+                    label      = lang.nativeName,
+                    hint       = "",
+                    isSelected = lang.tag == currentTag || (lang.tag == null && currentTag.isEmpty()),
+                    onClick    = { onSelect(lang.tag) }
+                )
+                Spacer(Modifier.padding(10.dp))
+            }
+        }
     }
 }
 

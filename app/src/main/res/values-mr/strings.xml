@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GyroSnake</string>
+
+    <string name="score_label">गुण: %1$d</string>
+    <string name="best_label">सर्वोत्तम: %1$d</string>
+
+    <string name="title_gyro">GYRO</string>
+    <string name="title_snake">SNAKE</string>
+    <string name="tilt_to_steer">चालवण्यासाठी कल करा</string>
+    <string name="tap_to_start">[ सुरू करण्यासाठी टॅप करा ]</string>
+    <string name="settings_cta">[ सेटिंग्ज ]</string>
+    <string name="version_label">v%1$s</string>
+
+    <string name="paused">थांबवले</string>
+    <string name="tap_to_resume">[ सुरू ठेवण्यासाठी टॅप करा ]</string>
+    <string name="menu_cta">[ मेनू ]</string>
+
+    <string name="game_over">गेम संपला</string>
+    <string name="new_best">नवा विक्रम!</string>
+    <string name="tap_to_retry">[ पुन्हा प्रयत्नासाठी टॅप करा ]</string>
+
+    <string name="settings_title">सेटिंग्ज</string>
+    <string name="controls_label">नियंत्रणे</string>
+    <string name="audio_label">ऑडिओ</string>
+    <string name="sound_fx">ध्वनी प्रभाव</string>
+    <string name="music">संगीत</string>
+    <string name="back_cta">[ मागे ]</string>
+    <string name="volume_pct">%1$s: %2$d%%</string>
+    <string name="language_label">भाषा</string>
+    <string name="language_system_default">सिस्टम डीफॉल्ट</string>
+
+    <string name="choose_controls">नियंत्रणे निवडा</string>
+    <string name="confirm_cta">[ पुष्टी करा ]</string>
+
+    <string name="scheme_overlay_label">जॉयस्टिक</string>
+    <string name="scheme_overlay_desc">स्क्रीनवरील व्हर्च्युअल जॉयस्टिक</string>
+    <string name="scheme_flick_label">झटका (गायरो)</string>
+    <string name="scheme_flick_desc">वळण्यासाठी मनगट झटका</string>
+    <string name="scheme_gravity_label">कल (गुरुत्वाकर्षण)</string>
+    <string name="scheme_gravity_desc">सपाट धरा, चालवण्यासाठी कल करा\nफोन टेबलवर ठेवा, स्क्रीन वरच्या दिशेने</string>
+</resources>
