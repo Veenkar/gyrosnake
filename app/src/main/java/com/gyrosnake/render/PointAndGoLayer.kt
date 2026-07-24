@@ -9,9 +9,11 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -20,10 +22,13 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.toSize
 import com.gyrosnake.game.Direction
 import com.gyrosnake.game.GameBoard
 import com.gyrosnake.game.SnakeState
+import kotlinx.coroutines.delay
 import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.cos
@@ -39,6 +44,8 @@ private const val TAP_SLOP_PX      = 24f
 // Below this distance the finger is effectively on the head; steering from
 // such a short vector would jitter between axes, so it is ignored.
 private const val MIN_STEER_PX     = 36f
+// Steering is re-sent on this cadence, comfortably under the engine's tick.
+private const val STEER_INTERVAL_MS = 50L
 
 /**
  * Point-and-go control layer: the snake turns toward wherever the finger rests.
@@ -62,6 +69,26 @@ fun PointAndGoLayer(
 ) {
     // Null while nothing is pressed — drives both steering and the visuals.
     var finger by remember { mutableStateOf<Offset?>(null) }
+    var canvasSize by remember { mutableStateOf(IntSize.Zero) }
+
+    // Read through so the steering loop below always sees the live snake
+    // rather than the one captured when the effect started.
+    val currentSnake by rememberUpdatedState(snake)
+
+    // Steering has to be re-sent on a timer, not on touch events: a finger held
+    // still produces no events, and GameEngine consumes pendingDirection once
+    // per tick. Event-driven steering therefore turned exactly once and then let
+    // the snake run straight.
+    LaunchedEffect(board) {
+        while (true) {
+            delay(STEER_INTERVAL_MS)
+            val target = finger ?: continue
+            val head   = currentSnake?.head ?: continue
+            if (canvasSize == IntSize.Zero) continue
+            val layout = computeBoardLayout(canvasSize.toSize(), board)
+            steerToward(layout.centerOf(head), target)?.let(onDirection)
+        }
+    }
 
     val transition = rememberInfiniteTransition(label = "pointAndGo")
     // Drives the arrows travelling head -> finger; one full cycle per period.
@@ -81,6 +108,7 @@ fun PointAndGoLayer(
     Canvas(
         modifier = modifier
             .fillMaxSize()
+            .onSizeChanged { canvasSize = it }
             .pointerInput(board) {
                 awaitPointerEventScope {
                     while (true) {
@@ -94,16 +122,12 @@ fun PointAndGoLayer(
                         val startTime = System.currentTimeMillis()
                         var travelled = 0f
 
-                        // Track it until release; steer the whole time.
+                        // Track the finger until release. Steering itself is done
+                        // by the timer loop above, which keeps going even while
+                        // the finger is perfectly still and emits no events.
                         while (change.pressed) {
                             finger = change.position
                             travelled = maxOf(travelled, (change.position - startPos).getDistance())
-
-                            val head = snake?.head
-                            if (head != null) {
-                                val layout = computeBoardLayout(size.toSize(), board)
-                                steerToward(layout.centerOf(head), change.position)?.let(onDirection)
-                            }
                             change.consume()
                             change = awaitPointerEvent().changes.firstOrNull() ?: break
                         }
