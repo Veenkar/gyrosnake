@@ -33,6 +33,25 @@
     <string name="choose_controls">STEUERUNG WÄHLEN</string>
     <string name="confirm_cta">[ BESTÄTIGEN ]</string>
 
+    <string name="tutorial_cta">[ SPIELANLEITUNG ]</string>
+    <string name="tut_next_cta">[ WEITER ]</string>
+    <string name="tut_prev_cta">[ ZURÜCK ]</string>
+    <string name="tut_done_cta">[ ALLES KLAR ]</string>
+    <string name="tut_skip_cta">[ ÜBERSPRINGEN ]</string>
+
+    <string name="tut_goal_title">FRISS UND WACHSE</string>
+    <string name="tut_goal_body">Lenke die Schlange ins Futter.\nJeder Bissen verlängert den Schwanz und gibt einen Punkt.\nWände sind offen — nur der eigene Schwanz beendet den Lauf.</string>
+    <string name="tut_overlay_title">OVERLAY</string>
+    <string name="tut_overlay_body">Der Joystick sitzt in der unteren Ecke.\nHalte und ziehe ihn in die gewünschte Richtung.\nLoslassen: die Schlange fährt geradeaus weiter.</string>
+    <string name="tut_flick_title">SCHWUNG (GYRO)</string>
+    <string name="tut_flick_body">Halte das Telefon aufrecht und schwinge das Handgelenk.\nEine schnelle Drehung nach links oder rechts lenkt.\nKurze, scharfe Bewegungen wirken besser als langsame.</string>
+    <string name="tut_gravity_title">NEIGEN (SCHWERKRAFT)</string>
+    <string name="tut_gravity_body">Halte das Telefon flach, Bildschirm nach oben.\nKippe eine Kante nach unten, dorthin fährt die Schlange.\nWaagerecht halten heißt geradeaus.</string>
+    <string name="tut_powerups_title">POWER-UPS</string>
+    <string name="tut_powerups_body">Manches Futter wirkt 20-60 Sekunden lang.\nBONBON: rosa und schnell.\nBLATT: langsamer, dafür mehr Futter.\nDISCO: reine Show.</string>
+    <string name="tut_pause_title">JEDERZEIT PAUSIEREN</string>
+    <string name="tut_pause_body">Tippe auf das Feld, um zu pausieren.\nSteuerung, Ton und Sprache ändert man in EINSTELLUNGEN.\nDein Rekord wird automatisch gespeichert.</string>
+
     <string name="scheme_overlay_label">OVERLAY</string>
     <string name="scheme_overlay_desc">Virtueller Joystick auf dem Bildschirm</string>
     <string name="scheme_flick_label">SCHNIPPEN (GYRO)</string>

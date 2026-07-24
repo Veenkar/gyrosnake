@@ -33,6 +33,25 @@
     <string name="choose_controls">选择操控方式</string>
     <string name="confirm_cta">[ 确认 ]</string>
 
+    <string name="tutorial_cta">[ 玩法说明 ]</string>
+    <string name="tut_next_cta">[ 下一步 ]</string>
+    <string name="tut_prev_cta">[ 上一步 ]</string>
+    <string name="tut_done_cta">[ 明白了 ]</string>
+    <string name="tut_skip_cta">[ 跳过 ]</string>
+
+    <string name="tut_goal_title">吃食物，长身体</string>
+    <string name="tut_goal_body">操控蛇去吃食物。\n每吃一口，身体变长，得一分。\n墙壁可以穿过——只有撞到自己的身体才结束。</string>
+    <string name="tut_overlay_title">虚拟摇杆</string>
+    <string name="tut_overlay_body">摇杆在屏幕下方角落。\n按住并朝要转的方向拖动。\n松手后蛇会继续直行。</string>
+    <string name="tut_flick_title">挥动（陀螺仪）</string>
+    <string name="tut_flick_body">竖握手机，用手腕快速挥动。\n向左或向右一甩，蛇就转向。\n短促有力的动作比慢慢倾斜更灵。</string>
+    <string name="tut_gravity_title">倾斜（重力）</string>
+    <string name="tut_gravity_body">手机平放，屏幕朝上。\n压低哪一边，蛇就往哪边走。\n放平手机即可直行。</string>
+    <string name="tut_powerups_title">道具</string>
+    <string name="tut_powerups_body">部分食物带有 20-60 秒的效果。\n糖果：变粉红，速度加快。\n叶子：速度变慢，食物变多。\n迪斯科：纯粹的视觉狂欢。</string>
+    <string name="tut_pause_title">随时暂停</string>
+    <string name="tut_pause_body">点击棋盘即可暂停。\n在设置中可更换操控方式、音量和语言。\n最高分会自动保存。</string>
+
     <string name="scheme_overlay_label">虚拟摇杆</string>
     <string name="scheme_overlay_desc">屏幕上的虚拟摇杆</string>
     <string name="scheme_flick_label">甩动（陀螺仪）</string>

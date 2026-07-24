@@ -33,6 +33,25 @@
     <string name="choose_controls">கட்டுப்பாடுகளைத் தேர்ந்தெடுக்கவும்</string>
     <string name="confirm_cta">[ உறுதிப்படுத்து ]</string>
 
+    <string name="tutorial_cta">[ எப்படி விளையாடுவது ]</string>
+    <string name="tut_next_cta">[ அடுத்து ]</string>
+    <string name="tut_prev_cta">[ பின்னால் ]</string>
+    <string name="tut_done_cta">[ புரிந்தது ]</string>
+    <string name="tut_skip_cta">[ தவிர் ]</string>
+
+    <string name="tut_goal_title">சாப்பிடு, வளர்</string>
+    <string name="tut_goal_body">பாம்பை உணவை நோக்கி செலுத்து.\nஒவ்வொரு கடியிலும் வால் நீளும், ஒரு புள்ளி கிடைக்கும்.\nசுவர்களைக் கடக்கலாம் — சொந்த வால் மட்டுமே ஆட்டத்தை முடிக்கும்.</string>
+    <string name="tut_overlay_title">ஜாய்ஸ்டிக்</string>
+    <string name="tut_overlay_body">ஜாய்ஸ்டிக் திரையின் கீழ் மூலையில் உள்ளது.\nஅழுத்திப் பிடித்து திரும்ப வேண்டிய திசையில் இழு.\nவிட்டுவிட்டால் பாம்பு நேராகச் செல்லும்.</string>
+    <string name="tut_flick_title">சுண்டல் (ஜைரோ)</string>
+    <string name="tut_flick_body">தொலைபேசியை நிமிர்த்திப் பிடித்து மணிக்கட்டைச் சுண்டு.\nஇடமோ வலமோ விரைவாகத் திருகினால் பாம்பு திரும்பும்.\nமெதுவாகச் சாய்ப்பதைவிட குறுகிய கூர்மையான அசைவுகளே சிறந்தவை.</string>
+    <string name="tut_gravity_title">சாய்வு (ஈர்ப்பு)</string>
+    <string name="tut_gravity_body">தொலைபேசியைத் தட்டையாகப் பிடி, திரை மேல்நோக்கி.\nஎந்த விளிம்பைத் தாழ்த்துகிறாயோ அந்தப் பக்கம் பாம்பு செல்லும்.\nநேராகச் செல்ல தொலைபேசியைச் சமமாக வை.</string>
+    <string name="tut_powerups_title">பவர்அப்கள்</string>
+    <string name="tut_powerups_body">சில உணவுகள் 20-60 வினாடிகள் விளைவு தரும்.\nமிட்டாய்: இளஞ்சிவப்பு, வேகம் அதிகம்.\nஇலை: வேகம் குறையும், உணவு கூடும்.\nடிஸ்கோ: முழுக்க முழுக்க கேளிக்கை.</string>
+    <string name="tut_pause_title">எப்போது வேண்டுமானாலும் இடைநிறுத்து</string>
+    <string name="tut_pause_body">இடைநிறுத்த பலகையைத் தட்டு.\nகட்டுப்பாடு, ஒலி, மொழியை அமைப்புகளில் மாற்று.\nசிறந்த மதிப்பெண் தானாகவே சேமிக்கப்படும்.</string>
+
     <string name="scheme_overlay_label">ஜாய்ஸ்டிக்</string>
     <string name="scheme_overlay_desc">திரையில் மெய்நிகர் ஜாய்ஸ்டிக்</string>
     <string name="scheme_flick_label">சிலுப்பு (ஜைரோ)</string>

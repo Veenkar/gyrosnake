@@ -33,6 +33,25 @@
     <string name="choose_controls">操作方法を選択</string>
     <string name="confirm_cta">[ 決定 ]</string>
 
+    <string name="tutorial_cta">[ 遊びかた ]</string>
+    <string name="tut_next_cta">[ つぎへ ]</string>
+    <string name="tut_prev_cta">[ もどる ]</string>
+    <string name="tut_done_cta">[ わかった ]</string>
+    <string name="tut_skip_cta">[ スキップ ]</string>
+
+    <string name="tut_goal_title">食べて のびる</string>
+    <string name="tut_goal_body">ヘビをエサへ導きます。\n食べるたびに体が伸び、1点入ります。\n壁は通り抜け——自分の体に当たると終了です。</string>
+    <string name="tut_overlay_title">ジョイスティック</string>
+    <string name="tut_overlay_body">画面下の隅にスティックがあります。\n押したまま曲がりたい方向へ倒します。\n離すとヘビはそのまま直進します。</string>
+    <string name="tut_flick_title">フリック（ジャイロ）</string>
+    <string name="tut_flick_body">スマホを立てて持ち、手首をひねります。\n左右へすばやくひねると方向が変わります。\nゆっくり傾けるより、短く鋭い動きが有効です。</string>
+    <string name="tut_gravity_title">かたむけ（重力）</string>
+    <string name="tut_gravity_body">画面を上にして、スマホを水平に持ちます。\n下げた辺の方向へヘビが進みます。\n水平に戻すと直進します。</string>
+    <string name="tut_powerups_title">パワーアップ</string>
+    <string name="tut_powerups_body">一部のエサには20〜60秒の効果があります。\nキャンディ：ピンクになって加速。\nリーフ：減速するがエサが増加。\nディスコ：ただただ派手。</string>
+    <string name="tut_pause_title">いつでも一時停止</string>
+    <string name="tut_pause_body">盤面をタップすると一時停止します。\n操作方法・音・言語は設定で変更できます。\nハイスコアは自動で保存されます。</string>
+
     <string name="scheme_overlay_label">ジョイスティック</string>
     <string name="scheme_overlay_desc">画面上の仮想ジョイスティック</string>
     <string name="scheme_flick_label">フリック（ジャイロ）</string>

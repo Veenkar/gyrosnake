@@ -33,6 +33,25 @@
     <string name="choose_controls">PILIH KONTROL</string>
     <string name="confirm_cta">[ KONFIRMASI ]</string>
 
+    <string name="tutorial_cta">[ CARA BERMAIN ]</string>
+    <string name="tut_next_cta">[ LANJUT ]</string>
+    <string name="tut_prev_cta">[ KEMBALI ]</string>
+    <string name="tut_done_cta">[ PAHAM ]</string>
+    <string name="tut_skip_cta">[ LEWATI ]</string>
+
+    <string name="tut_goal_title">MAKAN DAN TUMBUH</string>
+    <string name="tut_goal_body">Arahkan ular ke makanan.\nSetiap gigitan memanjangkan ekor dan menambah satu poin.\nDinding tembus — hanya ekor sendiri yang mengakhiri permainan.</string>
+    <string name="tut_overlay_title">JOYSTICK</string>
+    <string name="tut_overlay_body">Joystick ada di sudut bawah layar.\nTahan lalu tarik ke arah belokan.\nLepaskan, ular tetap melaju lurus.</string>
+    <string name="tut_flick_title">SENTAKAN (GIROSKOP)</string>
+    <string name="tut_flick_body">Pegang ponsel tegak dan sentakkan pergelangan.\nPuntiran cepat ke kiri atau kanan membelokkan ular.\nGerakan pendek dan tegas lebih ampuh daripada miring pelan.</string>
+    <string name="tut_gravity_title">MIRINGKAN (GRAVITASI)</string>
+    <string name="tut_gravity_body">Pegang ponsel mendatar, layar menghadap atas.\nTurunkan satu sisi, ular menuju ke sana.\nDatarkan ponsel untuk melaju lurus.</string>
+    <string name="tut_powerups_title">POWER-UP</string>
+    <string name="tut_powerups_body">Sebagian makanan berefek 20-60 detik.\nPERMEN: jadi merah muda dan cepat.\nDAUN: melambat, tetapi makanan bertambah.\nDISCO: murni pertunjukan.</string>
+    <string name="tut_pause_title">JEDA KAPAN SAJA</string>
+    <string name="tut_pause_body">Ketuk papan untuk menjeda.\nUbah kontrol, suara, atau bahasa di PENGATURAN.\nSkor terbaik tersimpan otomatis.</string>
+
     <string name="scheme_overlay_label">JOYSTICK</string>
     <string name="scheme_overlay_desc">Joystick virtual di layar</string>
     <string name="scheme_flick_label">SENTAK (GIRO)</string>

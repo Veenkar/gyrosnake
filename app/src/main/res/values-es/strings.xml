@@ -33,6 +33,25 @@
     <string name="choose_controls">ELIGE LOS CONTROLES</string>
     <string name="confirm_cta">[ CONFIRMAR ]</string>
 
+    <string name="tutorial_cta">[ CÓMO JUGAR ]</string>
+    <string name="tut_next_cta">[ SIGUIENTE ]</string>
+    <string name="tut_prev_cta">[ ATRÁS ]</string>
+    <string name="tut_done_cta">[ ENTENDIDO ]</string>
+    <string name="tut_skip_cta">[ OMITIR ]</string>
+
+    <string name="tut_goal_title">COME Y CRECE</string>
+    <string name="tut_goal_body">Dirige la serpiente hacia la comida.\nCada bocado alarga la cola y suma un punto.\nLas paredes se cruzan — solo tu cola termina la partida.</string>
+    <string name="tut_overlay_title">JOYSTICK</string>
+    <string name="tut_overlay_body">El joystick está en la esquina inferior.\nMantén y arrastra hacia donde quieras girar.\nSuelta y la serpiente sigue recto.</string>
+    <string name="tut_flick_title">GIRO (GIROSCOPIO)</string>
+    <string name="tut_flick_body">Sujeta el teléfono en vertical y gira la muñeca.\nUn giro rápido a izquierda o derecha cambia el rumbo.\nMovimientos cortos y secos funcionan mejor que lentos.</string>
+    <string name="tut_gravity_title">INCLINAR (GRAVEDAD)</string>
+    <string name="tut_gravity_body">Sujeta el teléfono en plano, pantalla hacia arriba.\nBaja un borde y la serpiente irá hacia ahí.\nNivela el teléfono para seguir recto.</string>
+    <string name="tut_powerups_title">MEJORAS</string>
+    <string name="tut_powerups_body">Algunas comidas dan un efecto de 20-60 segundos.\nCARAMELO: rosa y rápido.\nHOJA: más lento, pero más comida.\nDISCO: puro espectáculo.</string>
+    <string name="tut_pause_title">PAUSA CUANDO QUIERAS</string>
+    <string name="tut_pause_body">Toca el tablero para pausar.\nCambia control, sonido o idioma en AJUSTES.\nTu récord se guarda solo.</string>
+
     <string name="scheme_overlay_label">JOYSTICK</string>
     <string name="scheme_overlay_desc">Joystick virtual en pantalla</string>
     <string name="scheme_flick_label">GIRO (GIROSCOPIO)</string>

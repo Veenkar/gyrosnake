@@ -33,6 +33,25 @@
     <string name="choose_controls">조작 방식 선택</string>
     <string name="confirm_cta">[ 확인 ]</string>
 
+    <string name="tutorial_cta">[ 게임 방법 ]</string>
+    <string name="tut_next_cta">[ 다음 ]</string>
+    <string name="tut_prev_cta">[ 이전 ]</string>
+    <string name="tut_done_cta">[ 알겠어요 ]</string>
+    <string name="tut_skip_cta">[ 건너뛰기 ]</string>
+
+    <string name="tut_goal_title">먹고 자라기</string>
+    <string name="tut_goal_body">뱀을 먹이 쪽으로 조종하세요.\n한 입 먹을 때마다 꼬리가 늘고 1점을 얻습니다.\n벽은 통과합니다 — 자기 꼬리에 부딪히면 끝납니다.</string>
+    <string name="tut_overlay_title">조이스틱</string>
+    <string name="tut_overlay_body">조이스틱은 화면 아래 모서리에 있습니다.\n누른 채 돌고 싶은 방향으로 끄세요.\n손을 떼면 뱀은 계속 직진합니다.</string>
+    <string name="tut_flick_title">플릭 (자이로)</string>
+    <string name="tut_flick_body">휴대폰을 세워 들고 손목을 튕기세요.\n좌우로 빠르게 비틀면 방향이 바뀝니다.\n천천히 기울이기보다 짧고 날카로운 동작이 좋습니다.</string>
+    <string name="tut_gravity_title">기울이기 (중력)</string>
+    <string name="tut_gravity_body">화면이 위를 향하게 휴대폰을 평평히 드세요.\n한쪽 모서리를 내리면 뱀이 그쪽으로 갑니다.\n수평으로 맞추면 직진합니다.</string>
+    <string name="tut_powerups_title">파워업</string>
+    <string name="tut_powerups_body">일부 먹이는 20~60초 동안 효과를 냅니다.\n캔디: 분홍색이 되고 빨라집니다.\n리프: 느려지지만 먹이가 늘어납니다.\n디스코: 그냥 화려합니다.</string>
+    <string name="tut_pause_title">언제든 일시정지</string>
+    <string name="tut_pause_body">화면을 누르면 일시정지됩니다.\n조작, 소리, 언어는 설정에서 바꿉니다.\n최고 점수는 자동 저장됩니다.</string>
+
     <string name="scheme_overlay_label">조이스틱</string>
     <string name="scheme_overlay_desc">화면 속 가상 조이스틱</string>
     <string name="scheme_flick_label">플릭 (자이로)</string>

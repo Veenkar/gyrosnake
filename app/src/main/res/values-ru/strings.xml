@@ -33,6 +33,25 @@
     <string name="choose_controls">ВЫБЕРИТЕ УПРАВЛЕНИЕ</string>
     <string name="confirm_cta">[ ПОДТВЕРДИТЬ ]</string>
 
+    <string name="tutorial_cta">[ КАК ИГРАТЬ ]</string>
+    <string name="tut_next_cta">[ ДАЛЕЕ ]</string>
+    <string name="tut_prev_cta">[ НАЗАД ]</string>
+    <string name="tut_done_cta">[ ПОНЯТНО ]</string>
+    <string name="tut_skip_cta">[ ПРОПУСТИТЬ ]</string>
+
+    <string name="tut_goal_title">ЕШЬ И РАСТИ</string>
+    <string name="tut_goal_body">Веди змейку к еде.\nКаждый укус удлиняет хвост и даёт очко.\nСтены сквозные — игру кончает только свой хвост.</string>
+    <string name="tut_overlay_title">ДЖОЙСТИК</string>
+    <string name="tut_overlay_body">Джойстик в нижнем углу экрана.\nЗажми и тяни в сторону поворота.\nОтпусти — змейка едет дальше прямо.</string>
+    <string name="tut_flick_title">ВЗМАХ (ГИРОСКОП)</string>
+    <string name="tut_flick_body">Держи телефон вертикально и взмахни кистью.\nБыстрый поворот влево или вправо меняет курс.\nКороткие резкие движения работают лучше плавных.</string>
+    <string name="tut_gravity_title">НАКЛОН (ГРАВИТАЦИЯ)</string>
+    <string name="tut_gravity_body">Держи телефон плашмя, экраном вверх.\nОпусти край — змейка пойдёт туда.\nВыровняй телефон, чтобы ехать прямо.</string>
+    <string name="tut_powerups_title">БОНУСЫ</string>
+    <string name="tut_powerups_body">Часть еды даёт эффект на 20-60 секунд.\nКОНФЕТА: розовый и быстрый.\nЛИСТ: медленнее, зато еды больше.\nДИСКО: чистое шоу.</string>
+    <string name="tut_pause_title">ПАУЗА В ЛЮБОЙ МОМЕНТ</string>
+    <string name="tut_pause_body">Коснись поля, чтобы поставить паузу.\nУправление, звук и язык меняются в НАСТРОЙКАХ.\nРекорд сохраняется сам.</string>
+
     <string name="scheme_overlay_label">ДЖОЙСТИК</string>
     <string name="scheme_overlay_desc">Виртуальный джойстик на экране</string>
     <string name="scheme_flick_label">РЫВОК (ГИРОСКОП)</string>

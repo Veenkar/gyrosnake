@@ -33,6 +33,25 @@
     <string name="choose_controls">ESCOLHA OS CONTROLES</string>
     <string name="confirm_cta">[ CONFIRMAR ]</string>
 
+    <string name="tutorial_cta">[ COMO JOGAR ]</string>
+    <string name="tut_next_cta">[ AVANÇAR ]</string>
+    <string name="tut_prev_cta">[ VOLTAR ]</string>
+    <string name="tut_done_cta">[ ENTENDI ]</string>
+    <string name="tut_skip_cta">[ PULAR ]</string>
+
+    <string name="tut_goal_title">COMA E CRESÇA</string>
+    <string name="tut_goal_body">Guie a cobra até a comida.\nCada mordida alonga a cauda e vale um ponto.\nAs paredes atravessam — só a própria cauda encerra.</string>
+    <string name="tut_overlay_title">JOYSTICK</string>
+    <string name="tut_overlay_body">O joystick fica no canto inferior.\nSegure e arraste para o lado que quer virar.\nSolte e a cobra segue em frente.</string>
+    <string name="tut_flick_title">GIRO (GIROSCÓPIO)</string>
+    <string name="tut_flick_body">Segure o telefone na vertical e gire o pulso.\nUm giro rápido para a esquerda ou direita vira.\nMovimentos curtos e secos funcionam melhor que lentos.</string>
+    <string name="tut_gravity_title">INCLINAR (GRAVIDADE)</string>
+    <string name="tut_gravity_body">Segure o telefone na horizontal, tela para cima.\nAbaixe uma borda e a cobra vai para esse lado.\nNivele o telefone para seguir reto.</string>
+    <string name="tut_powerups_title">POWER-UPS</string>
+    <string name="tut_powerups_body">Algumas comidas dão efeito por 20-60 segundos.\nDOCE: rosa e veloz.\nFOLHA: mais lento, mas com mais comida.\nDISCO: puro espetáculo.</string>
+    <string name="tut_pause_title">PAUSE QUANDO QUISER</string>
+    <string name="tut_pause_body">Toque no tabuleiro para pausar.\nMude controle, som ou idioma em CONFIGURAÇÕES.\nSeu recorde é salvo sozinho.</string>
+
     <string name="scheme_overlay_label">JOYSTICK</string>
     <string name="scheme_overlay_desc">Joystick virtual na tela</string>
     <string name="scheme_flick_label">GESTO (GIROSCÓPIO)</string>

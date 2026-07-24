@@ -33,6 +33,25 @@
     <string name="choose_controls">WYBIERZ STEROWANIE</string>
     <string name="confirm_cta">[ POTWIERDŹ ]</string>
 
+    <string name="tutorial_cta">[ JAK GRAĆ ]</string>
+    <string name="tut_next_cta">[ DALEJ ]</string>
+    <string name="tut_prev_cta">[ WSTECZ ]</string>
+    <string name="tut_done_cta">[ JASNE ]</string>
+    <string name="tut_skip_cta">[ POMIŃ ]</string>
+
+    <string name="tut_goal_title">JEDZ I ROŚNIJ</string>
+    <string name="tut_goal_body">Kieruj węża na jedzenie.\nKażdy kęs wydłuża ogon i daje punkt.\nŚciany zawijają — kończy tylko własny ogon.</string>
+    <string name="tut_overlay_title">NAKŁADKA</string>
+    <string name="tut_overlay_body">Joystick jest w dolnym rogu.\nPrzytrzymaj i przeciągnij w stronę skrętu.\nPuść, a wąż jedzie dalej prosto.</string>
+    <string name="tut_flick_title">MACHNIĘCIE (ŻYROSKOP)</string>
+    <string name="tut_flick_body">Trzymaj telefon pionowo i machnij nadgarstkiem.\nSzybki obrót w lewo lub prawo skręca wężem.\nKrótkie, ostre ruchy działają lepiej niż powolne.</string>
+    <string name="tut_gravity_title">PRZECHYŁ (GRAWITACJA)</string>
+    <string name="tut_gravity_body">Trzymaj telefon płasko, ekranem do góry.\nOpuść krawędź, a wąż pojedzie w tę stronę.\nWypoziomuj telefon, aby jechać prosto.</string>
+    <string name="tut_powerups_title">DOPALACZE</string>
+    <string name="tut_powerups_body">Część jedzenia daje efekt na 20-60 sekund.\nCUKIEREK: różowy i szybki.\nLIŚĆ: wolniej, ale więcej jedzenia.\nDISCO: czyste show.</string>
+    <string name="tut_pause_title">PAUZA W KAŻDEJ CHWILI</string>
+    <string name="tut_pause_body">Dotknij planszy, aby zatrzymać grę.\nSterowanie, dźwięk i język zmienisz w USTAWIENIACH.\nRekord zapisuje się sam.</string>
+
     <string name="scheme_overlay_label">NAKŁADKA</string>
     <string name="scheme_overlay_desc">Wirtualny joystick na ekranie</string>
     <string name="scheme_flick_label">MACHNIĘCIE (ŻYROSKOP)</string>

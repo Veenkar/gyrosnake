@@ -33,6 +33,25 @@
     <string name="choose_controls">नियंत्रण चुनें</string>
     <string name="confirm_cta">[ पुष्टि करें ]</string>
 
+    <string name="tutorial_cta">[ कैसे खेलें ]</string>
+    <string name="tut_next_cta">[ आगे ]</string>
+    <string name="tut_prev_cta">[ पीछे ]</string>
+    <string name="tut_done_cta">[ समझ गया ]</string>
+    <string name="tut_skip_cta">[ छोड़ें ]</string>
+
+    <string name="tut_goal_title">खाओ और बढ़ो</string>
+    <string name="tut_goal_body">साँप को भोजन की ओर ले जाएँ।\nहर निवाला पूँछ बढ़ाता है और एक अंक देता है।\nदीवारें आर-पार हैं — खेल केवल अपनी पूँछ से खत्म होता है।</string>
+    <string name="tut_overlay_title">जॉयस्टिक</string>
+    <string name="tut_overlay_body">जॉयस्टिक स्क्रीन के निचले कोने में है।\nदबाकर उस दिशा में खींचें जिधर मुड़ना है।\nछोड़ने पर साँप सीधा चलता रहता है।</string>
+    <string name="tut_flick_title">झटका (जायरो)</string>
+    <string name="tut_flick_body">फ़ोन सीधा पकड़ें और कलाई झटकें।\nबाएँ या दाएँ तेज़ मरोड़ साँप को मोड़ देती है।\nछोटी तेज़ हरकतें धीमे झुकाव से बेहतर काम करती हैं।</string>
+    <string name="tut_gravity_title">झुकाव (गुरुत्व)</string>
+    <string name="tut_gravity_body">फ़ोन को सपाट पकड़ें, स्क्रीन ऊपर की ओर।\nजो किनारा नीचे करेंगे, साँप उधर जाएगा।\nसीधा चलने के लिए फ़ोन समतल रखें।</string>
+    <string name="tut_powerups_title">पावरअप</string>
+    <string name="tut_powerups_body">कुछ भोजन 20-60 सेकंड तक असर करते हैं।\nकैंडी: गुलाबी और तेज़।\nपत्ता: धीमा, पर भोजन ज़्यादा।\nडिस्को: बस दिखावा।</string>
+    <string name="tut_pause_title">कभी भी रोकें</string>
+    <string name="tut_pause_body">रोकने के लिए बोर्ड पर टैप करें।\nनियंत्रण, ध्वनि और भाषा सेटिंग्स में बदलें।\nसर्वश्रेष्ठ स्कोर अपने आप सहेजा जाता है।</string>
+
     <string name="scheme_overlay_label">जॉयस्टिक</string>
     <string name="scheme_overlay_desc">स्क्रीन पर वर्चुअल जॉयस्टिक</string>
     <string name="scheme_flick_label">झटका (गायरो)</string>

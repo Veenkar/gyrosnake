@@ -33,6 +33,25 @@
     <string name="choose_controls">CHOISIR LES CONTRÔLES</string>
     <string name="confirm_cta">[ CONFIRMER ]</string>
 
+    <string name="tutorial_cta">[ COMMENT JOUER ]</string>
+    <string name="tut_next_cta">[ SUIVANT ]</string>
+    <string name="tut_prev_cta">[ RETOUR ]</string>
+    <string name="tut_done_cta">[ COMPRIS ]</string>
+    <string name="tut_skip_cta">[ PASSER ]</string>
+
+    <string name="tut_goal_title">MANGEZ ET GRANDISSEZ</string>
+    <string name="tut_goal_body">Dirigez le serpent vers la nourriture.\nChaque bouchée allonge la queue et donne un point.\nLes murs se traversent — seule votre queue est fatale.</string>
+    <string name="tut_overlay_title">MANETTE</string>
+    <string name="tut_overlay_body">Le joystick est dans le coin inférieur.\nMaintenez et tirez vers la direction voulue.\nRelâchez : le serpent continue tout droit.</string>
+    <string name="tut_flick_title">MOUVEMENT (GYRO)</string>
+    <string name="tut_flick_body">Tenez le téléphone droit et tournez le poignet.\nUne torsion rapide à gauche ou à droite fait tourner.\nDes gestes courts et secs valent mieux que lents.</string>
+    <string name="tut_gravity_title">INCLINAISON (GRAVITÉ)</string>
+    <string name="tut_gravity_body">Tenez le téléphone à plat, écran vers le haut.\nBaissez un bord : le serpent part de ce côté.\nRemettez à plat pour aller tout droit.</string>
+    <string name="tut_powerups_title">BONUS</string>
+    <string name="tut_powerups_body">Certains aliments durent de 20 à 60 secondes.\nBONBON : rose et rapide.\nFEUILLE : plus lent, mais plus de nourriture.\nDISCO : du pur spectacle.</string>
+    <string name="tut_pause_title">PAUSE À TOUT MOMENT</string>
+    <string name="tut_pause_body">Touchez le plateau pour mettre en pause.\nContrôles, son et langue se changent dans RÉGLAGES.\nVotre record est enregistré tout seul.</string>
+
     <string name="scheme_overlay_label">MANETTE</string>
     <string name="scheme_overlay_desc">Joystick virtuel à l\'écran</string>
     <string name="scheme_flick_label">MOUVEMENT (GYRO)</string>

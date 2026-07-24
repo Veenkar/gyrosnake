@@ -48,7 +48,7 @@
     <string name="tut_step_counter">%1$d / %2$d</string>
 
     <string name="tut_goal_title">EAT AND GROW</string>
-    <string name="tut_goal_body">Steer the snake into the food.\nEvery bite grows the tail and adds a point.\nHit a wall or your own tail and the run ends.</string>
+    <string name="tut_goal_body">Steer the snake into the food.\nEvery bite grows the tail and adds a point.\nWalls wrap around — only your own tail ends the run.</string>
     <string name="tut_overlay_title">OVERLAY</string>
     <string name="tut_overlay_body">A joystick sits in the bottom corner.\nHold and drag it toward the way you want to turn.\nRelease to stop steering — the snake keeps going.</string>
     <string name="tut_flick_title">FLICK (GYRO)</string>

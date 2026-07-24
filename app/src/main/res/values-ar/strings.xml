@@ -33,6 +33,25 @@
     <string name="choose_controls">اختر طريقة التحكم</string>
     <string name="confirm_cta">[ تأكيد ]</string>
 
+    <string name="tutorial_cta">[ كيف تلعب ]</string>
+    <string name="tut_next_cta">[ التالي ]</string>
+    <string name="tut_prev_cta">[ السابق ]</string>
+    <string name="tut_done_cta">[ فهمت ]</string>
+    <string name="tut_skip_cta">[ تخطٍّ ]</string>
+
+    <string name="tut_goal_title">كُلْ وانمُ</string>
+    <string name="tut_goal_body">وجّه الأفعى نحو الطعام.\nكل قضمة تُطيل الذيل وتضيف نقطة.\nالجدران تعبرها — ذيلك وحده ينهي الجولة.</string>
+    <string name="tut_overlay_title">عصا التحكم</string>
+    <string name="tut_overlay_body">العصا في الزاوية السفلية من الشاشة.\nاضغط واسحبها نحو الاتجاه المطلوب.\nاترُكها فتواصل الأفعى سيرها مستقيمة.</string>
+    <string name="tut_flick_title">النفض (الجيروسكوب)</string>
+    <string name="tut_flick_body">أمسك الهاتف عموديًا وانفض معصمك.\nلفّة سريعة يمينًا أو يسارًا تُغيّر الاتجاه.\nالحركات القصيرة الحادة أفضل من الإمالة البطيئة.</string>
+    <string name="tut_gravity_title">الإمالة (الجاذبية)</string>
+    <string name="tut_gravity_body">أمسك الهاتف مسطّحًا والشاشة إلى أعلى.\nاخفض حافة فتتجه الأفعى إلى تلك الجهة.\nاضبط الهاتف أفقيًا للسير مستقيمًا.</string>
+    <string name="tut_powerups_title">التعزيزات</string>
+    <string name="tut_powerups_body">بعض الطعام يمنح تأثيرًا لمدة 20-60 ثانية.\nالحلوى: لون وردي وسرعة أكبر.\nالورقة: سرعة أقل وطعام أكثر.\nالديسكو: استعراض خالص.</string>
+    <string name="tut_pause_title">أوقف مؤقتًا وقتما تشاء</string>
+    <string name="tut_pause_body">المس اللوحة للإيقاف المؤقت.\nغيّر التحكم والصوت واللغة من الإعدادات.\nأفضل نتيجة تُحفظ تلقائيًا.</string>
+
     <string name="scheme_overlay_label">عصا التحكم</string>
     <string name="scheme_overlay_desc">عصا تحكم افتراضية على الشاشة</string>
     <string name="scheme_flick_label">رجّة (جيروسكوب)</string>

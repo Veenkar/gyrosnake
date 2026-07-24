@@ -33,6 +33,25 @@
     <string name="choose_controls">CHỌN ĐIỀU KHIỂN</string>
     <string name="confirm_cta">[ XÁC NHẬN ]</string>
 
+    <string name="tutorial_cta">[ CÁCH CHƠI ]</string>
+    <string name="tut_next_cta">[ TIẾP ]</string>
+    <string name="tut_prev_cta">[ QUAY LẠI ]</string>
+    <string name="tut_done_cta">[ ĐÃ HIỂU ]</string>
+    <string name="tut_skip_cta">[ BỎ QUA ]</string>
+
+    <string name="tut_goal_title">ĂN VÀ LỚN LÊN</string>
+    <string name="tut_goal_body">Điều khiển rắn tới chỗ thức ăn.\nMỗi lần ăn, đuôi dài thêm và được một điểm.\nTường xuyên được — chỉ đuôi của bạn mới kết thúc ván.</string>
+    <string name="tut_overlay_title">CẦN ĐIỀU KHIỂN</string>
+    <string name="tut_overlay_body">Cần điều khiển nằm ở góc dưới màn hình.\nGiữ và kéo về phía bạn muốn rẽ.\nThả ra, rắn vẫn đi thẳng tiếp.</string>
+    <string name="tut_flick_title">LẮC (CON QUAY)</string>
+    <string name="tut_flick_body">Cầm điện thoại thẳng đứng và lắc cổ tay.\nMột cú xoay nhanh sang trái hoặc phải sẽ rẽ.\nĐộng tác ngắn và dứt khoát hiệu quả hơn nghiêng chậm.</string>
+    <string name="tut_gravity_title">NGHIÊNG (TRỌNG LỰC)</string>
+    <string name="tut_gravity_body">Cầm điện thoại nằm ngang, màn hình hướng lên.\nHạ một cạnh xuống, rắn sẽ đi về phía đó.\nGiữ máy thăng bằng để đi thẳng.</string>
+    <string name="tut_powerups_title">VẬT PHẨM</string>
+    <string name="tut_powerups_body">Một số thức ăn có hiệu ứng 20-60 giây.\nKẸO: hồng lên và nhanh hơn.\nLÁ: chậm lại nhưng nhiều thức ăn hơn.\nDISCO: thuần giải trí.</string>
+    <string name="tut_pause_title">TẠM DỪNG BẤT CỨ LÚC NÀO</string>
+    <string name="tut_pause_body">Chạm vào bàn chơi để tạm dừng.\nĐổi điều khiển, âm thanh hay ngôn ngữ trong CÀI ĐẶT.\nĐiểm cao nhất được lưu tự động.</string>
+
     <string name="scheme_overlay_label">CẦN ĐIỀU KHIỂN</string>
     <string name="scheme_overlay_desc">Cần điều khiển ảo trên màn hình</string>
     <string name="scheme_flick_label">VẨY TAY (CON QUAY HỒI CHUYỂN)</string>

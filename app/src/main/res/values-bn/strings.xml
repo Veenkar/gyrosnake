@@ -33,6 +33,25 @@
     <string name="choose_controls">নিয়ন্ত্রণ বেছে নিন</string>
     <string name="confirm_cta">[ নিশ্চিত করুন ]</string>
 
+    <string name="tutorial_cta">[ কীভাবে খেলবেন ]</string>
+    <string name="tut_next_cta">[ পরবর্তী ]</string>
+    <string name="tut_prev_cta">[ আগের ]</string>
+    <string name="tut_done_cta">[ বুঝেছি ]</string>
+    <string name="tut_skip_cta">[ এড়িয়ে যান ]</string>
+
+    <string name="tut_goal_title">খাও আর বাড়ো</string>
+    <string name="tut_goal_body">সাপকে খাবারের দিকে চালান।\nপ্রতিটি কামড়ে লেজ বাড়ে ও এক পয়েন্ট যোগ হয়।\nদেয়াল পেরিয়ে যায় — শুধু নিজের লেজেই খেলা শেষ।</string>
+    <string name="tut_overlay_title">জয়স্টিক</string>
+    <string name="tut_overlay_body">জয়স্টিক পর্দার নিচের কোণে থাকে।\nচেপে ধরে যেদিকে ঘুরতে চান সেদিকে টানুন।\nছেড়ে দিলে সাপ সোজা এগিয়ে চলে।</string>
+    <string name="tut_flick_title">ঝাঁকুনি (জাইরো)</string>
+    <string name="tut_flick_body">ফোন খাড়া ধরে কব্জি ঝাঁকান।\nবাঁয়ে বা ডানে দ্রুত মোচড়ে সাপ ঘোরে।\nছোট ও ধারালো নড়াচড়া ধীর কাত করার চেয়ে ভালো।</string>
+    <string name="tut_gravity_title">কাত (মাধ্যাকর্ষণ)</string>
+    <string name="tut_gravity_body">ফোন সমতল ধরুন, পর্দা উপরের দিকে।\nযে কিনারা নামাবেন সাপ সেদিকেই যাবে।\nসোজা চলতে ফোন সমান রাখুন।</string>
+    <string name="tut_powerups_title">পাওয়ার-আপ</string>
+    <string name="tut_powerups_body">কিছু খাবার ২০-৬০ সেকেন্ড কাজ করে।\nক্যান্ডি: গোলাপি ও দ্রুত।\nপাতা: ধীর, তবে খাবার বেশি।\nডিস্কো: নিছক শো।</string>
+    <string name="tut_pause_title">যেকোনো সময় বিরতি</string>
+    <string name="tut_pause_body">বিরতি দিতে বোর্ডে টোকা দিন।\nনিয়ন্ত্রণ, শব্দ ও ভাষা সেটিংসে বদলান।\nসেরা স্কোর নিজে থেকেই সংরক্ষিত হয়।</string>
+
     <string name="scheme_overlay_label">জয়স্টিক</string>
     <string name="scheme_overlay_desc">স্ক্রিনে ভার্চুয়াল জয়স্টিক</string>
     <string name="scheme_flick_label">ঝাঁকুনি (জাইরো)</string>

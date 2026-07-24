@@ -33,6 +33,25 @@
     <string name="choose_controls">کنٹرولز منتخب کریں</string>
     <string name="confirm_cta">[ تصدیق کریں ]</string>
 
+    <string name="tutorial_cta">[ کھیلنے کا طریقہ ]</string>
+    <string name="tut_next_cta">[ آگے ]</string>
+    <string name="tut_prev_cta">[ پیچھے ]</string>
+    <string name="tut_done_cta">[ سمجھ گیا ]</string>
+    <string name="tut_skip_cta">[ چھوڑیں ]</string>
+
+    <string name="tut_goal_title">کھائیں اور بڑھیں</string>
+    <string name="tut_goal_body">سانپ کو کھانے کی طرف لے جائیں۔\nہر لقمہ دم لمبی کرتا ہے اور ایک پوائنٹ دیتا ہے۔\nدیواروں سے گزر جاتے ہیں — صرف اپنی دم کھیل ختم کرتی ہے۔</string>
+    <string name="tut_overlay_title">جوائے اسٹک</string>
+    <string name="tut_overlay_body">جوائے اسٹک اسکرین کے نچلے کونے میں ہے۔\nدبا کر جس طرف مڑنا ہو ادھر کھینچیں۔\nچھوڑ دیں تو سانپ سیدھا چلتا رہتا ہے۔</string>
+    <string name="tut_flick_title">جھٹکا (جائرو)</string>
+    <string name="tut_flick_body">فون سیدھا پکڑیں اور کلائی جھٹکیں۔\nبائیں یا دائیں تیز موڑ سانپ کا رخ بدل دیتا ہے۔\nچھوٹی تیز حرکتیں سست جھکاؤ سے بہتر کام کرتی ہیں۔</string>
+    <string name="tut_gravity_title">جھکاؤ (کشش ثقل)</string>
+    <string name="tut_gravity_body">فون سیدھا لٹا کر پکڑیں، اسکرین اوپر کی طرف۔\nجو کنارہ نیچے کریں گے سانپ ادھر جائے گا۔\nسیدھا چلنے کے لیے فون برابر رکھیں۔</string>
+    <string name="tut_powerups_title">پاور اپ</string>
+    <string name="tut_powerups_body">کچھ کھانے 20-60 سیکنڈ اثر رکھتے ہیں۔\nکینڈی: گلابی اور تیز۔\nپتّا: رفتار کم، مگر کھانا زیادہ۔\nڈسکو: خالص تماشا۔</string>
+    <string name="tut_pause_title">جب چاہیں روکیں</string>
+    <string name="tut_pause_body">روکنے کے لیے بورڈ پر ٹیپ کریں۔\nکنٹرول، آواز اور زبان ترتیبات میں بدلیں۔\nبہترین اسکور خودبخود محفوظ ہوتا ہے۔</string>
+
     <string name="scheme_overlay_label">جوائے اسٹک</string>
     <string name="scheme_overlay_desc">اسکرین پر ورچوئل جوائے اسٹک</string>
     <string name="scheme_flick_label">جھٹکا (گائرو)</string>

@@ -33,6 +33,25 @@
     <string name="choose_controls">నియంత్రణలను ఎంచుకోండి</string>
     <string name="confirm_cta">[ నిర్ధారించండి ]</string>
 
+    <string name="tutorial_cta">[ ఎలా ఆడాలి ]</string>
+    <string name="tut_next_cta">[ తర్వాత ]</string>
+    <string name="tut_prev_cta">[ వెనుకకు ]</string>
+    <string name="tut_done_cta">[ అర్థమైంది ]</string>
+    <string name="tut_skip_cta">[ దాటవేయి ]</string>
+
+    <string name="tut_goal_title">తిను, పెరుగు</string>
+    <string name="tut_goal_body">పామును ఆహారం వైపు నడిపించు.\nప్రతి ముద్దకు తోక పెరుగుతుంది, ఒక పాయింట్ వస్తుంది.\nగోడలు దాటిపోతాయి — సొంత తోక మాత్రమే ఆటను ముగిస్తుంది.</string>
+    <string name="tut_overlay_title">జాయ్‌స్టిక్</string>
+    <string name="tut_overlay_body">జాయ్‌స్టిక్ తెర కింది మూలలో ఉంటుంది.\nనొక్కి, తిరగాలనుకున్న వైపు లాగు.\nవదిలేస్తే పాము తిన్నగా ముందుకు సాగుతుంది.</string>
+    <string name="tut_flick_title">విదిలింపు (జైరో)</string>
+    <string name="tut_flick_body">ఫోన్‌ను నిలువుగా పట్టి మణికట్టు విదిలించు.\nఎడమ లేదా కుడికి వేగంగా తిప్పితే పాము మలుపు తిరుగుతుంది.\nనెమ్మదిగా వంచడం కంటే చిన్న, పదునైన కదలికలే మేలు.</string>
+    <string name="tut_gravity_title">వంపు (గురుత్వం)</string>
+    <string name="tut_gravity_body">ఫోన్‌ను చదునుగా పట్టు, తెర పైకి ఉండేలా.\nఏ అంచు కిందికి వంచితే పాము ఆ వైపు వెళ్తుంది.\nతిన్నగా వెళ్లడానికి ఫోన్‌ను సమానంగా ఉంచు.</string>
+    <string name="tut_powerups_title">పవర్‌అప్‌లు</string>
+    <string name="tut_powerups_body">కొన్ని ఆహారాలు 20-60 సెకన్ల ప్రభావం ఇస్తాయి.\nక్యాండీ: గులాబీ రంగు, వేగం.\nఆకు: నెమ్మది, కానీ ఆహారం ఎక్కువ.\nడిస్కో: పూర్తిగా సందడి.</string>
+    <string name="tut_pause_title">ఎప్పుడైనా విరామం</string>
+    <string name="tut_pause_body">విరామం కోసం బోర్డును తాకు.\nనియంత్రణ, ధ్వని, భాష సెట్టింగ్‌లలో మార్చు.\nఅత్యుత్తమ స్కోరు దానంతట అదే సేవ్ అవుతుంది.</string>
+
     <string name="scheme_overlay_label">జాయ్‌స్టిక్</string>
     <string name="scheme_overlay_desc">స్క్రీన్‌పై వర్చువల్ జాయ్‌స్టిక్</string>
     <string name="scheme_flick_label">తడబాటు (గైరో)</string>

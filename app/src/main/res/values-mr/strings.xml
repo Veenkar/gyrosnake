@@ -33,6 +33,25 @@
     <string name="choose_controls">नियंत्रणे निवडा</string>
     <string name="confirm_cta">[ पुष्टी करा ]</string>
 
+    <string name="tutorial_cta">[ कसे खेळावे ]</string>
+    <string name="tut_next_cta">[ पुढे ]</string>
+    <string name="tut_prev_cta">[ मागे ]</string>
+    <string name="tut_done_cta">[ समजले ]</string>
+    <string name="tut_skip_cta">[ वगळा ]</string>
+
+    <string name="tut_goal_title">खा आणि वाढ</string>
+    <string name="tut_goal_body">सापाला अन्नाकडे न्या.\nप्रत्येक घासाने शेपूट वाढते आणि एक गुण मिळतो.\nभिंती आरपार आहेत — खेळ फक्त स्वतःच्या शेपटीने संपतो.</string>
+    <string name="tut_overlay_title">जॉयस्टिक</string>
+    <string name="tut_overlay_body">जॉयस्टिक स्क्रीनच्या खालच्या कोपऱ्यात आहे.\nदाबून ज्या दिशेला वळायचे तिकडे ओढा.\nसोडल्यावर साप सरळ पुढे जात राहतो.</string>
+    <string name="tut_flick_title">झटका (जायरो)</string>
+    <string name="tut_flick_body">फोन उभा धरा आणि मनगट झटका.\nडावी किंवा उजवीकडे झटपट पीळ सापाला वळवतो.\nछोट्या तीक्ष्ण हालचाली संथ कलण्यापेक्षा चांगल्या.</string>
+    <string name="tut_gravity_title">कल (गुरुत्व)</string>
+    <string name="tut_gravity_body">फोन सपाट धरा, स्क्रीन वरच्या दिशेने.\nजी कड खाली कराल तिकडे साप जाईल.\nसरळ जाण्यासाठी फोन समपातळीत ठेवा.</string>
+    <string name="tut_powerups_title">पॉवरअप</string>
+    <string name="tut_powerups_body">काही अन्नाचा परिणाम 20-60 सेकंद टिकतो.\nकँडी: गुलाबी आणि वेगवान.\nपान: संथ, पण अन्न जास्त.\nडिस्को: निव्वळ देखावा.</string>
+    <string name="tut_pause_title">कधीही थांबवा</string>
+    <string name="tut_pause_body">थांबवण्यासाठी बोर्डवर टॅप करा.\nनियंत्रण, आवाज व भाषा सेटिंग्जमध्ये बदला.\nसर्वोत्तम गुण आपोआप जतन होतो.</string>
+
     <string name="scheme_overlay_label">जॉयस्टिक</string>
     <string name="scheme_overlay_desc">स्क्रीनवरील व्हर्च्युअल जॉयस्टिक</string>
     <string name="scheme_flick_label">झटका (गायरो)</string>

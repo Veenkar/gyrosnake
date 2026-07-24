@@ -33,6 +33,25 @@
     <string name="choose_controls">KONTROLLERİ SEÇ</string>
     <string name="confirm_cta">[ ONAYLA ]</string>
 
+    <string name="tutorial_cta">[ NASIL OYNANIR ]</string>
+    <string name="tut_next_cta">[ İLERİ ]</string>
+    <string name="tut_prev_cta">[ GERİ ]</string>
+    <string name="tut_done_cta">[ ANLADIM ]</string>
+    <string name="tut_skip_cta">[ ATLA ]</string>
+
+    <string name="tut_goal_title">YE VE BÜYÜ</string>
+    <string name="tut_goal_body">Yılanı yemeğe doğru yönlendir.\nHer lokma kuyruğu uzatır ve bir puan kazandırır.\nDuvarlar geçirgen — oyunu yalnızca kendi kuyruğun bitirir.</string>
+    <string name="tut_overlay_title">JOYSTICK</string>
+    <string name="tut_overlay_body">Joystick ekranın alt köşesinde durur.\nBasılı tutup dönmek istediğin yöne çek.\nBıraktığında yılan dümdüz ilerlemeye devam eder.</string>
+    <string name="tut_flick_title">SAVURMA (JİROSKOP)</string>
+    <string name="tut_flick_body">Telefonu dik tut ve bileğini savur.\nSola ya da sağa hızlı bir büküş yılanı döndürür.\nKısa ve keskin hareketler yavaş eğmekten iyi çalışır.</string>
+    <string name="tut_gravity_title">EĞ (YERÇEKİMİ)</string>
+    <string name="tut_gravity_body">Telefonu düz tut, ekran yukarı baksın.\nBir kenarı aşağı indir, yılan o yöne gider.\nDüz gitmek için telefonu düzle.</string>
+    <string name="tut_powerups_title">GÜÇLENDİRMELER</string>
+    <string name="tut_powerups_body">Bazı yemekler 20-60 saniye etki eder.\nŞEKER: pembeleşir ve hızlanırsın.\nYAPRAK: yavaşlarsın ama yemek çoğalır.\nDİSKO: saf gösteri.</string>
+    <string name="tut_pause_title">İSTEDİĞİN AN DURAKLAT</string>
+    <string name="tut_pause_body">Duraklatmak için tahtaya dokun.\nKontrol, ses ve dili AYARLAR\'dan değiştir.\nEn iyi skorun kendiliğinden kaydedilir.</string>
+
     <string name="scheme_overlay_label">JOYSTICK</string>
     <string name="scheme_overlay_desc">Ekranda sanal joystick</string>
     <string name="scheme_flick_label">SAVURMA (JİROSKOP)</string>
