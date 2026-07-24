@@ -40,7 +40,7 @@
     <string name="tut_skip_cta">[ 건너뛰기 ]</string>
 
     <string name="tut_point_title">POINT AND GO</string>
-    <string name="tut_point_body">화면 아무 곳이나 손가락으로 누르고 계세요.\n뱀이 그쪽으로 방향을 틀고 계속 나아갑니다.\n끌어서 이끌고, 떼면 방향을 유지합니다.\n짧게 톡 누르면 일시정지입니다.</string>
+    <string name="tut_point_body">화면 아무 곳이나 손가락으로 누르고 계세요.\n뱀이 그쪽으로 방향을 틀고 계속 나아갑니다.\n끌어서 이끌고, 떼면 방향을 유지합니다.\n일시정지는 모서리 버튼으로 합니다.</string>
     <string name="tut_goal_title">먹고 자라기</string>
     <string name="tut_goal_body">뱀을 먹이 쪽으로 조종하세요.\n한 입 먹을 때마다 꼬리가 늘고 1점을 얻습니다.\n벽은 통과합니다 — 자기 꼬리에 부딪히면 끝납니다.</string>
     <string name="tut_overlay_title">조이스틱</string>

@@ -40,7 +40,7 @@
     <string name="tut_skip_cta">[ POMIŃ ]</string>
 
     <string name="tut_point_title">POINT AND GO</string>
-    <string name="tut_point_body">Przytrzymaj palec w dowolnym miejscu planszy.\nWąż skręca w jego stronę i tak idzie.\nPrzesuwaj palec, aby go prowadzić.\nKrótkie dotknięcie zatrzymuje grę.</string>
+    <string name="tut_point_body">Przytrzymaj palec w dowolnym miejscu planszy.\nWąż skręca w jego stronę i tak idzie.\nPrzesuwaj palec, aby go prowadzić.\nPauza przyciskiem w rogu ekranu.</string>
     <string name="tut_goal_title">JEDZ I ROŚNIJ</string>
     <string name="tut_goal_body">Kieruj węża na jedzenie.\nKażdy kęs wydłuża ogon i daje punkt.\nŚciany zawijają — kończy tylko własny ogon.</string>
     <string name="tut_overlay_title">NAKŁADKA</string>

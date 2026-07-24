@@ -40,7 +40,7 @@
     <string name="tut_skip_cta">[ छोड़ें ]</string>
 
     <string name="tut_point_title">POINT AND GO</string>
-    <string name="tut_point_body">बोर्ड पर कहीं भी उँगली दबाए रखें।\nसाँप उसी ओर मुड़कर बढ़ता रहता है।\nउँगली सरकाकर उसे राह दिखाएँ; छोड़ने पर दिशा बनी रहती है।\nहल्का टैप खेल रोक देता है।</string>
+    <string name="tut_point_body">बोर्ड पर कहीं भी उँगली दबाए रखें।\nसाँप उसी ओर मुड़कर बढ़ता रहता है।\nउँगली सरकाकर उसे राह दिखाएँ; छोड़ने पर दिशा बनी रहती है।\nरोकने के लिए कोने का बटन दबाएँ।</string>
     <string name="tut_goal_title">खाओ और बढ़ो</string>
     <string name="tut_goal_body">साँप को भोजन की ओर ले जाएँ।\nहर निवाला पूँछ बढ़ाता है और एक अंक देता है।\nदीवारें आर-पार हैं — खेल केवल अपनी पूँछ से खत्म होता है।</string>
     <string name="tut_overlay_title">जॉयस्टिक</string>

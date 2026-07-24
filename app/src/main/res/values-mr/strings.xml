@@ -40,7 +40,7 @@
     <string name="tut_skip_cta">[ वगळा ]</string>
 
     <string name="tut_point_title">POINT AND GO</string>
-    <string name="tut_point_body">बोर्डवर कुठेही बोट दाबून धरा.\nसाप तिकडे वळतो आणि येत राहतो.\nबोट सरकवून त्याला मार्ग दाखवा; सोडल्यास दिशा टिकते.\nहलका टॅप खेळ थांबवतो.</string>
+    <string name="tut_point_body">बोर्डवर कुठेही बोट दाबून धरा.\nसाप तिकडे वळतो आणि येत राहतो.\nबोट सरकवून त्याला मार्ग दाखवा; सोडल्यास दिशा टिकते.\nथांबवण्यासाठी कोपऱ्यातील बटण दाबा.</string>
     <string name="tut_goal_title">खा आणि वाढ</string>
     <string name="tut_goal_body">सापाला अन्नाकडे न्या.\nप्रत्येक घासाने शेपूट वाढते आणि एक गुण मिळतो.\nभिंती आरपार आहेत — खेळ फक्त स्वतःच्या शेपटीने संपतो.</string>
     <string name="tut_overlay_title">जॉयस्टिक</string>

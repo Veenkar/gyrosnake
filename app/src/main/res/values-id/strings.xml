@@ -40,7 +40,7 @@
     <string name="tut_skip_cta">[ LEWATI ]</string>
 
     <string name="tut_point_title">POINT AND GO</string>
-    <string name="tut_point_body">Tahan jari di mana saja pada papan.\nUlar berbelok ke arahnya dan terus melaju.\nGeser untuk menuntunnya; lepas, arah tetap.\nKetukan singkat menjeda.</string>
+    <string name="tut_point_body">Tahan jari di mana saja pada papan.\nUlar berbelok ke arahnya dan terus melaju.\nGeser untuk menuntunnya; lepas, arah tetap.\nJeda lewat tombol di sudut layar.</string>
     <string name="tut_goal_title">MAKAN DAN TUMBUH</string>
     <string name="tut_goal_body">Arahkan ular ke makanan.\nSetiap gigitan memanjangkan ekor dan menambah satu poin.\nDinding tembus — hanya ekor sendiri yang mengakhiri permainan.</string>
     <string name="tut_overlay_title">JOYSTICK</string>

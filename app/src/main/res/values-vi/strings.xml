@@ -40,7 +40,7 @@
     <string name="tut_skip_cta">[ BỎ QUA ]</string>
 
     <string name="tut_point_title">POINT AND GO</string>
-    <string name="tut_point_body">Giữ ngón tay ở bất kỳ đâu trên bàn chơi.\nRắn quay về phía đó và tiếp tục đi.\nKéo để dẫn đường; thả ra, rắn giữ hướng.\nChạm nhanh sẽ tạm dừng.</string>
+    <string name="tut_point_body">Giữ ngón tay ở bất kỳ đâu trên bàn chơi.\nRắn quay về phía đó và tiếp tục đi.\nKéo để dẫn đường; thả ra, rắn giữ hướng.\nTạm dừng bằng nút ở góc màn hình.</string>
     <string name="tut_goal_title">ĂN VÀ LỚN LÊN</string>
     <string name="tut_goal_body">Điều khiển rắn tới chỗ thức ăn.\nMỗi lần ăn, đuôi dài thêm và được một điểm.\nTường xuyên được — chỉ đuôi của bạn mới kết thúc ván.</string>
     <string name="tut_overlay_title">CẦN ĐIỀU KHIỂN</string>

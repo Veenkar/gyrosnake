@@ -40,7 +40,7 @@
     <string name="tut_skip_cta">[ تخطٍّ ]</string>
 
     <string name="tut_point_title">POINT AND GO</string>
-    <string name="tut_point_body">أبقِ إصبعك في أي مكان على اللوحة.\nتنعطف الأفعى نحوه وتواصل التقدّم.\nاسحب إصبعك لتقودها؛ وبرفعه تحافظ على اتجاهها.\nلمسة سريعة توقف اللعبة مؤقتًا.</string>
+    <string name="tut_point_body">أبقِ إصبعك في أي مكان على اللوحة.\nتنعطف الأفعى نحوه وتواصل التقدّم.\nاسحب إصبعك لتقودها؛ وبرفعه تحافظ على اتجاهها.\nللإيقاف المؤقت استخدم الزر في الزاوية.</string>
     <string name="tut_goal_title">كُلْ وانمُ</string>
     <string name="tut_goal_body">وجّه الأفعى نحو الطعام.\nكل قضمة تُطيل الذيل وتضيف نقطة.\nالجدران تعبرها — ذيلك وحده ينهي الجولة.</string>
     <string name="tut_overlay_title">عصا التحكم</string>

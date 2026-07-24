@@ -40,7 +40,7 @@
     <string name="tut_skip_cta">[ RUKA ]</string>
 
     <string name="tut_point_title">POINT AND GO</string>
-    <string name="tut_point_body">Shikilia kidole mahali popote kwenye ubao.\nNyoka hugeukia huko na kuendelea kuja.\nBuruta ili kumwongoza; ukiachia hubaki na mwelekeo.\nMguso mfupi husitisha.</string>
+    <string name="tut_point_body">Shikilia kidole mahali popote kwenye ubao.\nNyoka hugeukia huko na kuendelea kuja.\nBuruta ili kumwongoza; ukiachia hubaki na mwelekeo.\nSitisha kwa kitufe kilicho pembeni.</string>
     <string name="tut_goal_title">KULA NA KUKUA</string>
     <string name="tut_goal_body">Elekeza nyoka kwenye chakula.\nKila tonge huongeza mkia na kutoa alama moja.\nKuta hupitika — mkia wako pekee ndio humaliza mchezo.</string>
     <string name="tut_overlay_title">JOYSTICK</string>

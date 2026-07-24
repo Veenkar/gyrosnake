@@ -40,7 +40,7 @@
     <string name="tut_skip_cta">[ ÜBERSPRINGEN ]</string>
 
     <string name="tut_point_title">POINT AND GO</string>
-    <string name="tut_point_body">Halte den Finger irgendwo auf dem Feld.\nDie Schlange dreht dorthin und läuft weiter.\nZieh den Finger, um sie zu führen.\nEin kurzer Tipp pausiert stattdessen.</string>
+    <string name="tut_point_body">Halte den Finger irgendwo auf dem Feld.\nDie Schlange dreht dorthin und läuft weiter.\nZieh den Finger, um sie zu führen.\nPausieren über die Taste in der Ecke.</string>
     <string name="tut_goal_title">FRISS UND WACHSE</string>
     <string name="tut_goal_body">Lenke die Schlange ins Futter.\nJeder Bissen verlängert den Schwanz und gibt einen Punkt.\nWände sind offen — nur der eigene Schwanz beendet den Lauf.</string>
     <string name="tut_overlay_title">OVERLAY</string>

@@ -40,7 +40,7 @@
     <string name="tut_skip_cta">[ PASSER ]</string>
 
     <string name="tut_point_title">POINT AND GO</string>
-    <string name="tut_point_body">Gardez le doigt posé n\'importe où sur le plateau.\nLe serpent tourne vers lui et continue.\nGlissez pour le guider ; relâchez, il garde le cap.\nUne touche brève met en pause.</string>
+    <string name="tut_point_body">Gardez le doigt posé n\'importe où sur le plateau.\nLe serpent tourne vers lui et continue.\nGlissez pour le guider ; relâchez, il garde le cap.\nMettez en pause avec le bouton dans le coin.</string>
     <string name="tut_goal_title">MANGEZ ET GRANDISSEZ</string>
     <string name="tut_goal_body">Dirigez le serpent vers la nourriture.\nChaque bouchée allonge la queue et donne un point.\nLes murs se traversent — seule votre queue est fatale.</string>
     <string name="tut_overlay_title">MANETTE</string>

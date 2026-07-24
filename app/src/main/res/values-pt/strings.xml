@@ -40,7 +40,7 @@
     <string name="tut_skip_cta">[ PULAR ]</string>
 
     <string name="tut_point_title">POINT AND GO</string>
-    <string name="tut_point_body">Segure o dedo em qualquer ponto do tabuleiro.\nA cobra vira para ele e continua indo.\nArraste para guiá-la; solte e ela mantém o rumo.\nUm toque rápido pausa.</string>
+    <string name="tut_point_body">Segure o dedo em qualquer ponto do tabuleiro.\nA cobra vira para ele e continua indo.\nArraste para guiá-la; solte e ela mantém o rumo.\nPause com o botão no canto.</string>
     <string name="tut_goal_title">COMA E CRESÇA</string>
     <string name="tut_goal_body">Guie a cobra até a comida.\nCada mordida alonga a cauda e vale um ponto.\nAs paredes atravessam — só a própria cauda encerra.</string>
     <string name="tut_overlay_title">JOYSTICK</string>

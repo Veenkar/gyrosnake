@@ -40,7 +40,7 @@
     <string name="tut_skip_cta">[ ATLA ]</string>
 
     <string name="tut_point_title">POINT AND GO</string>
-    <string name="tut_point_body">Parmağını tahtanın herhangi bir yerinde tut.\nYılan ona döner ve gelmeye devam eder.\nSürükleyerek yönlendir; bıraktığında rotayı korur.\nKısa bir dokunuş duraklatır.</string>
+    <string name="tut_point_body">Parmağını tahtanın herhangi bir yerinde tut.\nYılan ona döner ve gelmeye devam eder.\nSürükleyerek yönlendir; bıraktığında rotayı korur.\nDuraklatmak için köşedeki düğmeye bas.</string>
     <string name="tut_goal_title">YE VE BÜYÜ</string>
     <string name="tut_goal_body">Yılanı yemeğe doğru yönlendir.\nHer lokma kuyruğu uzatır ve bir puan kazandırır.\nDuvarlar geçirgen — oyunu yalnızca kendi kuyruğun bitirir.</string>
     <string name="tut_overlay_title">JOYSTICK</string>

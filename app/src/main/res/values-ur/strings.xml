@@ -40,7 +40,7 @@
     <string name="tut_skip_cta">[ چھوڑیں ]</string>
 
     <string name="tut_point_title">POINT AND GO</string>
-    <string name="tut_point_body">بورڈ پر کہیں بھی انگلی دبائے رکھیں۔\nسانپ اسی طرف مڑ کر بڑھتا رہتا ہے۔\nانگلی سرکا کر راستہ دکھائیں؛ چھوڑنے پر رخ برقرار رہتا ہے۔\nہلکا سا ٹیپ کھیل روک دیتا ہے۔</string>
+    <string name="tut_point_body">بورڈ پر کہیں بھی انگلی دبائے رکھیں۔\nسانپ اسی طرف مڑ کر بڑھتا رہتا ہے۔\nانگلی سرکا کر راستہ دکھائیں؛ چھوڑنے پر رخ برقرار رہتا ہے۔\nروکنے کے لیے کونے کا بٹن دبائیں۔</string>
     <string name="tut_goal_title">کھائیں اور بڑھیں</string>
     <string name="tut_goal_body">سانپ کو کھانے کی طرف لے جائیں۔\nہر لقمہ دم لمبی کرتا ہے اور ایک پوائنٹ دیتا ہے۔\nدیواروں سے گزر جاتے ہیں — صرف اپنی دم کھیل ختم کرتی ہے۔</string>
     <string name="tut_overlay_title">جوائے اسٹک</string>

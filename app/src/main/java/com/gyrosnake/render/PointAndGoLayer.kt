@@ -37,10 +37,6 @@ import kotlin.math.sin
 
 private val POINT_GREEN = Color(0xFF00FF55)
 
-// A press shorter than this that barely moves is treated as a tap (pause)
-// rather than a steer, so the whole board stays tappable.
-private const val TAP_MAX_MS       = 180L
-private const val TAP_SLOP_PX      = 24f
 // Below this distance the finger is effectively on the head; steering from
 // such a short vector would jitter between axes, so it is ignored.
 private const val MIN_STEER_PX     = 36f
@@ -50,9 +46,9 @@ private const val STEER_INTERVAL_MS = 50L
 /**
  * Point-and-go control layer: the snake turns toward wherever the finger rests.
  *
- * Covers the whole board, so it also has to preserve tap-to-pause. It resolves
- * the ambiguity by duration and travel: a short, stationary press is forwarded
- * to [onTap]; anything longer or moving is a steer and is consumed.
+ * Every touch on the board steers — pausing lives on its own button outside the
+ * playfield, because a tap-to-pause gesture here would fire on the same presses
+ * the player uses to steer.
  *
  * Steering picks the dominant axis of (finger - head), which is what makes the
  * scheme feel direct: the snake commits to the larger component first and
@@ -64,7 +60,6 @@ fun PointAndGoLayer(
     snake: SnakeState?,
     board: GameBoard,
     onDirection: (Direction) -> Unit,
-    onTap: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     // Null while nothing is pressed — drives both steering and the visuals.
@@ -112,29 +107,22 @@ fun PointAndGoLayer(
             .pointerInput(board) {
                 awaitPointerEventScope {
                     while (true) {
-                        // Wait for a press, remembering where and when it started.
                         var change = awaitPointerEvent().changes.firstOrNull() ?: continue
                         if (!change.pressed) {
                             finger = null
                             continue
                         }
-                        val startPos  = change.position
-                        val startTime = System.currentTimeMillis()
-                        var travelled = 0f
 
                         // Track the finger until release. Steering itself is done
                         // by the timer loop above, which keeps going even while
                         // the finger is perfectly still and emits no events.
                         while (change.pressed) {
                             finger = change.position
-                            travelled = maxOf(travelled, (change.position - startPos).getDistance())
                             change.consume()
                             change = awaitPointerEvent().changes.firstOrNull() ?: break
                         }
 
                         finger = null
-                        val heldMs = System.currentTimeMillis() - startTime
-                        if (heldMs <= TAP_MAX_MS && travelled <= TAP_SLOP_PX) onTap()
                         change.consume()
                     }
                 }

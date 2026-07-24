@@ -15,6 +15,8 @@
     <string name="version_label">v%1$s</string>
 
     <!-- Pause -->
+    <!-- Glyph-only, so it needs no translation. -->
+    <string name="pause_button" translatable="false">[ II ]</string>
     <string name="paused">PAUSED</string>
     <string name="tap_to_resume">[ TAP TO RESUME ]</string>
     <string name="menu_cta">[ MENU ]</string>
@@ -48,7 +50,7 @@
     <string name="tut_step_counter">%1$d / %2$d</string>
 
     <string name="tut_point_title">POINT AND GO</string>
-    <string name="tut_point_body">Hold your finger anywhere on the board.\nThe snake turns toward it and keeps coming.\nDrag to lead it; lift off and it holds course.\nA quick tap pauses instead.</string>
+    <string name="tut_point_body">Hold your finger anywhere on the board.\nThe snake turns toward it and keeps coming.\nDrag to lead it; lift off and it holds course.\nPause with the button in the top corner.</string>
     <string name="tut_goal_title">EAT AND GROW</string>
     <string name="tut_goal_body">Steer the snake into the food.\nEvery bite grows the tail and adds a point.\nWalls wrap around — only your own tail ends the run.</string>
     <string name="tut_overlay_title">OVERLAY</string>

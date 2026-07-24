@@ -40,7 +40,7 @@
     <string name="tut_skip_cta">[ 跳过 ]</string>
 
     <string name="tut_point_title">POINT AND GO</string>
-    <string name="tut_point_body">在棋盘任意位置按住手指。\n蛇会转向手指并持续前进。\n拖动手指来引导它，松手则保持方向。\n轻点一下则是暂停。</string>
+    <string name="tut_point_body">在棋盘任意位置按住手指。\n蛇会转向手指并持续前进。\n拖动手指来引导它，松手则保持方向。\n暂停请点角落的按钮。</string>
     <string name="tut_goal_title">吃食物，长身体</string>
     <string name="tut_goal_body">操控蛇去吃食物。\n每吃一口，身体变长，得一分。\n墙壁可以穿过——只有撞到自己的身体才结束。</string>
     <string name="tut_overlay_title">虚拟摇杆</string>

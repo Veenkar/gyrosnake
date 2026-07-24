@@ -40,7 +40,7 @@
     <string name="tut_skip_cta">[ スキップ ]</string>
 
     <string name="tut_point_title">POINT AND GO</string>
-    <string name="tut_point_body">盤面のどこでも指を押さえたままにします。\nヘビはその方向へ曲がり、進み続けます。\n指を動かせば誘導でき、離せば直進します。\n軽くタップすると一時停止です。</string>
+    <string name="tut_point_body">盤面のどこでも指を押さえたままにします。\nヘビはその方向へ曲がり、進み続けます。\n指を動かせば誘導でき、離せば直進します。\n一時停止は隅のボタンです。</string>
     <string name="tut_goal_title">食べて のびる</string>
     <string name="tut_goal_body">ヘビをエサへ導きます。\n食べるたびに体が伸び、1点入ります。\n壁は通り抜け——自分の体に当たると終了です。</string>
     <string name="tut_overlay_title">ジョイスティック</string>

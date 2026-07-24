@@ -183,15 +183,21 @@ fun GameScreen(viewModel: GameViewModel) {
             )
         }
 
-        // Point-and-go covers the whole board, so it owns tap-to-pause for this
-        // scheme and forwards short stationary presses back as a pause.
+        // Point-and-go treats every board touch as steering, so pausing gets its
+        // own button in the letterbox margin beside the grid — declared after the
+        // layer so it sits above it and receives the tap first.
         if (viewModel.settings.controlScheme == ControlScheme.POINT &&
             uiState.phase == GamePhase.PLAYING) {
             PointAndGoLayer(
                 snake       = uiState.snake,
                 board       = viewModel.board,
-                onDirection = { viewModel.onOverlayButton(it) },
-                onTap       = { viewModel.togglePause() }
+                onDirection = { viewModel.onOverlayButton(it) }
+            )
+            PauseButton(
+                onClick  = { viewModel.togglePause() },
+                modifier = Modifier
+                    .align(Alignment.TopStart)
+                    .padding(start = 10.dp, top = 40.dp)
             )
         }
 
@@ -295,6 +301,30 @@ private fun HudBar(score: Int, highScore: Int, modifier: Modifier = Modifier) {
         Spacer(Modifier.weight(1f))
         RetroText(stringResource(R.string.best_label, highScore), COLOR_GREEN_DIM, 18)
     }
+}
+
+/**
+ * Small in-play pause control for schemes that consume board touches.
+ * Deliberately not blinking: BlinkingCta draws the eye toward a decision, and
+ * this sits on screen for the whole run.
+ */
+@Composable
+private fun PauseButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
+    Text(
+        text          = stringResource(R.string.pause_button),
+        color         = COLOR_GREEN_DIM,
+        fontSize      = 16.sp,
+        fontFamily    = FontFamily.Monospace,
+        letterSpacing = 2.sp,
+        modifier      = modifier
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication        = null,
+                onClick           = onClick
+            )
+            // Widen the touch area beyond the glyphs without moving them.
+            .padding(horizontal = 10.dp, vertical = 8.dp)
+    )
 }
 
 // --- Overlays (State pattern: one overlay per GamePhase) ---
