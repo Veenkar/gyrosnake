@@ -97,7 +97,8 @@ Axis mapping for ROTATION_90: `screenRight = wx`, `screenUp = wy`.
 
 ## Workflow Rules
 
-- **Commit after every completed feature or fix** — do not batch multiple features into one commit
+- **Always commit after every completed feature or fix** — do not batch multiple features into one commit. No need to ask first; just commit.
+- **Never push** — commit only, never `git push`, unless user explicitly asks for it in that message
 - **Bump version before Play Store releases** — both versionCode and versionName
 - **Build and flash to device** after each change to verify on hardware
 - **No PNG files with RGB mode** — AAPT2 crashes on release builds; always use RGBA
