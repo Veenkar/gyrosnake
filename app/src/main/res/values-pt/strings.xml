@@ -39,6 +39,8 @@
     <string name="tut_done_cta">[ ENTENDI ]</string>
     <string name="tut_skip_cta">[ PULAR ]</string>
 
+    <string name="tut_point_title">POINT AND GO</string>
+    <string name="tut_point_body">Segure o dedo em qualquer ponto do tabuleiro.\nA cobra vira para ele e continua indo.\nArraste para guiá-la; solte e ela mantém o rumo.\nUm toque rápido pausa.</string>
     <string name="tut_goal_title">COMA E CRESÇA</string>
     <string name="tut_goal_body">Guie a cobra até a comida.\nCada mordida alonga a cauda e vale um ponto.\nAs paredes atravessam — só a própria cauda encerra.</string>
     <string name="tut_overlay_title">JOYSTICK</string>
@@ -52,6 +54,8 @@
     <string name="tut_pause_title">PAUSE QUANDO QUISER</string>
     <string name="tut_pause_body">Toque no tabuleiro para pausar.\nMude controle, som ou idioma em CONFIGURAÇÕES.\nSeu recorde é salvo sozinho.</string>
 
+    <string name="scheme_point_label">POINT AND GO</string>
+    <string name="scheme_point_desc">Segure, a cobra segue seu dedo</string>
     <string name="scheme_overlay_label">JOYSTICK</string>
     <string name="scheme_overlay_desc">Joystick virtual na tela</string>
     <string name="scheme_flick_label">GESTO (GIROSCÓPIO)</string>

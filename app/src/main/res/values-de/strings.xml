@@ -39,6 +39,8 @@
     <string name="tut_done_cta">[ ALLES KLAR ]</string>
     <string name="tut_skip_cta">[ ÜBERSPRINGEN ]</string>
 
+    <string name="tut_point_title">POINT AND GO</string>
+    <string name="tut_point_body">Halte den Finger irgendwo auf dem Feld.\nDie Schlange dreht dorthin und läuft weiter.\nZieh den Finger, um sie zu führen.\nEin kurzer Tipp pausiert stattdessen.</string>
     <string name="tut_goal_title">FRISS UND WACHSE</string>
     <string name="tut_goal_body">Lenke die Schlange ins Futter.\nJeder Bissen verlängert den Schwanz und gibt einen Punkt.\nWände sind offen — nur der eigene Schwanz beendet den Lauf.</string>
     <string name="tut_overlay_title">OVERLAY</string>
@@ -52,6 +54,8 @@
     <string name="tut_pause_title">JEDERZEIT PAUSIEREN</string>
     <string name="tut_pause_body">Tippe auf das Feld, um zu pausieren.\nSteuerung, Ton und Sprache ändert man in EINSTELLUNGEN.\nDein Rekord wird automatisch gespeichert.</string>
 
+    <string name="scheme_point_label">POINT AND GO</string>
+    <string name="scheme_point_desc">Halten, Schlange folgt dem Finger</string>
     <string name="scheme_overlay_label">OVERLAY</string>
     <string name="scheme_overlay_desc">Virtueller Joystick auf dem Bildschirm</string>
     <string name="scheme_flick_label">SCHNIPPEN (GYRO)</string>

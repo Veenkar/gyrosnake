@@ -95,18 +95,10 @@ fun GameCanvas(
 
 // --- Layout helper ---
 
-private data class Layout(val cellSize: Float, val offsetX: Float, val offsetY: Float)
-
-private fun DrawScope.computeLayout(board: GameBoard): Layout {
-    val cellW = size.width  / board.columns
-    val cellH = size.height / board.rows
-    val cell  = minOf(cellW, cellH)
-    return Layout(
-        cellSize = cell,
-        offsetX  = (size.width  - cell * board.columns) / 2f,
-        offsetY  = (size.height - cell * board.rows)    / 2f
-    )
-}
+// Geometry lives in BoardLayout so the input layers can place themselves
+// against exactly the same grid the renderer draws.
+private fun DrawScope.computeLayout(board: GameBoard): BoardLayout =
+    computeBoardLayout(size, board)
 
 // --- Draw primitives ---
 

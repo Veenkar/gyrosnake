@@ -39,6 +39,8 @@
     <string name="tut_done_cta">[ समजले ]</string>
     <string name="tut_skip_cta">[ वगळा ]</string>
 
+    <string name="tut_point_title">POINT AND GO</string>
+    <string name="tut_point_body">बोर्डवर कुठेही बोट दाबून धरा.\nसाप तिकडे वळतो आणि येत राहतो.\nबोट सरकवून त्याला मार्ग दाखवा; सोडल्यास दिशा टिकते.\nहलका टॅप खेळ थांबवतो.</string>
     <string name="tut_goal_title">खा आणि वाढ</string>
     <string name="tut_goal_body">सापाला अन्नाकडे न्या.\nप्रत्येक घासाने शेपूट वाढते आणि एक गुण मिळतो.\nभिंती आरपार आहेत — खेळ फक्त स्वतःच्या शेपटीने संपतो.</string>
     <string name="tut_overlay_title">जॉयस्टिक</string>
@@ -52,6 +54,8 @@
     <string name="tut_pause_title">कधीही थांबवा</string>
     <string name="tut_pause_body">थांबवण्यासाठी बोर्डवर टॅप करा.\nनियंत्रण, आवाज व भाषा सेटिंग्जमध्ये बदला.\nसर्वोत्तम गुण आपोआप जतन होतो.</string>
 
+    <string name="scheme_point_label">POINT AND GO</string>
+    <string name="scheme_point_desc">बोट दाबून धरा, साप तिकडे येतो</string>
     <string name="scheme_overlay_label">जॉयस्टिक</string>
     <string name="scheme_overlay_desc">स्क्रीनवरील व्हर्च्युअल जॉयस्टिक</string>
     <string name="scheme_flick_label">झटका (गायरो)</string>

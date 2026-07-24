@@ -39,6 +39,8 @@
     <string name="tut_done_cta">[ わかった ]</string>
     <string name="tut_skip_cta">[ スキップ ]</string>
 
+    <string name="tut_point_title">POINT AND GO</string>
+    <string name="tut_point_body">盤面のどこでも指を押さえたままにします。\nヘビはその方向へ曲がり、進み続けます。\n指を動かせば誘導でき、離せば直進します。\n軽くタップすると一時停止です。</string>
     <string name="tut_goal_title">食べて のびる</string>
     <string name="tut_goal_body">ヘビをエサへ導きます。\n食べるたびに体が伸び、1点入ります。\n壁は通り抜け——自分の体に当たると終了です。</string>
     <string name="tut_overlay_title">ジョイスティック</string>
@@ -52,6 +54,8 @@
     <string name="tut_pause_title">いつでも一時停止</string>
     <string name="tut_pause_body">盤面をタップすると一時停止します。\n操作方法・音・言語は設定で変更できます。\nハイスコアは自動で保存されます。</string>
 
+    <string name="scheme_point_label">POINT AND GO</string>
+    <string name="scheme_point_desc">押さえた指にヘビが向かう</string>
     <string name="scheme_overlay_label">ジョイスティック</string>
     <string name="scheme_overlay_desc">画面上の仮想ジョイスティック</string>
     <string name="scheme_flick_label">フリック（ジャイロ）</string>

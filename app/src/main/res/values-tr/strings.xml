@@ -39,6 +39,8 @@
     <string name="tut_done_cta">[ ANLADIM ]</string>
     <string name="tut_skip_cta">[ ATLA ]</string>
 
+    <string name="tut_point_title">POINT AND GO</string>
+    <string name="tut_point_body">Parmağını tahtanın herhangi bir yerinde tut.\nYılan ona döner ve gelmeye devam eder.\nSürükleyerek yönlendir; bıraktığında rotayı korur.\nKısa bir dokunuş duraklatır.</string>
     <string name="tut_goal_title">YE VE BÜYÜ</string>
     <string name="tut_goal_body">Yılanı yemeğe doğru yönlendir.\nHer lokma kuyruğu uzatır ve bir puan kazandırır.\nDuvarlar geçirgen — oyunu yalnızca kendi kuyruğun bitirir.</string>
     <string name="tut_overlay_title">JOYSTICK</string>
@@ -52,6 +54,8 @@
     <string name="tut_pause_title">İSTEDİĞİN AN DURAKLAT</string>
     <string name="tut_pause_body">Duraklatmak için tahtaya dokun.\nKontrol, ses ve dili AYARLAR\'dan değiştir.\nEn iyi skorun kendiliğinden kaydedilir.</string>
 
+    <string name="scheme_point_label">POINT AND GO</string>
+    <string name="scheme_point_desc">Basılı tut, yılan parmağını izler</string>
     <string name="scheme_overlay_label">JOYSTICK</string>
     <string name="scheme_overlay_desc">Ekranda sanal joystick</string>
     <string name="scheme_flick_label">SAVURMA (JİROSKOP)</string>

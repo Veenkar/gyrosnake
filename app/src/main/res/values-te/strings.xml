@@ -39,6 +39,8 @@
     <string name="tut_done_cta">[ అర్థమైంది ]</string>
     <string name="tut_skip_cta">[ దాటవేయి ]</string>
 
+    <string name="tut_point_title">POINT AND GO</string>
+    <string name="tut_point_body">బోర్డుపై ఎక్కడైనా వేలు నొక్కి పట్టుకో.\nపాము ఆ వైపు తిరిగి ముందుకు సాగుతుంది.\nవేలు జరుపుతూ దారి చూపు; వదిలితే దిశ నిలుస్తుంది.\nచిన్న తట్టు ఆటను ఆపుతుంది.</string>
     <string name="tut_goal_title">తిను, పెరుగు</string>
     <string name="tut_goal_body">పామును ఆహారం వైపు నడిపించు.\nప్రతి ముద్దకు తోక పెరుగుతుంది, ఒక పాయింట్ వస్తుంది.\nగోడలు దాటిపోతాయి — సొంత తోక మాత్రమే ఆటను ముగిస్తుంది.</string>
     <string name="tut_overlay_title">జాయ్‌స్టిక్</string>
@@ -52,6 +54,8 @@
     <string name="tut_pause_title">ఎప్పుడైనా విరామం</string>
     <string name="tut_pause_body">విరామం కోసం బోర్డును తాకు.\nనియంత్రణ, ధ్వని, భాష సెట్టింగ్‌లలో మార్చు.\nఅత్యుత్తమ స్కోరు దానంతట అదే సేవ్ అవుతుంది.</string>
 
+    <string name="scheme_point_label">POINT AND GO</string>
+    <string name="scheme_point_desc">వేలు నొక్కి పట్టు, పాము దానివైపు వస్తుంది</string>
     <string name="scheme_overlay_label">జాయ్‌స్టిక్</string>
     <string name="scheme_overlay_desc">స్క్రీన్‌పై వర్చువల్ జాయ్‌స్టిక్</string>
     <string name="scheme_flick_label">తడబాటు (గైరో)</string>

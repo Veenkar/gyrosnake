@@ -39,6 +39,8 @@
     <string name="tut_done_cta">[ سمجھ گیا ]</string>
     <string name="tut_skip_cta">[ چھوڑیں ]</string>
 
+    <string name="tut_point_title">POINT AND GO</string>
+    <string name="tut_point_body">بورڈ پر کہیں بھی انگلی دبائے رکھیں۔\nسانپ اسی طرف مڑ کر بڑھتا رہتا ہے۔\nانگلی سرکا کر راستہ دکھائیں؛ چھوڑنے پر رخ برقرار رہتا ہے۔\nہلکا سا ٹیپ کھیل روک دیتا ہے۔</string>
     <string name="tut_goal_title">کھائیں اور بڑھیں</string>
     <string name="tut_goal_body">سانپ کو کھانے کی طرف لے جائیں۔\nہر لقمہ دم لمبی کرتا ہے اور ایک پوائنٹ دیتا ہے۔\nدیواروں سے گزر جاتے ہیں — صرف اپنی دم کھیل ختم کرتی ہے۔</string>
     <string name="tut_overlay_title">جوائے اسٹک</string>
@@ -52,6 +54,8 @@
     <string name="tut_pause_title">جب چاہیں روکیں</string>
     <string name="tut_pause_body">روکنے کے لیے بورڈ پر ٹیپ کریں۔\nکنٹرول، آواز اور زبان ترتیبات میں بدلیں۔\nبہترین اسکور خودبخود محفوظ ہوتا ہے۔</string>
 
+    <string name="scheme_point_label">POINT AND GO</string>
+    <string name="scheme_point_desc">انگلی دبائے رکھیں، سانپ ادھر آئے گا</string>
     <string name="scheme_overlay_label">جوائے اسٹک</string>
     <string name="scheme_overlay_desc">اسکرین پر ورچوئل جوائے اسٹک</string>
     <string name="scheme_flick_label">جھٹکا (گائرو)</string>

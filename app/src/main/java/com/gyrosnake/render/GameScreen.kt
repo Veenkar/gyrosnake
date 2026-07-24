@@ -38,6 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
@@ -179,6 +180,18 @@ fun GameScreen(viewModel: GameViewModel) {
             OverlayControls(
                 onDirection = { viewModel.onOverlayButton(it) },
                 modifier    = Modifier.align(Alignment.BottomEnd).padding(16.dp)
+            )
+        }
+
+        // Point-and-go covers the whole board, so it owns tap-to-pause for this
+        // scheme and forwards short stationary presses back as a pause.
+        if (viewModel.settings.controlScheme == ControlScheme.POINT &&
+            uiState.phase == GamePhase.PLAYING) {
+            PointAndGoLayer(
+                snake       = uiState.snake,
+                board       = viewModel.board,
+                onDirection = { viewModel.onOverlayButton(it) },
+                onTap       = { viewModel.togglePause() }
             )
         }
 
@@ -661,6 +674,39 @@ private fun DrawScope.drawTutorialVisual(visual: TutorialVisual, phase: Float) {
                 topLeft = Offset(cx + unit * 3f, cy - unit / 2f),
                 size    = Size(unit, unit)
             )
+        }
+
+        TutorialVisual.POINT -> {
+            // Snake on the left, finger highlight on the right, chevrons flowing
+            // between them — a still of what the layer draws in play.
+            val headX = cx - unit * 3f
+            for (i in 0 until 3) {
+                drawRect(
+                    color   = if (i == 2) COLOR_GREEN else COLOR_GREEN_DIM,
+                    topLeft = Offset(headX - unit * 2.4f + i * unit * 1.2f, cy - unit / 2f),
+                    size    = Size(unit, unit)
+                )
+            }
+            val target = Offset(cx + unit * 2.6f, cy)
+            val span   = target.x - headX
+            for (i in 0 until 5) {
+                val t = ((i + phase) / 5f).let { if (it > 1f) it - 1f else it }
+                val x = headX + span * t
+                val a = 0.45f * if (t < 0.2f) t / 0.2f else if (t > 0.8f) (1f - t) / 0.2f else 1f
+                drawPath(
+                    path  = Path().apply {
+                        moveTo(x - unit * 0.22f, cy - unit * 0.3f)
+                        lineTo(x + unit * 0.22f, cy)
+                        lineTo(x - unit * 0.22f, cy + unit * 0.3f)
+                    },
+                    color = COLOR_GREEN.copy(alpha = a),
+                    style = Stroke(width = 3f)
+                )
+            }
+            val r = unit * 0.85f * (0.9f + sin(phase * 2f * Math.PI.toFloat()) * 0.1f)
+            drawCircle(COLOR_GREEN.copy(alpha = 0.10f), r * 1.6f, target)
+            drawCircle(COLOR_GREEN.copy(alpha = 0.18f), r,        target)
+            drawCircle(COLOR_GREEN.copy(alpha = 0.60f), r,        target, style = Stroke(width = 3f))
         }
 
         TutorialVisual.JOYSTICK -> {

@@ -39,6 +39,8 @@
     <string name="tut_done_cta">[ ENTENDIDO ]</string>
     <string name="tut_skip_cta">[ OMITIR ]</string>
 
+    <string name="tut_point_title">POINT AND GO</string>
+    <string name="tut_point_body">Mantén el dedo en cualquier parte del tablero.\nLa serpiente gira hacia él y sigue avanzando.\nArrastra para guiarla; suelta y mantiene el rumbo.\nUn toque rápido pausa.</string>
     <string name="tut_goal_title">COME Y CRECE</string>
     <string name="tut_goal_body">Dirige la serpiente hacia la comida.\nCada bocado alarga la cola y suma un punto.\nLas paredes se cruzan — solo tu cola termina la partida.</string>
     <string name="tut_overlay_title">JOYSTICK</string>
@@ -52,6 +54,8 @@
     <string name="tut_pause_title">PAUSA CUANDO QUIERAS</string>
     <string name="tut_pause_body">Toca el tablero para pausar.\nCambia control, sonido o idioma en AJUSTES.\nTu récord se guarda solo.</string>
 
+    <string name="scheme_point_label">POINT AND GO</string>
+    <string name="scheme_point_desc">Mantén pulsado, la serpiente sigue tu dedo</string>
     <string name="scheme_overlay_label">JOYSTICK</string>
     <string name="scheme_overlay_desc">Joystick virtual en pantalla</string>
     <string name="scheme_flick_label">GIRO (GIROSCOPIO)</string>

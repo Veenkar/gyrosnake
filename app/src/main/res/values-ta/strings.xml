@@ -39,6 +39,8 @@
     <string name="tut_done_cta">[ புரிந்தது ]</string>
     <string name="tut_skip_cta">[ தவிர் ]</string>
 
+    <string name="tut_point_title">POINT AND GO</string>
+    <string name="tut_point_body">பலகையில் எங்கு வேண்டுமானாலும் விரலை அழுத்திப் பிடி.\nபாம்பு அந்தப் பக்கம் திரும்பி வந்துகொண்டே இருக்கும்.\nவிரலை நகர்த்தி வழிநடத்து; விட்டால் திசை நிலைக்கும்.\nஒரு குறு தட்டல் இடைநிறுத்தும்.</string>
     <string name="tut_goal_title">சாப்பிடு, வளர்</string>
     <string name="tut_goal_body">பாம்பை உணவை நோக்கி செலுத்து.\nஒவ்வொரு கடியிலும் வால் நீளும், ஒரு புள்ளி கிடைக்கும்.\nசுவர்களைக் கடக்கலாம் — சொந்த வால் மட்டுமே ஆட்டத்தை முடிக்கும்.</string>
     <string name="tut_overlay_title">ஜாய்ஸ்டிக்</string>
@@ -52,6 +54,8 @@
     <string name="tut_pause_title">எப்போது வேண்டுமானாலும் இடைநிறுத்து</string>
     <string name="tut_pause_body">இடைநிறுத்த பலகையைத் தட்டு.\nகட்டுப்பாடு, ஒலி, மொழியை அமைப்புகளில் மாற்று.\nசிறந்த மதிப்பெண் தானாகவே சேமிக்கப்படும்.</string>
 
+    <string name="scheme_point_label">POINT AND GO</string>
+    <string name="scheme_point_desc">விரலை அழுத்திப் பிடி, பாம்பு அங்கே வரும்</string>
     <string name="scheme_overlay_label">ஜாய்ஸ்டிக்</string>
     <string name="scheme_overlay_desc">திரையில் மெய்நிகர் ஜாய்ஸ்டிக்</string>
     <string name="scheme_flick_label">சிலுப்பு (ஜைரோ)</string>

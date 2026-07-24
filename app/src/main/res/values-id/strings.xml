@@ -39,6 +39,8 @@
     <string name="tut_done_cta">[ PAHAM ]</string>
     <string name="tut_skip_cta">[ LEWATI ]</string>
 
+    <string name="tut_point_title">POINT AND GO</string>
+    <string name="tut_point_body">Tahan jari di mana saja pada papan.\nUlar berbelok ke arahnya dan terus melaju.\nGeser untuk menuntunnya; lepas, arah tetap.\nKetukan singkat menjeda.</string>
     <string name="tut_goal_title">MAKAN DAN TUMBUH</string>
     <string name="tut_goal_body">Arahkan ular ke makanan.\nSetiap gigitan memanjangkan ekor dan menambah satu poin.\nDinding tembus — hanya ekor sendiri yang mengakhiri permainan.</string>
     <string name="tut_overlay_title">JOYSTICK</string>
@@ -52,6 +54,8 @@
     <string name="tut_pause_title">JEDA KAPAN SAJA</string>
     <string name="tut_pause_body">Ketuk papan untuk menjeda.\nUbah kontrol, suara, atau bahasa di PENGATURAN.\nSkor terbaik tersimpan otomatis.</string>
 
+    <string name="scheme_point_label">POINT AND GO</string>
+    <string name="scheme_point_desc">Tahan, ular mengikuti jarimu</string>
     <string name="scheme_overlay_label">JOYSTICK</string>
     <string name="scheme_overlay_desc">Joystick virtual di layar</string>
     <string name="scheme_flick_label">SENTAK (GIRO)</string>

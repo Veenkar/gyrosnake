@@ -10,6 +10,7 @@ import com.gyrosnake.R
  */
 enum class TutorialVisual {
     SNAKE,      // snake body + food, the basic goal
+    POINT,      // finger highlight with a chevron stream from the snake
     JOYSTICK,   // virtual joystick thumb sweeping
     FLICK,      // phone flicking left/right
     TILT,       // phone tilting, gravity arrow
@@ -36,6 +37,7 @@ data class TutorialStep(
 object TutorialContent {
     val steps: List<TutorialStep> = listOf(
         TutorialStep(R.string.tut_goal_title,     R.string.tut_goal_body,     TutorialVisual.SNAKE),
+        TutorialStep(R.string.tut_point_title,    R.string.tut_point_body,    TutorialVisual.POINT),
         TutorialStep(R.string.tut_overlay_title,  R.string.tut_overlay_body,  TutorialVisual.JOYSTICK),
         TutorialStep(R.string.tut_flick_title,    R.string.tut_flick_body,    TutorialVisual.FLICK),
         TutorialStep(R.string.tut_gravity_title,  R.string.tut_gravity_body,  TutorialVisual.TILT),

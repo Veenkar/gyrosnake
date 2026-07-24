@@ -39,6 +39,8 @@
     <string name="tut_done_cta">[ समझ गया ]</string>
     <string name="tut_skip_cta">[ छोड़ें ]</string>
 
+    <string name="tut_point_title">POINT AND GO</string>
+    <string name="tut_point_body">बोर्ड पर कहीं भी उँगली दबाए रखें।\nसाँप उसी ओर मुड़कर बढ़ता रहता है।\nउँगली सरकाकर उसे राह दिखाएँ; छोड़ने पर दिशा बनी रहती है।\nहल्का टैप खेल रोक देता है।</string>
     <string name="tut_goal_title">खाओ और बढ़ो</string>
     <string name="tut_goal_body">साँप को भोजन की ओर ले जाएँ।\nहर निवाला पूँछ बढ़ाता है और एक अंक देता है।\nदीवारें आर-पार हैं — खेल केवल अपनी पूँछ से खत्म होता है।</string>
     <string name="tut_overlay_title">जॉयस्टिक</string>
@@ -52,6 +54,8 @@
     <string name="tut_pause_title">कभी भी रोकें</string>
     <string name="tut_pause_body">रोकने के लिए बोर्ड पर टैप करें।\nनियंत्रण, ध्वनि और भाषा सेटिंग्स में बदलें।\nसर्वश्रेष्ठ स्कोर अपने आप सहेजा जाता है।</string>
 
+    <string name="scheme_point_label">POINT AND GO</string>
+    <string name="scheme_point_desc">उँगली दबाए रखें, साँप उसकी ओर आएगा</string>
     <string name="scheme_overlay_label">जॉयस्टिक</string>
     <string name="scheme_overlay_desc">स्क्रीन पर वर्चुअल जॉयस्टिक</string>
     <string name="scheme_flick_label">झटका (गायरो)</string>

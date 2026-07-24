@@ -229,7 +229,9 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     private fun createAdapter(scheme: ControlScheme): TiltInputAdapter = when (scheme) {
         ControlScheme.GRAVITY -> GyroscopeAdapter(getApplication())
         ControlScheme.FLICK   -> GyroscopeFlickAdapter(getApplication())
+        // Both touch schemes share the no-op adapter — see OverlayInputAdapter.
         ControlScheme.OVERLAY -> OverlayInputAdapter()
+        ControlScheme.POINT   -> OverlayInputAdapter()
     }
 
     // --- Game actions ---
