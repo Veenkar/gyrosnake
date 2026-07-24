@@ -30,13 +30,22 @@ private const val POINTS_PER_FOOD  = 10
  * @param board     fixed grid dimensions
  * @param onEat     called each time the snake eats food (play sound, etc.)
  * @param onDie     called when a fatal collision occurs
+ * @param spawnFood Strategy seam over [EntityFactory.spawnFood]. Production uses
+ *                  the random factory; tests substitute a deterministic spawner
+ *                  to place food on an exact cell.
  */
 class GameEngine(
     val board: GameBoard,
     initialHighScore: Int = 0,
     private val onEat: () -> Unit = {},
     private val onDie: () -> Unit = {},
-    private val onNewHighScore: (Int) -> Unit = {}
+    private val onNewHighScore: (Int) -> Unit = {},
+    private val spawnFood: (
+        board: GameBoard,
+        snake: SnakeState,
+        existing: List<Food>,
+        foodEatenCount: Int
+    ) -> Food? = EntityFactory::spawnFood
 ) {
 
     // --- Observer pattern: single StateFlow acting as the event bus ---
@@ -66,7 +75,7 @@ class GameEngine(
     fun startGame(scope: CoroutineScope) {
         gameLoopJob?.cancel()
         snake = EntityFactory.createSnake(board)
-        foods = listOfNotNull(EntityFactory.spawnFood(board, snake, emptyList()))
+        foods = listOfNotNull(spawnFood(board, snake, emptyList(), 0))
         score = 0
         tickMs = INITIAL_TICK_MS
         tickCount = 0L
@@ -222,7 +231,7 @@ class GameEngine(
 
             val remaining = foods - eatenFood
             foods = remaining + listOfNotNull(
-                EntityFactory.spawnFood(board, snake, remaining, foodEatenCount)
+                spawnFood(board, snake, remaining, foodEatenCount)
             )
             onEat()
         }
@@ -231,7 +240,7 @@ class GameEngine(
         val foodTarget = if (activeEffects.any { it.effect is PowerUpEffect.Leaf })
             PowerUpEffect.Leaf.FOOD_TARGET else 1
         while (foods.size < foodTarget) {
-            val extra = EntityFactory.spawnFood(board, snake, foods, foodEatenCount) ?: break
+            val extra = spawnFood(board, snake, foods, foodEatenCount) ?: break
             foods = foods + extra
         }
         if (foods.size > foodTarget) foods = foods.take(foodTarget)
