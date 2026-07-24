@@ -18,7 +18,6 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -479,6 +478,9 @@ private fun SettingsOverlay(
  * First-launch control scheme picker — shown once until the user confirms a choice.
  * OVERLAY is pre-selected (first entry in ControlScheme.entries after reordering).
  * Confirming persists the selection and dismisses this overlay permanently.
+ *
+ * Never scrolls: spacing is driven by weighted spacers so the three options and
+ * the CONFIRM button always land inside the viewport.
  */
 @Composable
 private fun ControlSetupOverlay(initial: ControlScheme, onConfirm: (ControlScheme) -> Unit) {
@@ -491,12 +493,12 @@ private fun ControlSetupOverlay(initial: ControlScheme, onConfirm: (ControlSchem
         Column(
             modifier            = Modifier
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-                .padding(vertical = 48.dp),
+                .padding(horizontal = 16.dp, vertical = 24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            RetroText(stringResource(R.string.choose_controls), COLOR_GREEN, 28)
-            Spacer(Modifier.padding(20.dp))
+            Spacer(Modifier.weight(0.5f))
+            RetroText(stringResource(R.string.choose_controls), COLOR_GREEN, 24)
+            Spacer(Modifier.weight(0.7f))
             ControlScheme.entries.forEach { scheme ->
                 SchemeOption(
                     label      = stringResource(scheme.labelRes),
@@ -504,10 +506,11 @@ private fun ControlSetupOverlay(initial: ControlScheme, onConfirm: (ControlSchem
                     isSelected = selected == scheme,
                     onClick    = { selected = scheme }
                 )
-                Spacer(Modifier.padding(12.dp))
+                Spacer(Modifier.weight(0.5f))
             }
-            Spacer(Modifier.padding(16.dp))
+            Spacer(Modifier.weight(0.3f))
             BlinkingCta(stringResource(R.string.confirm_cta), COLOR_GREEN, onClick = { onConfirm(selected) })
+            Spacer(Modifier.weight(0.3f))
         }
     }
 }
@@ -521,8 +524,10 @@ private fun ControlSetupOverlay(initial: ControlScheme, onConfirm: (ControlSchem
  * and renders whatever step it lands on, so pages can be added or reordered in
  * TutorialContent without touching this composable.
  *
- * Layout mirrors SettingsOverlay: scrollable body, pinned BACK/SKIP at the top,
- * system back wired through BackHandler.
+ * Never scrolls: the diagram takes `weight(1f)` and absorbs whatever space the
+ * text and nav row leave over, so a page fits any viewport by construction.
+ * The screen title is dropped — the step counter carries the context and the
+ * vertical budget goes to the diagram instead.
  */
 @Composable
 private fun TutorialOverlay(onClose: () -> Unit) {
@@ -551,41 +556,38 @@ private fun TutorialOverlay(onClose: () -> Unit) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-                .padding(top = 72.dp, bottom = 32.dp),
+                .padding(top = 56.dp, bottom = 20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            RetroText(stringResource(R.string.tutorial_title), COLOR_GREEN, 28)
-            Spacer(Modifier.padding(4.dp))
             RetroText(
                 stringResource(R.string.tut_step_counter, index + 1, steps.size),
                 COLOR_GREEN_DIM.copy(alpha = 0.6f),
-                14
+                13
             )
 
-            Spacer(Modifier.padding(8.dp))
+            // Absorbs all leftover vertical space — shrinks on short screens
+            // and on pages whose body text runs long, so nothing overflows.
             Canvas(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(150.dp)
+                    .weight(1f)
             ) {
                 drawTutorialVisual(step.visual, phase)
             }
-            Spacer(Modifier.padding(8.dp))
 
-            RetroText(stringResource(step.titleRes), COLOR_GREEN, 22)
-            Spacer(Modifier.padding(6.dp))
+            RetroText(stringResource(step.titleRes), COLOR_GREEN, 20)
+            Spacer(Modifier.padding(4.dp))
             Text(
                 text          = stringResource(step.bodyRes),
                 color         = COLOR_GREEN_DIM,
-                fontSize      = 15.sp,
+                fontSize      = 14.sp,
                 fontFamily    = FontFamily.Monospace,
                 textAlign     = TextAlign.Center,
                 letterSpacing = 1.sp,
-                modifier      = Modifier.padding(horizontal = 28.dp)
+                modifier      = Modifier.padding(horizontal = 24.dp)
             )
 
-            Spacer(Modifier.padding(16.dp))
+            Spacer(Modifier.padding(10.dp))
             Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp)) {
                 if (index > 0) {
                     TutorialNav(stringResource(R.string.tut_prev_cta), COLOR_GREEN_DIM) { index-- }
@@ -644,7 +646,9 @@ private fun DrawScope.drawTutorialVisual(visual: TutorialVisual, phase: Float) {
     when (visual) {
         TutorialVisual.SNAKE -> {
             // Four body segments crawling right, with food ahead of the head.
-            val slide = phase * unit
+            // Slide is capped at half a cell so the head never reaches the food —
+            // the snake should look like it is approaching, not already eating.
+            val slide = phase * unit * 0.5f
             for (i in 0 until 4) {
                 drawRect(
                     color   = if (i == 3) COLOR_GREEN else COLOR_GREEN_DIM,
@@ -654,7 +658,7 @@ private fun DrawScope.drawTutorialVisual(visual: TutorialVisual, phase: Float) {
             }
             drawRect(
                 color   = COLOR_RED,
-                topLeft = Offset(cx + unit * 2f, cy - unit / 2f),
+                topLeft = Offset(cx + unit * 3f, cy - unit / 2f),
                 size    = Size(unit, unit)
             )
         }

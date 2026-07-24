@@ -86,6 +86,19 @@ To add a new powerup:
 4. Add renderer branch in `GameCanvas.drawFoods`
 5. Add screen effect in `GameScreen` if needed
 
+## UI Rules
+
+**Every overlay must fit on screen without scrolling.** Scrolling breaks the retro
+blinking-CTA feel — the player should never have to discover content below the fold.
+Size content to the viewport instead: give the flexible element `Modifier.weight(1f)`
+so it absorbs leftover space, keep font sizes and paddings tight, and split content
+across pages rather than letting a column grow.
+
+Only genuinely unbounded lists may scroll (currently the language picker, 22 entries).
+If a new screen doesn't fit, page it — don't add `verticalScroll`.
+
+Verify on device at the smallest supported size before committing any overlay change.
+
 ## Controls
 
 Two schemes (selectable in Settings, persisted via `SettingsRepository`):

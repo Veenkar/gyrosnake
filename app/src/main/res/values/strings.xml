@@ -41,7 +41,6 @@
 
     <!-- Tutorial -->
     <string name="tutorial_cta">[ HOW TO PLAY ]</string>
-    <string name="tutorial_title">HOW TO PLAY</string>
     <string name="tut_next_cta">[ NEXT ]</string>
     <string name="tut_prev_cta">[ BACK ]</string>
     <string name="tut_done_cta">[ GOT IT ]</string>
