@@ -9,5 +9,6 @@ enum class GamePhase {
     PLAYING,    // active game loop
     PAUSED,     // game loop suspended, overlay shown
     GAME_OVER,  // collision detected, results displayed
-    SETTINGS    // settings screen, only reachable from MENU
+    SETTINGS,   // settings screen, only reachable from MENU
+    TUTORIAL    // guided how-to-play walkthrough, reachable from MENU or PAUSED
 }

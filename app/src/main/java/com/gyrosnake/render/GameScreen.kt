@@ -18,6 +18,7 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -53,8 +54,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
 import kotlin.math.abs
+import kotlin.math.cos
 import kotlin.math.sqrt
+import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.res.stringResource
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
@@ -63,6 +67,8 @@ import com.gyrosnake.R
 import com.gyrosnake.game.ControlScheme
 import com.gyrosnake.game.Direction
 import com.gyrosnake.game.GamePhase
+import com.gyrosnake.game.TutorialContent
+import com.gyrosnake.game.TutorialVisual
 
 private val COLOR_GREEN     = Color(0xFF00FF55)
 private val COLOR_GREEN_DIM = Color(0xFF007722)
@@ -182,7 +188,8 @@ fun GameScreen(viewModel: GameViewModel) {
             GamePhase.MENU      -> MenuOverlay(
                 highScore  = uiState.highScore,
                 onStart    = { viewModel.startGame() },
-                onSettings = { viewModel.openSettings() }
+                onSettings = { viewModel.openSettings() },
+                onTutorial = { viewModel.openTutorial() }
             )
             GamePhase.PAUSED    -> PauseOverlay(
                 onResume   = { viewModel.togglePause() },
@@ -201,6 +208,7 @@ fun GameScreen(viewModel: GameViewModel) {
                 onMusicVolume    = { viewModel.applyMusicVolume(it) },
                 onBack           = { viewModel.closeSettings() }
             )
+            GamePhase.TUTORIAL  -> TutorialOverlay(onClose = { viewModel.closeTutorial() })
             GamePhase.PLAYING   -> Unit
         }
 
@@ -280,7 +288,12 @@ private fun HudBar(score: Int, highScore: Int, modifier: Modifier = Modifier) {
 // --- Overlays (State pattern: one overlay per GamePhase) ---
 
 @Composable
-private fun MenuOverlay(highScore: Int, onStart: () -> Unit, onSettings: () -> Unit) {
+private fun MenuOverlay(
+    highScore: Int,
+    onStart: () -> Unit,
+    onSettings: () -> Unit,
+    onTutorial: () -> Unit
+) {
     val context = LocalContext.current
     val versionName = remember {
         runCatching {
@@ -299,6 +312,8 @@ private fun MenuOverlay(highScore: Int, onStart: () -> Unit, onSettings: () -> U
             }
             Spacer(Modifier.padding(24.dp))
             BlinkingCta(stringResource(R.string.tap_to_start), COLOR_RED, onStart)
+            Spacer(Modifier.padding(8.dp))
+            BlinkingCta(stringResource(R.string.tutorial_cta), COLOR_GREEN_DIM, onTutorial)
             Spacer(Modifier.padding(8.dp))
             BlinkingCta(stringResource(R.string.settings_cta), COLOR_GREEN_DIM, onSettings)
             Spacer(Modifier.padding(16.dp))
@@ -495,6 +510,232 @@ private fun ControlSetupOverlay(initial: ControlScheme, onConfirm: (ControlSchem
             BlinkingCta(stringResource(R.string.confirm_cta), COLOR_GREEN, onClick = { onConfirm(selected) })
         }
     }
+}
+
+// --- Tutorial ---
+
+/**
+ * Paged how-to-play walkthrough.
+ *
+ * Iterator pattern: the overlay holds only an index into [TutorialContent.steps]
+ * and renders whatever step it lands on, so pages can be added or reordered in
+ * TutorialContent without touching this composable.
+ *
+ * Layout mirrors SettingsOverlay: scrollable body, pinned BACK/SKIP at the top,
+ * system back wired through BackHandler.
+ */
+@Composable
+private fun TutorialOverlay(onClose: () -> Unit) {
+    BackHandler(onBack = onClose)
+
+    var index by remember { mutableStateOf(0) }
+    val steps    = TutorialContent.steps
+    val step     = steps[index]
+    val isLast   = index == steps.lastIndex
+
+    // Single looping driver shared by every diagram — each visual reads the
+    // phase differently, so one transition animates them all.
+    val transition = rememberInfiniteTransition(label = "tutorial")
+    val phase by transition.animateFloat(
+        initialValue  = 0f,
+        targetValue   = 1f,
+        animationSpec = infiniteRepeatable(tween(2200, easing = LinearEasing), RepeatMode.Restart),
+        label         = "tutorialPhase"
+    )
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(COLOR_BG)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(top = 72.dp, bottom = 32.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            RetroText(stringResource(R.string.tutorial_title), COLOR_GREEN, 28)
+            Spacer(Modifier.padding(4.dp))
+            RetroText(
+                stringResource(R.string.tut_step_counter, index + 1, steps.size),
+                COLOR_GREEN_DIM.copy(alpha = 0.6f),
+                14
+            )
+
+            Spacer(Modifier.padding(8.dp))
+            Canvas(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(150.dp)
+            ) {
+                drawTutorialVisual(step.visual, phase)
+            }
+            Spacer(Modifier.padding(8.dp))
+
+            RetroText(stringResource(step.titleRes), COLOR_GREEN, 22)
+            Spacer(Modifier.padding(6.dp))
+            Text(
+                text          = stringResource(step.bodyRes),
+                color         = COLOR_GREEN_DIM,
+                fontSize      = 15.sp,
+                fontFamily    = FontFamily.Monospace,
+                textAlign     = TextAlign.Center,
+                letterSpacing = 1.sp,
+                modifier      = Modifier.padding(horizontal = 28.dp)
+            )
+
+            Spacer(Modifier.padding(16.dp))
+            Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp)) {
+                if (index > 0) {
+                    TutorialNav(stringResource(R.string.tut_prev_cta), COLOR_GREEN_DIM) { index-- }
+                }
+                Spacer(Modifier.weight(1f))
+                if (isLast) {
+                    BlinkingCta(stringResource(R.string.tut_done_cta), COLOR_GREEN, onClose)
+                } else {
+                    TutorialNav(stringResource(R.string.tut_next_cta), COLOR_GREEN) { index++ }
+                }
+            }
+        }
+
+        // Pinned top-left — always reachable, mirrors SettingsOverlay's BACK.
+        BlinkingCta(
+            text     = stringResource(R.string.tut_skip_cta),
+            color    = COLOR_GREEN_DIM,
+            onClick  = onClose,
+            modifier = Modifier
+                .align(Alignment.TopStart)
+                .padding(start = 24.dp, top = 24.dp)
+        )
+    }
+}
+
+/** Non-blinking nav label — the blink is reserved for the primary CTA. */
+@Composable
+private fun TutorialNav(text: String, color: Color, onClick: () -> Unit) {
+    Text(
+        text          = text,
+        color         = color,
+        fontSize      = 20.sp,
+        fontFamily    = FontFamily.Monospace,
+        letterSpacing = 3.sp,
+        modifier      = Modifier.clickable(
+            interactionSource = remember { MutableInteractionSource() },
+            indication        = null,
+            onClick           = onClick
+        )
+    )
+}
+
+/**
+ * Strategy-style dispatch: one branch per [TutorialVisual]. Diagrams are drawn
+ * with primitives only — no image assets, so nothing to keep in sync with the
+ * renderer's palette and no RGB PNGs to break release builds.
+ *
+ * [phase] loops 0->1 and drives all motion.
+ */
+private fun DrawScope.drawTutorialVisual(visual: TutorialVisual, phase: Float) {
+    val cx    = size.width / 2f
+    val cy    = size.height / 2f
+    val unit  = size.height / 6f
+    val wave  = sin(phase * 2f * Math.PI.toFloat())   // -1..1
+
+    when (visual) {
+        TutorialVisual.SNAKE -> {
+            // Four body segments crawling right, with food ahead of the head.
+            val slide = phase * unit
+            for (i in 0 until 4) {
+                drawRect(
+                    color   = if (i == 3) COLOR_GREEN else COLOR_GREEN_DIM,
+                    topLeft = Offset(cx - unit * 3f + i * unit * 1.2f + slide, cy - unit / 2f),
+                    size    = Size(unit, unit)
+                )
+            }
+            drawRect(
+                color   = COLOR_RED,
+                topLeft = Offset(cx + unit * 2f, cy - unit / 2f),
+                size    = Size(unit, unit)
+            )
+        }
+
+        TutorialVisual.JOYSTICK -> {
+            // Ring plus a thumb orbiting it, matching OverlayControls' look.
+            val ring  = unit * 2f
+            val thumb = unit * 0.8f
+            drawCircle(Color.White.copy(alpha = 0.07f), ring, Offset(cx, cy))
+            drawCircle(Color.White.copy(alpha = 0.30f), ring, Offset(cx, cy), style = Stroke(3f))
+            val angle = phase * 2f * Math.PI.toFloat()
+            val tx    = cx + cos(angle) * ring * 0.7f
+            val ty    = cy + sin(angle) * ring * 0.7f
+            drawCircle(COLOR_GREEN.copy(alpha = 0.30f), thumb, Offset(tx, ty))
+            drawCircle(COLOR_GREEN.copy(alpha = 0.85f), thumb, Offset(tx, ty), style = Stroke(3f))
+        }
+
+        TutorialVisual.FLICK -> {
+            // Upright phone rocking left/right around its centre.
+            rotate(degrees = wave * 22f, pivot = Offset(cx, cy)) {
+                drawPhone(cx, cy, w = unit * 2.4f, h = unit * 4f)
+            }
+            // Motion ticks on both sides hint at the wrist twist.
+            for (i in 1..3) {
+                val a = 0.5f - i * 0.12f
+                drawRect(COLOR_GREEN_DIM.copy(alpha = a), Offset(cx - unit * (2f + i * 0.7f), cy - 2f), Size(unit * 0.4f, 4f))
+                drawRect(COLOR_GREEN_DIM.copy(alpha = a), Offset(cx + unit * (1.6f + i * 0.7f), cy - 2f), Size(unit * 0.4f, 4f))
+            }
+        }
+
+        TutorialVisual.TILT -> {
+            // Phone seen edge-on, tipping like a spirit level.
+            rotate(degrees = wave * 14f, pivot = Offset(cx, cy)) {
+                drawPhone(cx, cy, w = unit * 4.4f, h = unit * 1.6f)
+                // Ball rolls toward the low edge — the direction the snake turns.
+                drawCircle(COLOR_GREEN, unit * 0.45f, Offset(cx + wave * unit * 1.6f, cy))
+            }
+        }
+
+        TutorialVisual.POWERUPS -> {
+            // The three powerup sprites, pulsing in turn.
+            val r  = unit * 0.9f
+            val xs = listOf(cx - unit * 2.4f, cx, cx + unit * 2.4f)
+            // Disco: rainbow ring of dots.
+            for (i in 0 until 8) {
+                val a = i / 8f * 2f * Math.PI.toFloat() + phase * 2f * Math.PI.toFloat()
+                drawCircle(
+                    color  = Color.hsv((i / 8f * 360f + phase * 360f) % 360f, 1f, 1f),
+                    radius = r * 0.22f,
+                    center = Offset(xs[0] + cos(a) * r * 0.6f, cy + sin(a) * r * 0.6f)
+                )
+            }
+            // Candy: blue smiley.
+            drawCircle(Color(0xFF3399FF), r, Offset(xs[1], cy))
+            drawCircle(Color.Black, r * 0.14f, Offset(xs[1] - r * 0.35f, cy - r * 0.25f))
+            drawCircle(Color.Black, r * 0.14f, Offset(xs[1] + r * 0.35f, cy - r * 0.25f))
+            drawRect(Color.Black, Offset(xs[1] - r * 0.4f, cy + r * 0.3f), Size(r * 0.8f, r * 0.14f))
+            // Leaf: green oval with a stem.
+            drawOval(
+                color   = Color(0xFF00CC44),
+                topLeft = Offset(xs[2] - r * 0.8f, cy - r * 0.55f),
+                size    = Size(r * 1.6f, r * 1.1f)
+            )
+            drawRect(Color(0xFF007722), Offset(xs[2] - 2f, cy + r * 0.5f), Size(4f, r * 0.6f))
+        }
+    }
+}
+
+/** Shared phone outline used by the FLICK and TILT diagrams. */
+private fun DrawScope.drawPhone(cx: Float, cy: Float, w: Float, h: Float) {
+    drawRect(
+        color   = COLOR_GREEN_DIM.copy(alpha = 0.25f),
+        topLeft = Offset(cx - w / 2f, cy - h / 2f),
+        size    = Size(w, h)
+    )
+    drawRect(
+        color   = COLOR_GREEN,
+        topLeft = Offset(cx - w / 2f, cy - h / 2f),
+        size    = Size(w, h),
+        style   = Stroke(3f)
+    )
 }
 
 @Composable

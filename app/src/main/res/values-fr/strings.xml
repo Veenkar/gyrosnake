@@ -34,7 +34,7 @@
     <string name="confirm_cta">[ CONFIRMER ]</string>
 
     <string name="scheme_overlay_label">MANETTE</string>
-    <string name="scheme_overlay_desc">Joystick virtuel à l'écran</string>
+    <string name="scheme_overlay_desc">Joystick virtuel à l\'écran</string>
     <string name="scheme_flick_label">MOUVEMENT (GYRO)</string>
     <string name="scheme_flick_desc">Faites un mouvement du poignet pour tourner</string>
     <string name="scheme_gravity_label">INCLINAISON (GRAVITÉ)</string>

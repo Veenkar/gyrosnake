@@ -39,6 +39,28 @@
     <string name="choose_controls">CHOOSE CONTROLS</string>
     <string name="confirm_cta">[ CONFIRM ]</string>
 
+    <!-- Tutorial -->
+    <string name="tutorial_cta">[ HOW TO PLAY ]</string>
+    <string name="tutorial_title">HOW TO PLAY</string>
+    <string name="tut_next_cta">[ NEXT ]</string>
+    <string name="tut_prev_cta">[ BACK ]</string>
+    <string name="tut_done_cta">[ GOT IT ]</string>
+    <string name="tut_skip_cta">[ SKIP ]</string>
+    <string name="tut_step_counter">%1$d / %2$d</string>
+
+    <string name="tut_goal_title">EAT AND GROW</string>
+    <string name="tut_goal_body">Steer the snake into the food.\nEvery bite grows the tail and adds a point.\nHit a wall or your own tail and the run ends.</string>
+    <string name="tut_overlay_title">OVERLAY</string>
+    <string name="tut_overlay_body">A joystick sits in the bottom corner.\nHold and drag it toward the way you want to turn.\nRelease to stop steering — the snake keeps going.</string>
+    <string name="tut_flick_title">FLICK (GYRO)</string>
+    <string name="tut_flick_body">Hold the phone upright and flick your wrist.\nA quick twist left or right turns the snake.\nSmall, sharp flicks work better than slow tilts.</string>
+    <string name="tut_gravity_title">TILT (GRAVITY)</string>
+    <string name="tut_gravity_body">Hold the phone flat, screen facing the ceiling.\nTip an edge down and the snake heads that way.\nLevel the phone to keep going straight.</string>
+    <string name="tut_powerups_title">POWERUPS</string>
+    <string name="tut_powerups_body">Some food carries an effect for 20-60 seconds.\nCANDY makes you pink and fast.\nLEAF slows you down and spawns extra food.\nDISCO is pure showtime.</string>
+    <string name="tut_pause_title">PAUSE ANYTIME</string>
+    <string name="tut_pause_body">Tap anywhere on the board to pause.\nSwap control scheme, sound, or language in SETTINGS.\nYour best score is saved automatically.</string>
+
     <!-- Control schemes -->
     <string name="scheme_overlay_label">OVERLAY</string>
     <string name="scheme_overlay_desc">Virtual joystick on screen</string>

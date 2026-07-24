@@ -135,6 +135,24 @@ class GameEngine(
         if (_uiState.value.phase == GamePhase.SETTINGS) publish(settingsOrigin)
     }
 
+    // Same origin-tracking trick as settings, kept separate so the two screens
+    // can be opened independently without clobbering each other's return phase.
+    private var tutorialOrigin: GamePhase = GamePhase.MENU
+
+    /** Opens the tutorial from MENU or PAUSED. The game loop is untouched. */
+    fun openTutorial() {
+        val phase = _uiState.value.phase
+        if (phase == GamePhase.MENU || phase == GamePhase.PAUSED) {
+            tutorialOrigin = phase
+            publish(GamePhase.TUTORIAL)
+        }
+    }
+
+    /** Returns from the tutorial to whichever phase opened it (MENU or PAUSED). */
+    fun closeTutorial() {
+        if (_uiState.value.phase == GamePhase.TUTORIAL) publish(tutorialOrigin)
+    }
+
     /**
      * Receives a direction request from the input adapter.
      * Thread-safe volatile write — gyroscope runs on a sensor thread.

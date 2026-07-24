@@ -127,7 +127,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     // startFromBeginning=false: same resId → MusicPlayer early-return keeps it playing
     // uninterrupted as the user moves between PAUSED → MENU → SETTINGS → GAME_OVER.
     private fun resolveMenu(s: GameUiState): TrackConfig? = when (s.phase) {
-        GamePhase.MENU, GamePhase.PAUSED, GamePhase.SETTINGS, GamePhase.GAME_OVER ->
+        GamePhase.MENU, GamePhase.PAUSED, GamePhase.SETTINGS, GamePhase.GAME_OVER, GamePhase.TUTORIAL ->
             TrackConfig(R.raw.menu, VOLUME_MENU)
         else -> null
     }
@@ -241,4 +241,6 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     fun goToMenu()       = engine.goToMenu()
     fun openSettings()   = engine.openSettings()
     fun closeSettings()  = engine.closeSettings()
+    fun openTutorial()   = engine.openTutorial()
+    fun closeTutorial()  = engine.closeTutorial()
 }
