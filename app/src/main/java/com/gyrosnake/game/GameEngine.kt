@@ -171,21 +171,19 @@ class GameEngine(
         pendingDirection?.let { snake = snake.withDirection(it) }
         pendingDirection = null
 
-        // Determine if food will be eaten on this step
-        val nextHead = snake.head + snake.direction.delta
+        // Where the head lands this step, already wrapped through the walls.
+        // Wrapping BEFORE the food lookup is load-bearing: food sits at the
+        // wrapped cell, so testing a raw off-grid coordinate (x = -1 against
+        // food at x = columns - 1) silently misses the bite and its power-up.
+        val nextHead  = board.wrap(snake.head + snake.direction.delta)
         val eatenFood = foods.firstOrNull { it.position == nextHead }
-        val growing = eatenFood != null
+        val growing   = eatenFood != null
 
-        // Move the snake
+        // Move the snake, then apply the wrap by reusing the point above so
+        // the head can never disagree with what the food check was told.
         snake = snake.move(grow = growing)
-
-        // Wall wrap-around: teleport head to opposite side instead of dying
-        if (!board.isInBounds(snake.head)) {
-            val wrapped = Point(
-                (snake.head.x + board.columns) % board.columns,
-                (snake.head.y + board.rows)    % board.rows
-            )
-            snake = snake.copy(body = listOf(wrapped) + snake.body.drop(1))
+        if (snake.head != nextHead) {
+            snake = snake.copy(body = listOf(nextHead) + snake.body.drop(1))
         }
 
         // Self-collision check (head vs rest of body)

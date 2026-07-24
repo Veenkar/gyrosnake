@@ -6,9 +6,19 @@ package com.gyrosnake.game
  */
 data class GameBoard(val columns: Int, val rows: Int) {
 
-    /** True when [point] lies within the grid (walls kill on contact). */
-    fun isInBounds(point: Point): Boolean =
-        point.x in 0 until columns && point.y in 0 until rows
+    /**
+     * Maps [point] onto the grid by wrapping it through the walls; in-bounds
+     * points come back unchanged.
+     *
+     * Single source of truth for the wrap rule — callers must resolve a
+     * candidate position through this before comparing it against anything
+     * on the board, or an off-grid coordinate will fail to match the entity
+     * that actually sits at the wrapped cell.
+     */
+    fun wrap(point: Point): Point = Point(
+        (point.x % columns + columns) % columns,
+        (point.y % rows    + rows)    % rows
+    )
 
     /**
      * Factory helper — returns all grid points not currently occupied.
