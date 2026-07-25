@@ -183,9 +183,8 @@ fun GameScreen(viewModel: GameViewModel) {
             )
         }
 
-        // Point-and-go treats every board touch as steering, so pausing gets its
-        // own button in the letterbox margin beside the grid — declared after the
-        // layer so it sits above it and receives the tap first.
+        // Point-and-go treats every board touch as steering, so it can offer no
+        // tap-to-pause of its own; the shared pause button below covers it.
         if (viewModel.settings.controlScheme == ControlScheme.POINT &&
             uiState.phase == GamePhase.PLAYING) {
             PointAndGoLayer(
@@ -193,6 +192,13 @@ fun GameScreen(viewModel: GameViewModel) {
                 board       = viewModel.board,
                 onDirection = { viewModel.onOverlayButton(it) }
             )
+        }
+
+        // Pause is reachable the same way in every scheme, so players who switch
+        // don't have to relearn it. Declared after the control layers so it sits
+        // above them and takes the tap. Sits in the letterbox margin beside the
+        // grid, clear of both the joystick and the steering surface.
+        if (uiState.phase == GamePhase.PLAYING) {
             PauseButton(
                 onClick  = { viewModel.togglePause() },
                 modifier = Modifier

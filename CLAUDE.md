@@ -28,7 +28,7 @@ Both bat files are gitignored. `build_release.bat` sets `JAVA_HOME` to Android S
 ## Versioning
 
 Bump both `versionCode` (integer) and `versionName` (string) in `app/build.gradle.kts` before each Play Store release.
-Current: versionCode=5, versionName="1.4"
+Current: versionCode=11, versionName="2.0"
 
 ## Architecture
 
