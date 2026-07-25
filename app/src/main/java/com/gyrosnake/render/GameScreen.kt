@@ -304,7 +304,12 @@ private fun HudBar(score: Int, highScore: Int, modifier: Modifier = Modifier) {
 }
 
 /**
- * Small in-play pause control for schemes that consume board touches.
+ * In-play pause control for schemes that consume board touches.
+ *
+ * Red and at full brightness so it stays findable against the green board
+ * during play — this is the only way out of a run in those schemes, so it
+ * should not have to be hunted for.
+ *
  * Deliberately not blinking: BlinkingCta draws the eye toward a decision, and
  * this sits on screen for the whole run.
  */
@@ -312,8 +317,8 @@ private fun HudBar(score: Int, highScore: Int, modifier: Modifier = Modifier) {
 private fun PauseButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
     Text(
         text          = stringResource(R.string.pause_button),
-        color         = COLOR_GREEN_DIM,
-        fontSize      = 16.sp,
+        color         = COLOR_RED,
+        fontSize      = 20.sp,
         fontFamily    = FontFamily.Monospace,
         letterSpacing = 2.sp,
         modifier      = modifier

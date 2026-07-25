@@ -30,10 +30,13 @@ class SettingsRepository private constructor(context: Context) {
 
     private val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
+    // POINT is the default: it needs no sensor and no on-screen furniture, so it
+    // works on any device and reads as obvious on first touch. Existing installs
+    // keep whatever they already chose — this only affects a fresh preference.
     var controlScheme: ControlScheme
         get() = ControlScheme.valueOf(
-            prefs.getString(KEY_CONTROL_SCHEME, ControlScheme.OVERLAY.name)
-                ?: ControlScheme.OVERLAY.name
+            prefs.getString(KEY_CONTROL_SCHEME, ControlScheme.POINT.name)
+                ?: ControlScheme.POINT.name
         )
         set(value) = prefs.edit().putString(KEY_CONTROL_SCHEME, value.name).apply()
 
