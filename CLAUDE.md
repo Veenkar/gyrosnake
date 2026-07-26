@@ -9,21 +9,29 @@ Android gyroscope snake game built with Jetpack Compose.
 
 ## Build & Flash
 
-Build debug APK (from repo root on Windows/WSL):
+All bat scripts read their local config (`JAVA_HOME`, keystore path, key alias,
+app id) from a gitignored `.env` via `load_env.bat`. Copy `.env.example` to `.env`
+on a new machine.
+
+Build debug APK and flash it to the connected device:
 ```
-cmd.exe /c "build_release.bat assembleDebug"
+cmd.exe /c "flash.bat"
 ```
 
-Flash to connected device:
+Build a signed release APK and flash it:
 ```
-adb.exe install -r app/build/outputs/apk/debug/app-debug.apk
+cmd.exe /c "flash_release.bat"
 ```
+Prompts for keystore passwords unless `STORE_PASS`/`KEY_PASS` are set in `.env`.
+The device must not already hold the debug build — signatures differ, so
+`adb uninstall com.gyrosnake` first if the install fails.
 
-Build signed release AAB for Play Store: run `sign_release.bat` (prompts for keystore passwords).
-- Keystore: `C:\Users\xeenk\Documents\android_key\selerlabs`
-- Key alias: `key_selerlabs`
+Both flash scripts take `--no-build` to install the last build without rebuilding.
 
-Both bat files are gitignored. `build_release.bat` sets `JAVA_HOME` to Android Studio's JBR.
+Run any other gradle task: `cmd.exe /c "build_release.bat <task>"`.
+
+Build signed release AAB for the Play Store: run `sign_release.bat`. An .aab
+cannot be installed with adb — use `flash_release.bat` to test on hardware.
 
 ## Versioning
 
