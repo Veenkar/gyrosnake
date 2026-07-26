@@ -122,6 +122,14 @@ Axis mapping for ROTATION_90: `screenRight = wx`, `screenUp = wy`.
 - **Before handing control back to the user, run `git status`** and commit anything
   outstanding. Commit as soon as a change is written — do not hold it back to test
   or verify first, since an interrupted verification leaves the work uncommitted.
+- **Run the unit tests before every commit**: `cmd.exe /c "test.bat"`.
+  Never commit with a failing test.
+- **Add tests before committing a new feature**, plus a regression test for every
+  bug fixed, so the same break cannot come back unnoticed. Tests live in
+  `app/src/test/` and run on the JVM — the `game` package has no Android imports.
+- **Translate every new or changed user-facing string into all locales before
+  committing.** `values/strings.xml` is the base; each `values-XX/` must carry the
+  same keys. Escape apostrophes as `\'` — AAPT2 fails the build otherwise.
 - **Never push** — commit only, never `git push`, unless user explicitly asks for it in that message
 - **Bump version before Play Store releases** — both versionCode and versionName
 - **Build and flash to device** after each change to verify on hardware
