@@ -39,6 +39,8 @@
     <string name="tut_done_cta">[ PAHAM ]</string>
     <string name="tut_skip_cta">[ LEWATI ]</string>
 
+    <string name="tut_schemes_title">EMPAT CARA MENGEMUDI</string>
+    <string name="tut_schemes_body">Empat layar berikut menunjukkan satu cara kendali masing-masing.\nCukup pilih satu yang kamu suka.\nGanti kapan saja di PENGATURAN.</string>
     <string name="tut_point_title">POINT AND GO</string>
     <string name="tut_point_body">Tahan jari di mana saja pada papan.\nUlar berbelok ke arahnya dan terus melaju.\nGeser untuk menuntunnya; lepas, arah tetap.\nJeda lewat tombol di sudut layar.</string>
     <string name="tut_goal_title">MAKAN DAN TUMBUH</string>

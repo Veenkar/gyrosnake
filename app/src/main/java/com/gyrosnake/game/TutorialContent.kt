@@ -10,6 +10,7 @@ import com.gyrosnake.R
  */
 enum class TutorialVisual {
     SNAKE,      // snake body + food, the basic goal
+    SCHEMES,    // the four control emblems, lighting up in turn
     POINT,      // finger highlight with a chevron stream from the snake
     JOYSTICK,   // virtual joystick thumb sweeping
     FLICK,      // phone flicking left/right
@@ -37,6 +38,10 @@ data class TutorialStep(
 object TutorialContent {
     val steps: List<TutorialStep> = listOf(
         TutorialStep(R.string.tut_goal_title,     R.string.tut_goal_body,     TutorialVisual.SNAKE),
+        // Lead-in: the next four pages are alternatives, not steps to follow in
+        // order. Without this the reader takes page 3 as a second thing to learn
+        // rather than a different way to play.
+        TutorialStep(R.string.tut_schemes_title,  R.string.tut_schemes_body,  TutorialVisual.SCHEMES),
         TutorialStep(R.string.tut_point_title,    R.string.tut_point_body,    TutorialVisual.POINT),
         TutorialStep(R.string.tut_overlay_title,  R.string.tut_overlay_body,  TutorialVisual.JOYSTICK),
         TutorialStep(R.string.tut_flick_title,    R.string.tut_flick_body,    TutorialVisual.FLICK),

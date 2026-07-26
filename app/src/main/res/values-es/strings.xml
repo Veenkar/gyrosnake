@@ -39,6 +39,8 @@
     <string name="tut_done_cta">[ ENTENDIDO ]</string>
     <string name="tut_skip_cta">[ OMITIR ]</string>
 
+    <string name="tut_schemes_title">CUATRO FORMAS DE DIRIGIR</string>
+    <string name="tut_schemes_body">Las cuatro pantallas siguientes muestran un control cada una.\nSolo necesitas uno: elige el que prefieras.\nCámbialo cuando quieras en AJUSTES.</string>
     <string name="tut_point_title">POINT AND GO</string>
     <string name="tut_point_body">Mantén el dedo en cualquier parte del tablero.\nLa serpiente gira hacia él y sigue avanzando.\nArrastra para guiarla; suelta y mantiene el rumbo.\nPausa con el botón de la esquina.</string>
     <string name="tut_goal_title">COME Y CRECE</string>

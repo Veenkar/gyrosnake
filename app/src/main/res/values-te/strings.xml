@@ -39,6 +39,8 @@
     <string name="tut_done_cta">[ అర్థమైంది ]</string>
     <string name="tut_skip_cta">[ దాటవేయి ]</string>
 
+    <string name="tut_schemes_title">నడిపేందుకు నాలుగు మార్గాలు</string>
+    <string name="tut_schemes_body">తర్వాతి నాలుగు తెరల్లో ఒక్కో పద్ధతి చూపుతాం.\nఒకటి చాలు — నచ్చినది ఎంచుకోండి.\nసెట్టింగ్స్‌లో ఎప్పుడైనా మార్చుకోవచ్చు.</string>
     <string name="tut_point_title">POINT AND GO</string>
     <string name="tut_point_body">బోర్డుపై ఎక్కడైనా వేలు నొక్కి పట్టుకో.\nపాము ఆ వైపు తిరిగి ముందుకు సాగుతుంది.\nవేలు జరుపుతూ దారి చూపు; వదిలితే దిశ నిలుస్తుంది.\nవిరామానికి మూలలోని బటన్ నొక్కు.</string>
     <string name="tut_goal_title">తిను, పెరుగు</string>

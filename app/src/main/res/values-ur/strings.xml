@@ -39,6 +39,8 @@
     <string name="tut_done_cta">[ سمجھ گیا ]</string>
     <string name="tut_skip_cta">[ چھوڑیں ]</string>
 
+    <string name="tut_schemes_title">چلانے کے چار طریقے</string>
+    <string name="tut_schemes_body">اگلی چار سکرینوں پر ایک ایک طریقہ دکھایا جائے گا۔\nصرف ایک ہی کافی ہے — جو پسند ہو چن لیں۔\nترتیبات میں جب چاہیں بدل لیں۔</string>
     <string name="tut_point_title">POINT AND GO</string>
     <string name="tut_point_body">بورڈ پر کہیں بھی انگلی دبائے رکھیں۔\nسانپ اسی طرف مڑ کر بڑھتا رہتا ہے۔\nانگلی سرکا کر راستہ دکھائیں؛ چھوڑنے پر رخ برقرار رہتا ہے۔\nروکنے کے لیے کونے کا بٹن دبائیں۔</string>
     <string name="tut_goal_title">کھائیں اور بڑھیں</string>

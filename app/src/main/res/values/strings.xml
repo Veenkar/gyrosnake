@@ -47,8 +47,10 @@
     <string name="tut_prev_cta">[ BACK ]</string>
     <string name="tut_done_cta">[ GOT IT ]</string>
     <string name="tut_skip_cta">[ SKIP ]</string>
-    <string name="tut_step_counter">%1$d / %2$d</string>
+    <string name="tut_step_counter" translatable="false">%1$d / %2$d</string>
 
+    <string name="tut_schemes_title">FOUR WAYS TO STEER</string>
+    <string name="tut_schemes_body">The next four screens each show one way to steer.\nYou only need one — pick whichever you like.\nChange it whenever you want in SETTINGS.</string>
     <string name="tut_point_title">POINT AND GO</string>
     <string name="tut_point_body">Hold your finger anywhere on the board.\nThe snake turns toward it and keeps coming.\nDrag to lead it; lift off and it holds course.\nPause with the button in the top corner.</string>
     <string name="tut_goal_title">EAT AND GROW</string>

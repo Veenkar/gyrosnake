@@ -39,6 +39,8 @@
     <string name="tut_done_cta">[ JASNE ]</string>
     <string name="tut_skip_cta">[ POMIŃ ]</string>
 
+    <string name="tut_schemes_title">CZTERY SPOSOBY STEROWANIA</string>
+    <string name="tut_schemes_body">Kolejne cztery ekrany pokazują po jednym sposobie.\nPotrzebujesz tylko jednego — wybierz, co wolisz.\nZmienisz go kiedy chcesz w USTAWIENIACH.</string>
     <string name="tut_point_title">POINT AND GO</string>
     <string name="tut_point_body">Przytrzymaj palec w dowolnym miejscu planszy.\nWąż skręca w jego stronę i tak idzie.\nPrzesuwaj palec, aby go prowadzić.\nPauza przyciskiem w rogu ekranu.</string>
     <string name="tut_goal_title">JEDZ I ROŚNIJ</string>

@@ -39,6 +39,8 @@
     <string name="tut_done_cta">[ فهمت ]</string>
     <string name="tut_skip_cta">[ تخطٍّ ]</string>
 
+    <string name="tut_schemes_title">أربع طرق للتوجيه</string>
+    <string name="tut_schemes_body">الشاشات الأربع التالية تعرض طريقة توجيه لكل منها.\nتحتاج واحدة فقط — اختر ما يناسبك.\nيمكنك تغييرها متى شئت من الإعدادات.</string>
     <string name="tut_point_title">POINT AND GO</string>
     <string name="tut_point_body">أبقِ إصبعك في أي مكان على اللوحة.\nتنعطف الأفعى نحوه وتواصل التقدّم.\nاسحب إصبعك لتقودها؛ وبرفعه تحافظ على اتجاهها.\nللإيقاف المؤقت استخدم الزر في الزاوية.</string>
     <string name="tut_goal_title">كُلْ وانمُ</string>

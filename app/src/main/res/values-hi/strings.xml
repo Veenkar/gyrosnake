@@ -39,6 +39,8 @@
     <string name="tut_done_cta">[ समझ गया ]</string>
     <string name="tut_skip_cta">[ छोड़ें ]</string>
 
+    <string name="tut_schemes_title">चलाने के चार तरीके</string>
+    <string name="tut_schemes_body">अगली चार स्क्रीन पर एक-एक तरीका दिखेगा।\nकोई एक ही काफी है — जो पसंद हो चुनें।\nसेटिंग्स में इसे कभी भी बदल सकते हैं।</string>
     <string name="tut_point_title">POINT AND GO</string>
     <string name="tut_point_body">बोर्ड पर कहीं भी उँगली दबाए रखें।\nसाँप उसी ओर मुड़कर बढ़ता रहता है।\nउँगली सरकाकर उसे राह दिखाएँ; छोड़ने पर दिशा बनी रहती है।\nरोकने के लिए कोने का बटन दबाएँ।</string>
     <string name="tut_goal_title">खाओ और बढ़ो</string>

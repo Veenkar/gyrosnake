@@ -55,6 +55,11 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     // True until the user picks a control scheme on first launch.
     val needsControlSetup = MutableStateFlow(!settings.isControlSchemeConfigured)
 
+    // True while the first-launch walkthrough is up. The control picker waits on
+    // this, so a new player is told what the schemes are before being asked to
+    // choose one.
+    val showingIntro = MutableStateFlow(!settings.isIntroShown)
+
     // Strategy pattern: holds the currently active input adapter.
     // MutableStateFlow allows flatMapLatest to transparently re-subscribe when swapped.
     private val _inputAdapter = MutableStateFlow<TiltInputAdapter>(
@@ -85,6 +90,9 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         viewModelScope.launch {
             engine.uiState.collect { s -> updateMusicForState(s) }
         }
+
+        // First launch opens straight into the walkthrough instead of the menu.
+        if (showingIntro.value) engine.openTutorial()
     }
 
     // Value object carrying a track resource ID, playback volume, and sync behaviour.
@@ -244,5 +252,12 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     fun openSettings()   = engine.openSettings()
     fun closeSettings()  = engine.closeSettings()
     fun openTutorial()   = engine.openTutorial()
-    fun closeTutorial()  = engine.closeTutorial()
+
+    fun closeTutorial() {
+        engine.closeTutorial()
+        // Whether it was read through or skipped, the introduction has had its
+        // turn; from here the walkthrough is only reachable from the menu.
+        settings.isIntroShown = true
+        showingIntro.value    = false
+    }
 }

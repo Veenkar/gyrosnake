@@ -39,6 +39,8 @@
     <string name="tut_done_cta">[ বুঝেছি ]</string>
     <string name="tut_skip_cta">[ এড়িয়ে যান ]</string>
 
+    <string name="tut_schemes_title">চালানোর চারটি উপায়</string>
+    <string name="tut_schemes_body">পরের চারটি স্ক্রিনে চালানোর একেকটি উপায় দেখানো হবে।\nএকটিই যথেষ্ট — যেটি পছন্দ সেটি বেছে নাও।\nসেটিংসে যখন খুশি বদলে নিতে পারো।</string>
     <string name="tut_point_title">POINT AND GO</string>
     <string name="tut_point_body">বোর্ডের যেকোনো জায়গায় আঙুল চেপে ধরুন।\nসাপ সেদিকে ঘুরে এগিয়ে আসতে থাকে।\nআঙুল টেনে পথ দেখান; ছেড়ে দিলে দিক ধরে রাখে।\nথামাতে কোণের বোতামে চাপ দিন।</string>
     <string name="tut_goal_title">খাও আর বাড়ো</string>

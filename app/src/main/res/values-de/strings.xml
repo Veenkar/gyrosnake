@@ -39,6 +39,8 @@
     <string name="tut_done_cta">[ ALLES KLAR ]</string>
     <string name="tut_skip_cta">[ ÜBERSPRINGEN ]</string>
 
+    <string name="tut_schemes_title">VIER ARTEN ZU LENKEN</string>
+    <string name="tut_schemes_body">Die nächsten vier Seiten zeigen je eine Steuerung.\nDu brauchst nur eine — nimm, was dir liegt.\nÄndern kannst du sie jederzeit in EINSTELLUNGEN.</string>
     <string name="tut_point_title">POINT AND GO</string>
     <string name="tut_point_body">Halte den Finger irgendwo auf dem Feld.\nDie Schlange dreht dorthin und läuft weiter.\nZieh den Finger, um sie zu führen.\nPausieren über die Taste in der Ecke.</string>
     <string name="tut_goal_title">FRISS UND WACHSE</string>

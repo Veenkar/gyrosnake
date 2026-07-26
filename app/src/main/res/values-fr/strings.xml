@@ -39,6 +39,8 @@
     <string name="tut_done_cta">[ COMPRIS ]</string>
     <string name="tut_skip_cta">[ PASSER ]</string>
 
+    <string name="tut_schemes_title">QUATRE FAÇONS DE DIRIGER</string>
+    <string name="tut_schemes_body">Les quatre écrans suivants montrent chacun une commande.\nUne seule suffit — prends celle qui te plaît.\nTu peux en changer quand tu veux dans RÉGLAGES.</string>
     <string name="tut_point_title">POINT AND GO</string>
     <string name="tut_point_body">Gardez le doigt posé n\'importe où sur le plateau.\nLe serpent tourne vers lui et continue.\nGlissez pour le guider ; relâchez, il garde le cap.\nMettez en pause avec le bouton dans le coin.</string>
     <string name="tut_goal_title">MANGEZ ET GRANDISSEZ</string>

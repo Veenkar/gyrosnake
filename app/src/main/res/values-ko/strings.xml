@@ -39,6 +39,8 @@
     <string name="tut_done_cta">[ 알겠어요 ]</string>
     <string name="tut_skip_cta">[ 건너뛰기 ]</string>
 
+    <string name="tut_schemes_title">조작 방식 네 가지</string>
+    <string name="tut_schemes_body">다음 네 화면에서 조작 방식을 하나씩 보여줍니다.\n하나만 고르면 됩니다. 마음에 드는 것으로.\n설정에서 언제든 바꿀 수 있습니다.</string>
     <string name="tut_point_title">POINT AND GO</string>
     <string name="tut_point_body">화면 아무 곳이나 손가락으로 누르고 계세요.\n뱀이 그쪽으로 방향을 틀고 계속 나아갑니다.\n끌어서 이끌고, 떼면 방향을 유지합니다.\n일시정지는 모서리 버튼으로 합니다.</string>
     <string name="tut_goal_title">먹고 자라기</string>

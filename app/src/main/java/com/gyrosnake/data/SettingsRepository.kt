@@ -16,6 +16,7 @@ class SettingsRepository private constructor(context: Context) {
         private const val PREFS_NAME                    = "gyrosnake_settings"
         private const val KEY_CONTROL_SCHEME            = "control_scheme"
         private const val KEY_CONTROL_SCHEME_CONFIGURED = "control_scheme_configured"
+        private const val KEY_INTRO_SHOWN               = "intro_shown"
         private const val KEY_SOUND_VOLUME              = "sound_volume"
         private const val KEY_MUSIC_VOLUME              = "music_volume"
         private const val KEY_HIGH_SCORE                = "high_score"
@@ -43,6 +44,12 @@ class SettingsRepository private constructor(context: Context) {
     var isControlSchemeConfigured: Boolean
         get() = prefs.getBoolean(KEY_CONTROL_SCHEME_CONFIGURED, false)
         set(value) = prefs.edit().putBoolean(KEY_CONTROL_SCHEME_CONFIGURED, value).apply()
+
+    // False only until the walkthrough has run once, which is what makes it a
+    // first-launch introduction rather than something the player has to find.
+    var isIntroShown: Boolean
+        get() = prefs.getBoolean(KEY_INTRO_SHOWN, false)
+        set(value) = prefs.edit().putBoolean(KEY_INTRO_SHOWN, value).apply()
 
     var soundVolume: Float
         get() = prefs.getFloat(KEY_SOUND_VOLUME, 0.2f)

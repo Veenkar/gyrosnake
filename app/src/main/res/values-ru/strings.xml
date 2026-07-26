@@ -39,6 +39,8 @@
     <string name="tut_done_cta">[ ПОНЯТНО ]</string>
     <string name="tut_skip_cta">[ ПРОПУСТИТЬ ]</string>
 
+    <string name="tut_schemes_title">ЧЕТЫРЕ СПОСОБА УПРАВЛЕНИЯ</string>
+    <string name="tut_schemes_body">На следующих четырёх экранах — по одному способу.\nНужен только один, выбирай любой.\nПоменять можно когда угодно в НАСТРОЙКАХ.</string>
     <string name="tut_point_title">POINT AND GO</string>
     <string name="tut_point_body">Удерживай палец в любом месте поля.\nЗмейка поворачивает к нему и идёт дальше.\nВеди пальцем, чтобы направлять её.\nПауза — кнопкой в углу экрана.</string>
     <string name="tut_goal_title">ЕШЬ И РАСТИ</string>

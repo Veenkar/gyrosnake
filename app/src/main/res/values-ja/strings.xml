@@ -39,6 +39,8 @@
     <string name="tut_done_cta">[ わかった ]</string>
     <string name="tut_skip_cta">[ スキップ ]</string>
 
+    <string name="tut_schemes_title">操作方法は4種類</string>
+    <string name="tut_schemes_body">次の4画面で操作方法を1つずつ紹介します。\n使うのは1つだけ、好きなものを選んでください。\n設定でいつでも変更できます。</string>
     <string name="tut_point_title">POINT AND GO</string>
     <string name="tut_point_body">盤面のどこでも指を押さえたままにします。\nヘビはその方向へ曲がり、進み続けます。\n指を動かせば誘導でき、離せば直進します。\n一時停止は隅のボタンです。</string>
     <string name="tut_goal_title">食べて のびる</string>

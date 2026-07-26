@@ -39,6 +39,8 @@
     <string name="tut_done_cta">[ NIMEELEWA ]</string>
     <string name="tut_skip_cta">[ RUKA ]</string>
 
+    <string name="tut_schemes_title">NJIA NNE ZA KUONGOZA</string>
+    <string name="tut_schemes_body">Skrini nne zinazofuata zinaonyesha njia moja kila moja.\nUnahitaji moja tu — chagua unayoipenda.\nBadilisha wakati wowote katika MIPANGILIO.</string>
     <string name="tut_point_title">POINT AND GO</string>
     <string name="tut_point_body">Shikilia kidole mahali popote kwenye ubao.\nNyoka hugeukia huko na kuendelea kuja.\nBuruta ili kumwongoza; ukiachia hubaki na mwelekeo.\nSitisha kwa kitufe kilicho pembeni.</string>
     <string name="tut_goal_title">KULA NA KUKUA</string>

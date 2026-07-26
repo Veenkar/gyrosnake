@@ -39,6 +39,8 @@
     <string name="tut_done_cta">[ ENTENDI ]</string>
     <string name="tut_skip_cta">[ PULAR ]</string>
 
+    <string name="tut_schemes_title">QUATRO FORMAS DE GUIAR</string>
+    <string name="tut_schemes_body">As próximas quatro telas mostram um controle cada.\nBasta um — escolha o que preferir.\nTroque quando quiser em CONFIGURAÇÕES.</string>
     <string name="tut_point_title">POINT AND GO</string>
     <string name="tut_point_body">Segure o dedo em qualquer ponto do tabuleiro.\nA cobra vira para ele e continua indo.\nArraste para guiá-la; solte e ela mantém o rumo.\nPause com o botão no canto.</string>
     <string name="tut_goal_title">COMA E CRESÇA</string>

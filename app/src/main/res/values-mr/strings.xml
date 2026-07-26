@@ -39,6 +39,8 @@
     <string name="tut_done_cta">[ समजले ]</string>
     <string name="tut_skip_cta">[ वगळा ]</string>
 
+    <string name="tut_schemes_title">चालवण्याचे चार मार्ग</string>
+    <string name="tut_schemes_body">पुढील चार स्क्रीनवर प्रत्येकी एक पद्धत दाखवली आहे.\nएकच पुरेशी आहे — आवडेल ती निवडा.\nसेटिंग्जमध्ये कधीही बदलता येते.</string>
     <string name="tut_point_title">POINT AND GO</string>
     <string name="tut_point_body">बोर्डवर कुठेही बोट दाबून धरा.\nसाप तिकडे वळतो आणि येत राहतो.\nबोट सरकवून त्याला मार्ग दाखवा; सोडल्यास दिशा टिकते.\nथांबवण्यासाठी कोपऱ्यातील बटण दाबा.</string>
     <string name="tut_goal_title">खा आणि वाढ</string>

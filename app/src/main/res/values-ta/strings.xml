@@ -39,6 +39,8 @@
     <string name="tut_done_cta">[ புரிந்தது ]</string>
     <string name="tut_skip_cta">[ தவிர் ]</string>
 
+    <string name="tut_schemes_title">இயக்க நான்கு வழிகள்</string>
+    <string name="tut_schemes_body">அடுத்த நான்கு திரைகளில் ஒவ்வொரு வழியும் காட்டப்படும்.\nஒன்று போதும் — பிடித்ததைத் தேர்ந்தெடுங்கள்.\nஅமைப்புகளில் எப்போது வேண்டுமானாலும் மாற்றலாம்.</string>
     <string name="tut_point_title">POINT AND GO</string>
     <string name="tut_point_body">பலகையில் எங்கு வேண்டுமானாலும் விரலை அழுத்திப் பிடி.\nபாம்பு அந்தப் பக்கம் திரும்பி வந்துகொண்டே இருக்கும்.\nவிரலை நகர்த்தி வழிநடத்து; விட்டால் திசை நிலைக்கும்.\nஇடைநிறுத்த மூலையில் உள்ள பொத்தானை அழுத்து.</string>
     <string name="tut_goal_title">சாப்பிடு, வளர்</string>

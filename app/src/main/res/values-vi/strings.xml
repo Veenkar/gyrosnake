@@ -39,6 +39,8 @@
     <string name="tut_done_cta">[ ĐÃ HIỂU ]</string>
     <string name="tut_skip_cta">[ BỎ QUA ]</string>
 
+    <string name="tut_schemes_title">BỐN CÁCH ĐIỀU KHIỂN</string>
+    <string name="tut_schemes_body">Bốn màn hình tiếp theo giới thiệu từng cách một.\nChỉ cần một — chọn cách bạn thích.\nĐổi lúc nào cũng được trong CÀI ĐẶT.</string>
     <string name="tut_point_title">POINT AND GO</string>
     <string name="tut_point_body">Giữ ngón tay ở bất kỳ đâu trên bàn chơi.\nRắn quay về phía đó và tiếp tục đi.\nKéo để dẫn đường; thả ra, rắn giữ hướng.\nTạm dừng bằng nút ở góc màn hình.</string>
     <string name="tut_goal_title">ĂN VÀ LỚN LÊN</string>

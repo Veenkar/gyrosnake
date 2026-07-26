@@ -86,6 +86,7 @@ private val COLOR_OVERLAY   = Color(0xCC000000)
 fun GameScreen(viewModel: GameViewModel) {
     val uiState       by viewModel.engine.uiState.collectAsState()
     val needsSetup    by viewModel.needsControlSetup.collectAsState()
+    val showingIntro  by viewModel.showingIntro.collectAsState()
 
     val isDiscoActive = uiState.activeEffects.any { it.effect is PowerUpEffect.Disco }
     val isLeafActive  = uiState.activeEffects.any { it.effect is PowerUpEffect.Leaf }
@@ -236,7 +237,9 @@ fun GameScreen(viewModel: GameViewModel) {
             GamePhase.PLAYING   -> Unit
         }
 
-        if (needsSetup) {
+        // Held back until the walkthrough is done — asking a new player to pick a
+        // scheme before explaining any of them is a guess, not a choice.
+        if (needsSetup && !showingIntro) {
             ControlSetupOverlay(
                 initial  = viewModel.settings.controlScheme,
                 onConfirm = { viewModel.confirmControlSetup(it) }
@@ -717,6 +720,32 @@ private fun DrawScope.drawTutorialVisual(visual: TutorialVisual, phase: Float) {
             )
         }
 
+        TutorialVisual.SCHEMES -> {
+            // The four schemes side by side, each lighting up in turn — a preview
+            // of the four pages that follow, in the same order.
+            val slot   = (phase * 4f).toInt().coerceAtMost(3)
+            val xs     = listOf(cx - unit * 3.3f, cx - unit * 1.1f, cx + unit * 1.1f, cx + unit * 3.3f)
+            val r      = unit * 0.75f
+            for (i in 0 until 4) {
+                val lit   = i == slot
+                val color = if (lit) COLOR_GREEN else COLOR_GREEN_DIM.copy(alpha = 0.45f)
+                val x     = xs[i]
+                if (lit) drawCircle(COLOR_GREEN.copy(alpha = 0.10f), r * 1.9f, Offset(x, cy))
+                when (i) {
+                    0 -> {  // POINT — fingertip ring
+                        drawCircle(color.copy(alpha = 0.18f), r, Offset(x, cy))
+                        drawCircle(color, r, Offset(x, cy), style = Stroke(width = 3f))
+                    }
+                    1 -> {  // OVERLAY — joystick ring with a thumb
+                        drawCircle(color, r, Offset(x, cy), style = Stroke(width = 3f))
+                        drawCircle(color, r * 0.38f, Offset(x + r * 0.45f, cy))
+                    }
+                    2 -> drawPhone(x, cy, w = r * 1.2f, h = r * 2f,   color = color)  // FLICK — upright
+                    3 -> drawPhone(x, cy, w = r * 2.2f, h = r * 0.8f, color = color)  // GRAVITY — flat
+                }
+            }
+        }
+
         TutorialVisual.POINT -> {
             // Snake on the left, finger highlight on the right, chevrons flowing
             // between them — a still of what the layer draws in play.
@@ -815,14 +844,20 @@ private fun DrawScope.drawTutorialVisual(visual: TutorialVisual, phase: Float) {
 }
 
 /** Shared phone outline used by the FLICK and TILT diagrams. */
-private fun DrawScope.drawPhone(cx: Float, cy: Float, w: Float, h: Float) {
+private fun DrawScope.drawPhone(
+    cx: Float,
+    cy: Float,
+    w: Float,
+    h: Float,
+    color: Color = COLOR_GREEN
+) {
     drawRect(
-        color   = COLOR_GREEN_DIM.copy(alpha = 0.25f),
+        color   = color.copy(alpha = 0.25f),
         topLeft = Offset(cx - w / 2f, cy - h / 2f),
         size    = Size(w, h)
     )
     drawRect(
-        color   = COLOR_GREEN,
+        color   = color,
         topLeft = Offset(cx - w / 2f, cy - h / 2f),
         size    = Size(w, h),
         style   = Stroke(3f)
