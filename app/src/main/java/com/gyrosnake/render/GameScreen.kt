@@ -730,7 +730,13 @@ private fun DrawScope.drawTutorialVisual(visual: TutorialVisual, phase: Float) {
                 val lit   = i == slot
                 val color = if (lit) COLOR_GREEN else COLOR_GREEN_DIM.copy(alpha = 0.45f)
                 val x     = xs[i]
-                if (lit) drawCircle(COLOR_GREEN.copy(alpha = 0.10f), r * 1.9f, Offset(x, cy))
+                // Underline rather than a halo: a glow disc wider than the emblems
+                // reads as one more round emblem in the row.
+                if (lit) drawRect(
+                    color   = COLOR_GREEN,
+                    topLeft = Offset(x - r * 0.9f, cy + r * 1.5f),
+                    size    = Size(r * 1.8f, 4f)
+                )
                 when (i) {
                     0 -> {  // POINT — fingertip ring
                         drawCircle(color.copy(alpha = 0.18f), r, Offset(x, cy))
