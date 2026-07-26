@@ -12,4 +12,5 @@ app/build/
 gradle/wrapper/gradle-wrapper.jar
 release/
 private.md
+.env
 
