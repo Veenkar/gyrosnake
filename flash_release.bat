@@ -9,8 +9,7 @@ set "APK=%~dp0app\build\outputs\apk\release\app-release.apk"
 
 if /i "%~1"=="--no-build" goto install
 
-if not defined STORE_PASS set /p STORE_PASS=Keystore password:
-if not defined KEY_PASS set /p KEY_PASS=Key password:
+call "%~dp0prompt_passwords.bat" || exit /b 1
 
 call "%~dp0gradlew.bat" assembleRelease ^
     -Pandroid.injected.signing.store.file="%KEYSTORE%" ^
