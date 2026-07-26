@@ -119,6 +119,9 @@ Axis mapping for ROTATION_90: `screenRight = wx`, `screenUp = wy`.
 ## Workflow Rules
 
 - **Always commit after every completed feature or fix** — do not batch multiple features into one commit. No need to ask first; just commit.
+- **Before handing control back to the user, run `git status`** and commit anything
+  outstanding. Commit as soon as a change is written — do not hold it back to test
+  or verify first, since an interrupted verification leaves the work uncommitted.
 - **Never push** — commit only, never `git push`, unless user explicitly asks for it in that message
 - **Bump version before Play Store releases** — both versionCode and versionName
 - **Build and flash to device** after each change to verify on hardware
