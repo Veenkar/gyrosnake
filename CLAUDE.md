@@ -4,7 +4,7 @@
 
 Android gyroscope snake game built with Jetpack Compose.
 - Package: `com.gyrosnake`
-- Min SDK: 31 (Android 12)
+- Min SDK: 23 (Android 6.0); compile/target SDK 36 (Android 16)
 - Play Store: published by SelerLabs
 
 ## Build & Flash

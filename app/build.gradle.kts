@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "com.gyrosnake"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.gyrosnake"
         minSdk = 23          // Android 6.0
-        targetSdk = 35
+        targetSdk = 36       // Android 16 — Play Store policy floor
         versionCode = 11
         versionName = "2.0"
     }
