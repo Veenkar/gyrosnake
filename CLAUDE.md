@@ -36,7 +36,7 @@ cannot be installed with adb — use `flash_release.bat` to test on hardware.
 ## Versioning
 
 Bump both `versionCode` (integer) and `versionName` (string) in `app/build.gradle.kts` before each Play Store release.
-Current: versionCode=12, versionName="2.1"
+Current: versionCode=13, versionName="3.0"
 
 ## Architecture
 

@@ -12,8 +12,8 @@ android {
         applicationId = "com.gyrosnake"
         minSdk = 23          // Android 6.0
         targetSdk = 36       // Android 16 — Play Store policy floor
-        versionCode = 12
-        versionName = "2.1"
+        versionCode = 13
+        versionName = "3.0"
     }
 
     buildTypes {
