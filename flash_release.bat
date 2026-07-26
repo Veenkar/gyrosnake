@@ -26,11 +26,16 @@ if not exist "%APK%" (
 
 echo Installing %APK%
 adb install -r "%APK%"
-if errorlevel 1 (
-    echo.
-    echo Install failed. If the error was INSTALL_FAILED_UPDATE_INCOMPATIBLE the
-    echo device still has the debug build; remove it first:
-    echo     adb uninstall %APP_ID%
-    exit /b 1
-)
+if errorlevel 1 goto retry
+goto launch
+
+:retry
+REM Most likely INSTALL_FAILED_UPDATE_INCOMPATIBLE: the device holds the debug
+REM build, whose signature differs. uninstall.bat confirms before erasing data.
+echo.
+echo Install failed. Removing the existing install and retrying.
+call "%~dp0uninstall.bat" || exit /b 1
+adb install -r "%APK%" || exit /b 1
+
+:launch
 adb shell monkey -p %APP_ID% -c android.intent.category.LAUNCHER 1 >nul
