@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GyroSnake</string>
+    <string name="app_name">Retro Snake</string>
 
     <string name="score_label">ĐIỂM: %1$d</string>
     <string name="best_label">CAO NHẤT: %1$d</string>
 
-    <string name="title_gyro">GYRO</string>
+    <string name="title_gyro">RETRO</string>
     <string name="title_snake">SNAKE</string>
     <string name="tilt_to_steer">NGHIÊNG ĐỂ ĐIỀU KHIỂN</string>
     <string name="tap_to_start">[ CHẠM ĐỂ BẮT ĐẦU ]</string>

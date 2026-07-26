@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GyroSnake</string>
+    <string name="app_name">Retro Snake</string>
 
     <!-- HUD -->
     <string name="score_label">SCORE: %1$d</string>
     <string name="best_label">BEST: %1$d</string>
 
     <!-- Menu -->
-    <string name="title_gyro">GYRO</string>
+    <string name="title_gyro">RETRO</string>
     <string name="title_snake">SNAKE</string>
     <string name="tilt_to_steer">TILT TO STEER</string>
     <string name="tap_to_start">[ TAP TO START ]</string>

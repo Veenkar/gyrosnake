@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GyroSnake</string>
+    <string name="app_name">Retro Snake</string>
 
     <string name="score_label">स्कोर: %1$d</string>
     <string name="best_label">सर्वश्रेष्ठ: %1$d</string>
 
-    <string name="title_gyro">GYRO</string>
+    <string name="title_gyro">RETRO</string>
     <string name="title_snake">SNAKE</string>
     <string name="tilt_to_steer">चलाने के लिए झुकाएँ</string>
     <string name="tap_to_start">[ शुरू करने के लिए टैप करें ]</string>
